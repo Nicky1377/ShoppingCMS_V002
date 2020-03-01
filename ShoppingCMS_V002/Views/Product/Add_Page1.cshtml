@@ -1,0 +1,63 @@
+﻿@model ShoppingCMS_V002.Models.AddProduct_P1
+@{
+    ViewBag.Title = "Add_Page1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display:none" id="page">1</div>
+<div class="kt-form__section kt-form__section--first">
+    <div class="kt-wizard-v3__form">
+
+        @using (Html.BeginForm("Save_Step1", "Product"))
+        {
+            <div class="row">
+                <div class="col-xl-6">
+
+                    <div class="form-group">
+                        <label>نام محصول</label>
+                        @Html.TextBoxFor(m => m.Title, new { placeholder = "", @class = "form-control" })
+                        <span class="form-text text-muted">نام و موضوع محصول خود را وارد کنید.</span>
+                    </div>
+                    <div class="form-group">
+                        <label>توضیحات محصول</label>
+                        @Html.TextAreaFor(m => m.Description, new { placeholder = "", @class = "form-control", type = "text" })
+                        <span class="form-text text-muted">توضیحات محصول خود را وارد کنید.</span>
+                    </div>
+                    <div class="form-group">
+                        <label>کلید واژه ی سئو</label>
+                        @Html.TextBoxFor(m => m.SEO_keyword, new { placeholder = "", @class = "form-control" })
+                        <span class="form-text text-muted">کلید واژه برای موتور جست و جوی گوگل.</span>
+                    </div>
+                    <div class="form-group">
+                        <label>توضیحات سئو</label>
+                        @Html.TextBoxFor(m => m.SEO_description, new { placeholder = "", @class = "form-control" })
+                        <span class="form-text text-muted">توضیحات برای موتور جست و جوی گوگل.</span>
+                    </div>
+                    <div class="form-group">
+                        <label>ارزش جست و جو</label>
+                        @Html.TextBoxFor(m => m.SearchGravity, new { placeholder = "", @class = "form-control", type = "number" })
+                        <span class="form-text text-muted">نتایج جست و جوی کاربران براین اساس نمایش داده خواهند شد.</span>
+                    </div>
+                    <label class="kt-checkbox kt-checkbox--brand">
+                        @Html.CheckBoxFor(m => m.IsAd) تبلیغ شود؟
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+        }
+
+
+        <div class="dropzone dropzone-default dropzone-brand dz-clickable" id="kt_dropzone_2">
+            <div class="dropzone-msg dz-message needsclick">
+                <h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
+                <span class="dropzone-msg-desc">Upload up to 10 files</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Add_Product";
+    Layout = "~/Views/Master/Master.cshtml";
+}
+
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-portlet">
+        <div class="kt-portlet__body kt-portlet__body--fit">
+            <div class="kt-grid kt-wizard-v3 kt-wizard-v3--white" id="kt_wizard_v3" data-ktwizard-state="step-first">
+                <div class="kt-grid__item">
+                    <!--begin: Form Wizard Nav -->
+                    <div class="kt-wizard-v3__nav">
+                        <!--doc: Remove "kt-wizard-v3__nav-items--clickable" class and also set 'clickableSteps: false' in the JS init to disable manually clicking step titles -->
+                        <div class="kt-wizard-v3__nav-items kt-wizard-v3__nav-items--clickable">
+                            <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
+                                <div class="kt-wizard-v3__nav-body">
+                                    <div class="kt-wizard-v3__nav-label">
+                                        <span>1</span> اطلاعات کلی محصول
+                                    </div>
+                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                </div>
+                            </div>
+                            <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
+                                <div class="kt-wizard-v3__nav-body">
+                                    <div class="kt-wizard-v3__nav-label">
+                                        <span>2</span> دسته بندی محصول
+                                    </div>
+                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                </div>
+                            </div>
+                            <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
+                                <div class="kt-wizard-v3__nav-body">
+                                    <div class="kt-wizard-v3__nav-label">
+                                        <span>3</span> ویژگی ها ی محصول
+                                    </div>
+                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                </div>
+                            </div>
+                            <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
+                                <div class="kt-wizard-v3__nav-body">
+                                    <div class="kt-wizard-v3__nav-label">
+                                        <span>4</span> قیمت گذاری
+                                    </div>
+                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                </div>
+                            </div>
+                            <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
+                                <div class="kt-wizard-v3__nav-body">
+                                    <div class="kt-wizard-v3__nav-label">
+                                        <span>5</span> تائید نهایی
+                                    </div>
+                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end: Form Wizard Nav -->
+                </div>
+                <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
+                    <!--begin: Form Wizard Form-->
+                    <div class="kt-form" id="kt_form">
+                        <!--begin: Form Wizard Step 1-->
+                        <div id="step1" class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+
+                        </div>
+                        <!--end: Form Wizard Step 1-->
+                        <!--begin: Form Wizard Step 2-->
+                        <div id="step2" class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+
+                        </div>
+                        <!--end: Form Wizard Step 2-->
+                        <!--begin: Form Wizard Step 3-->
+                        <div id="step3" class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+
+                        </div>
+                        <!--end: Form Wizard Step 3-->
+                        <!--begin: Form Wizard Step 4-->
+                        <div id="step4" class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+
+                        </div>
+                        <!--end: Form Wizard Step 4-->
+                        <!--begin: Form Wizard Step 5-->
+                        <div id="step5" class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+
+                        </div>
+                        <!--end: Form Wizard Step 5-->
+                        <!--begin: Form Actions -->
+                        <div class="kt-form__actions">
+                            <button class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
+                                Previous
+                            </button>
+                            <button class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
+                                Submit
+                            </button>
+                            <button onclick="NextPage()" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
+                                Next Step
+                            </button>
+                        </div>
+                        <!--end: Form Actions -->
+                        
+                    </div>
+                    <!--end: Form Wizard Form-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end:: Content -->
+
+
+@Scripts.Render("~/bundles/jquery");
+@Scripts.Render("~/bundles/AddProduct");
+<script>
+        $(document).ready(function () {
+            $('#step1').load("https://localhost:44336/Product/Add_Page1");
+            $('#step2').load("https://localhost:44336/Product/Add_Page2");
+            $('#step3').load("https://localhost:44336/Product/Add_Page3");
+            $('#step4').load("https://localhost:44336/Product/Add_Page4");
+            $('#step5').load("https://localhost:44336/Product/Add_Page5");
+        });
+
+    function NextPage() {
+        var mes = $('#page').text();
+        alert(mes);
+    }
+    </script>

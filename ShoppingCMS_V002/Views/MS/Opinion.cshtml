@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Opinion";
+    Layout = "~/Views/Master/Master.cshtml";
+}
+
+<div class="kt-portlet">
+    <div id="Opinion_show">
+
+    </div>
+
+    <script>
+        function postToControll(id, post) {
+
+            var PostJson = {
+                'id': id,
+                'value': post
+            };
+            $.ajax({
+                url: "get_Opinion",
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                     $('#Opinion_show').load("https://localhost:44336/MS/Opinion_show");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+            return false;
+        }
+    </script>
+
+
+
+</div>
+
+

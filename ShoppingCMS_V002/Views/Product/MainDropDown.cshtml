@@ -1,0 +1,40 @@
+﻿@model ShoppingCMS_V002.Models.DropDownModel
+
+@{
+    ViewBag.Title = "MainDropDown";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="form-group row">
+        <label class="col-form-label col-lg-3 col-sm-12">@Model.title</label>
+        <div class="col-lg-4 col-md-9 col-sm-12">
+            <div class="dropdown bootstrap-select form-control kt-">
+                <select class="form-control kt-selectpicker" data-size="4" tabindex="-98">
+
+                    @foreach (var m in Model.Droplist)
+                    {
+                        <option value="@m.Id">@m.Value</option>
+                    }
+
+                </select>
+                <button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="false" title="Mustard">
+                    <div class="filter-option">
+                        <div class="filter-option-inner">
+                            <div class="filter-option-inner-inner"></div>
+                        </div>
+                    </div>
+                </button>
+                <div class="dropdown-menu" style="max-height: 186px; overflow: hidden; min-width: 315px;">
+                    <div class="inner show" role="listbox" id="bs-select-2" tabindex="-1" style="max-height: 160px; overflow-y: auto;" aria-activedescendant="bs-select-2-0">
+                        <ul class="dropdown-menu inner show" role="presentation" style="margin-top: 0px; margin-bottom: 0px;">
+                            @foreach (var m in Model.Droplist)
+                            {
+                                <li class="selected active"><a role="option" class="dropdown-item active selected" id="bs-select-2-0" tabindex="0" aria-setsize="6" aria-posinset="1" aria-selected="true" ><span class="text">@m.Value</span></a></li>
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

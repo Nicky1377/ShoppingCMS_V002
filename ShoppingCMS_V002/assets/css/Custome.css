@@ -1,0 +1,58 @@
+@font-face {
+    font-family: IRANSansWeb;
+    src: url(Font/IRANSansWeb.ttf) format('truetype')
+}
+
+html * {
+    font-family: IRANSansWeb;
+}
+.DangerBackHOVER{}
+.DangerBackHOVER:hover {
+    background-color: #ff0054 !important;
+    color: white !important;
+}
+.btn-label-brand-Danger:hover {
+    background-color: #ff0054 !important;
+    color: #fff !important;
+}
+.btn-label-brand-Danger {
+    background-color: rgba(247, 186, 4, 0.79) !important;
+    color: #0e0e0f !important;
+}
+
+
+<!-- -->
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+}
+
+    /* Style the buttons that are used to open the tab content */
+    .tab button {
+        background-color: inherit;
+        float: right;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: large;
+    }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            color: blue;
+        }
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+}
+
+
+.w-100 {
+    width: 100%
+}

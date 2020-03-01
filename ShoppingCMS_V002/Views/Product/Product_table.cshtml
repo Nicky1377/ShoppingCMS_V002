@@ -1,0 +1,31 @@
+﻿@model ShoppingCMS_V002.ModelViews.ProductListModelView
+@{
+    ViewBag.Title = "Product_table";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th> محصول</th>
+            <th>توضیحات</th>
+            <th>عکس</th>
+            <th>وضعیت</th>
+            <th> تاریخ ثبت</th>
+            <th> دسته بندی</th>
+            <th>قیمت</th>
+            <th>ثبت شده توسط</th>
+            <th>واکنش</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in @Model.ProductModels)
+        {
+            @Html.Partial("_ProList", item);
+        }
+
+    </tbody>
+</table>
+

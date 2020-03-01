@@ -1,0 +1,149 @@
+﻿
+@{
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="kt-portlet__head">
+    <div class="kt-portlet__head-label">
+        <h3 class="kt-portlet__head-title">
+            نظرات کاربران
+        </h3>
+    </div>
+</div>
+<div class="kt-portlet__body">
+
+    <!--begin::Section-->
+    <div class="kt-section">
+        <span class="kt-section__info">
+            لیست تمامی دسته بندی های اصلی را در جدول زیر میتوانید مشاهده کنید.
+        </span>
+        <div class="kt-section__content">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>اسم محصول</th>
+                        <th>اسم کاربر</th>
+                        <th>نظرات</th>
+                        <th>زمان ثبت</th>
+                        <th>وضعیت</th>
+                        <th>اقدامات</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (int i = 0; i < ViewBag.opin.Count; i++)
+                    {
+                        <tr id="@ViewBag.opin[i].id_Opinion">
+                            <th scope="row">@i</th>
+                            <td>@ViewBag.opin[i].id_MProduct</td>
+                            <td>
+                                @ViewBag.opin[i].id_Customer<br />
+
+
+                                @if (ViewBag.opin[i].Rate == "5")
+                                {
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                }
+                                else if (ViewBag.opin[i].Rate == "4")
+                                {
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                }
+                                else if (ViewBag.opin[i].Rate == "3")
+                                {
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                }
+                                else if (ViewBag.opin[i].Rate == "2")
+                                {
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                }
+                                else if (ViewBag.opin[i].Rate == "1")
+                                {
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="color: #ffcc00; font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                }
+                                else if (ViewBag.opin[i].Rate == "0")
+                                {
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                    <span class="fa fa-stack" style="width: 1em;height: 1em;"><i class="fa fa-star fa-stack-2x" style="font-size: x-small;"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                                }
+
+
+
+
+
+                            </td>
+                            <td>@ViewBag.opin[i].OpinionDescription</td>
+                            <td>@ViewBag.opin[i].CreateDate</td>
+                            <td>
+                                @if (ViewBag.opin[i].Is_Accepted == "0")
+                                {
+                                    <span id="add @ViewBag.opin[i].id_Opinion" class="kt-badge kt-badge--inline kt-badge--danger">درخواست ثبت</span>
+                                }
+                                else
+                                {
+                                    <span id="on @ViewBag.opin[i].id_Opinion" class="kt-badge kt-badge--inline kt-badge--success">فعال</span>
+                                }
+
+                            </td>
+
+                            <td>
+                                <span class="dropdown">
+                                    <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                                        <i class="la la-ellipsis-h"></i>
+                                    </a>
+                                    <span class="dropdown-menu dropdown-menu-right">
+                                        @if (ViewBag.opin[i].Is_Accepted == "0")
+                                        {
+                                            <span class="dropdown-item">
+
+                                                <button class="btn btn-bold btn btn-outline-danger" style="width: 100%;" data-toggle="modal" data-target="#PandaDeletModal" onclick="postToControll('@ViewBag.opin[i].id_Opinion','delete')"><i class="fa fa-eraser"><span style="font-family: IRANSansWeb; padding-right: 5px;">حذف</span></i></button>
+                                            </span>
+                                            <span class="dropdown-item">
+                                                <button class="btn btn-bold btn btn-outline-success" style="width: 100%;" data-toggle="modal" data-target="#PandaonModal" onclick="postToControll('@ViewBag.opin[i].id_Opinion','on')"><i class="fa fa-check"><span style="font-family: IRANSansWeb; padding-right: 5px;">فعال سازی</span></i></button>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="dropdown-item">
+                                                <button class="btn btn-bold btn btn-outline-danger" style="width: 100%;" data-toggle="modal" data-target="#PandaDeletModal" onclick="postToControll('@ViewBag.opin[i].id_Opinion','delete')"><i class="fa fa-eraser"><span style="font-family: IRANSansWeb; padding-right: 5px;">حذف</span></i></button>
+                                            </span>
+                                        }
+                                    </span>
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <!--end::Section-->
+</div>
+
+
+

@@ -1,0 +1,69 @@
+﻿@model ShoppingCMS_V002.Models.ProductModel
+
+<tr>
+    <th style="display: none" scope="Id">@Model.Id</th>
+    <th scope="row">@Model.Num</th>
+    <td><a href="">@Model.Title</a></td>
+    <td><span>@Model.Description</span></td>
+    <td>
+        <div style="text-align: center;">
+            <img src="@Model.PicPath"
+                 alt="">
+        </div>
+    </td>
+    <td>
+        <div style="text-align: center;">
+            @if (@Model.deleted)
+            {
+                <button type="button"
+                        class="btn btn-danger">
+                    حذف
+                </button>
+            }
+            else if (@Model.disabled)
+            {
+                <button type="button" class="btn btn-warning">
+                    غیر
+                    فعال
+                </button>
+            }
+            else
+            {
+                <button type="button"
+                        class="btn btn-success">
+                    فعال
+                </button>
+            }
+
+
+        </div>
+    </td>
+
+    <td>@Model.Date</td>
+    <td>@Model.Category</td>
+    <td>@Model.MainPrice</td>
+    <td>@Model.AddBy</td>
+    <td>
+        <div class="btn-group">
+            <button class="btn btn-secondary btn-sm dropdown-toggle"
+                    type="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                گزینه ها
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">دیدن جزییات</a>
+                @if (!@Model.deleted || !@Model.disabled)
+                {
+                    <a class="dropdown-item" href="#">غیر فعال کردن</a>
+                }
+                else if (!@Model.deleted)
+                {
+                    <a class="dropdown-item" href="#">حذف</a>
+                }
+
+
+
+            </div>
+        </div>
+    </td>
+</tr>

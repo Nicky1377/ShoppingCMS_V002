@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Product_List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-portlet">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">
+                    Responsive tables
+                </h3>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <!--begin::Section-->
+            <div class="kt-section">
+                <div class="kt-section__info">
+                    <div class="input-group" style="margin-bottom: 5px;">
+                        <input id="search_box" onchange="searchList()" type="text" class="form-control" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend">
+                            <button onclick="sClick()" style="border: none; padding: 0 15px;">
+                                <i class="fa fa-search search-icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-section__content">
+                    <div id="table" class="table-responsive">
+
+                    </div>
+                </div>
+            </div>
+            <!--end::Section-->
+        </div>
+        <!--end::Form-->
+    </div>
+</div>
+<!-- end:: Content -->
+
+<script>
+    $(document).ready(function() {
+        $('#table').load("https://localhost:44336/Product/Product_table?SearchBox=false");
+    });
+
+
+    function searchList() {
+        //var m = $('#search_box').val();
+        //alert(m);
+        //$('#table').load("https://localhost:44336/Product/Product_table?SearchBox=true&text="+m);
+    }
+
+    function sClick() {
+        var m = $('#search_box').val();
+        //alert("hello");
+        $('#table').load("https://localhost:44336/Product/Product_table?SearchBox=true&text="+m);
+    }
+
+</script>
+
+

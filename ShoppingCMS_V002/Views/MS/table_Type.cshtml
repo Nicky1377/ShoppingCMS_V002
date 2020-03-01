@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "table_Type";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--START : TBLS-->
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                دسته بندی های اصلی ثبت شده
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+
+        <!--begin::Section-->
+        <div class="kt-section">
+            <span class="kt-section__info">
+                لیست تمامی دسته بندی های اصلی را در جدول زیر میتوانید مشاهده کنید.
+            </span>
+            <div class="kt-section__content">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>نام دسته بندی</th>
+                            <th>تعداد محصول این دسته بندی</th>
+                            <th>وضعیت</th>
+                            <th>اقدامات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < ViewBag.type.Count; i++)
+                        {
+                            <tr>
+                                <th scope="row">@i</th>
+                                <td>@ViewBag.type[i].PTname</td>
+                                <td>@ViewBag.type[i].count</td>
+                                <td>
+                                    @if (ViewBag.type[i].ISDelete == "1")
+                                    {
+                                        <span class="kt-badge kt-badge--inline kt-badge--danger">حذف شده</span>
+                                    }
+                                    else if (ViewBag.type[i].ISDESABLED == "1")
+                                    {
+                                        <span class="kt-badge kt-badge--inline kt-badge--warning">غیر فعال</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="kt-badge kt-badge--inline kt-badge--success">فعال</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (ViewBag.type[i].ISDelete == "0")
+                                    {
+
+                                        <span class="dropdown">
+
+                                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                                                <i class="la la-ellipsis-h"></i>
+                                            </a>
+                                            <span class="dropdown-menu dropdown-menu-right">
+                                                @if (ViewBag.type[i].ISDESABLED == "1")
+                                                {
+                                                    <span class="dropdown-item">
+
+                                                        <button class="btn btn-bold btn btn-outline-danger" style="width: 100%;" data-toggle="modal" data-target="#PandaDeletModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-eraser"><span style="font-family: IRANSansWeb; padding-right: 5px;">حذف</span></i></button>
+                                                    </span>
+                                                    <span class="dropdown-item">
+                                                        <button class="btn btn-bold btn btn-outline-success" style="width: 100%;" data-toggle="modal" data-target="#PandaonModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-check"><span style="font-family: IRANSansWeb; padding-right: 5px;">فعال سازی</span></i></button>
+                                                    </span>
+                                                    <span class="dropdown-item">
+                                                        <button class="btn btn-bold btn btn-outline-primary" style="width: 100%;" data-toggle="modal" data-target="#PandaedittModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-check"><span style="font-family: IRANSansWeb; padding-right: 5px;">ویرایش کردن</span></i></button>
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="dropdown-item">
+
+                                                        <button class="btn btn-bold btn-outline-warning" style="width: 100%;" data-toggle="modal" data-target="#PandaEditModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-moon"><span style="font-family: IRANSansWeb; padding-right: 5px;">غیرفعال کردن</span></i></button>
+                                                    </span>
+                                                    <span class="dropdown-item">
+
+                                                        <button class="btn btn-bold btn btn-outline-danger" style="width: 100%;" data-toggle="modal" data-target="#PandaDeletModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-eraser"><span style="font-family: IRANSansWeb; padding-right: 5px;">حذف</span></i></button>
+                                                    </span>
+                                                    <span class="dropdown-item">
+                                                        <button class="btn btn-bold btn btn-outline-primary" style="width: 100%;" data-toggle="modal" data-target="#PandaedittModal" onclick="modalloader('@ViewBag.type[i].PTname','@ViewBag.type[i].id_PT')"><i class="fa fa-check"><span style="font-family: IRANSansWeb; padding-right: 5px;">ویرایش کردن</span></i></button>
+                                                    </span>
+                                                }
+                                            </span>
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--end::Section-->
+    </div>
+    <!--end::Form-->
+</div>
+<!--END : TBLS-->
