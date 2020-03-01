@@ -133,13 +133,16 @@
     </Compile>
     <Compile Include="Models\AddProduct_P1.cs" />
     <Compile Include="Models\AddProduct_P2.cs" />
+    <Compile Include="Models\companies.cs" />
     <Compile Include="Models\DropDownModel.cs" />
     <Compile Include="Models\Id_ValueModel.cs" />
     <Compile Include="Models\MainCategory.cs" />
     <Compile Include="Models\new_shop.cs" />
     <Compile Include="Models\opinion.cs" />
+    <Compile Include="Models\OpinionAbout.cs" />
     <Compile Include="Models\Pictures.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\Statics.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\SubCategoryOptionKey.cs" />
     <Compile Include="Models\type.cs" />
@@ -524,6 +527,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\MS\About.cshtml" />
+    <Content Include="Views\MS\tab_About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,247 @@
+﻿
+@{
+    ViewBag.Title = "About";
+}
+
+
+    <div style="margin:1%">
+        <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+            <div class="kt-container  kt-container--fluid ">
+                <div class="kt-subheader__main">
+                    <h3 class="kt-subheader__title">
+                        داشبورد
+                    </h3>
+
+                    <span class="kt-subheader__separator kt-hidden"></span>
+                    <div class="kt-subheader__breadcrumbs">
+                        <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                        <span class="kt-subheader__breadcrumbs-separator"></span>
+                        <a href="" class="kt-subheader__breadcrumbs-link">
+                            درباره ما
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet ">
+
+            <div class="form-group">
+                <div class=" col-lg-10">
+                    <label>آدرس لگو عکس : </label>
+                    <input type="text" class="form-control" id="input_image" placeholder="آدرس لگو" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-10">
+                    <label for="image" class="col-lg-2 control-label">لگو عکس :</label>
+                    <input id="uploderInput" onchange="Uploding_uploder('about')" type="file" class="form-control" accept=".png,.jpg,.jpeg" />
+                    <div class="row" id="UploderImages"></div>
+                </div>
+            </div>
+
+            <hr style="background: #e1e1e1;width: 100%;height: 1px;">
+
+            <div class="form-group ">
+                <div class="col-lg-10">
+                    <label>متن 1 : </label>
+                    <input type="text" class="form-control" style="margin-bottom: 30px;" id="input_title_one" placeholder="متن1" required>
+                    <textarea name="text" class="form-control" style="width: 100%;" id="input_one" required placeholder="متن بلند1 "></textarea>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <div class="col-lg-10">
+                    <label>متن2 : </label>
+                    <input type="text" class="form-control" style="margin-bottom: 30px;" id="input_title_two" placeholder="متن2" required>
+                    <textarea name="text" class="form-control" style="width: 100%;" id="input_two" required placeholder="متن بلند2"></textarea>
+                </div>
+            </div>
+
+
+
+            <div id="ERRAlertNew1" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display: none;">
+                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+                <div class="alert-close">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="la la-close"></i></span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="SuccesAlertNew" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display: none;">
+                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="alert-text">با موفقیت ثبت شد!</div>
+                <div class="alert-close">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"><i class="la la-close"></i></span>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-lg-12 col-md-8 col-xs-6 col-xl-6">
+                    <button type="submit" onclick="post()" class="btn btn-primary w-100">ذخیره</button>
+                </div>
+            </div>
+
+            <hr style="background: #e1e1e1;width: 100%;height: 1px;" />
+
+            <div id="tab_About">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+<script>
+    $(document).ready(function () {
+         $('#tab_About').load("https://localhost:44336/ms/tab_About");
+    });
+
+</script>
+<script>
+    function postdata(data, value, id) {
+        if (data == "op_about") {
+            if (value == "new") {
+                if (document.getElementById("input_user").value == "" || document.getElementById("input_ouser").value == "") {
+                    $("#ERRAlertNew").show(300);
+                    return false;
+                }
+                var PostJson = {
+                    '_A': document.getElementById("input_user").value,
+                    '_B': document.getElementById("input_ouser").value,
+                    'data': data,
+                    'value': value
+                };
+            } else if (value == "delete") {
+                var PostJson = {
+                    'id': id,
+                    'data': data,
+                    'value': value
+                };
+            }
+        } else if (data == "comp") {
+            if (value == "new") {
+                if (document.getElementById("input_img").value == "" || document.getElementById("input_url").value == "" || document.getElementById("input_name").value == "") {
+                    $("#ERRAlertNew2").show(300);
+                    return false;
+                }
+                var PostJson = {
+                    '_A': document.getElementById("input_name").value,
+                    '_B': document.getElementById("input_url").value,
+                    '_C': document.getElementById("input_img").value,
+                    'data': data,
+                    'value': value
+                };
+            } else if (value == "delete") {
+                var PostJson = {
+                    'id': id,
+                    'data': data,
+                    'value': value
+                };
+            }
+        }
+        var AddressToSend = "data_switch";
+        $.ajax({
+            url: AddressToSend,
+            type: "post",
+            data: JSON.stringify(PostJson),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $('#tab_About').load("https://localhost:44336/ms/tab_About");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });
+        return false;
+    }
+</script>
+
+
+
+
+
+<script>
+    function post() {
+        if (document.getElementById("input_image").value == "" || document.getElementById("input_title_one").value == "" || document.getElementById("input_one").value == "" || document.getElementById("input_title_two").value == "" || document.getElementById("input_two").value == "") {
+            $("#ERRAlertNew1").show(300);
+            return false;
+        }
+        var PostJson = {
+            'image': document.getElementById("input_image").value,
+            'title_one': document.getElementById("input_title_one").value,
+            'one': document.getElementById("input_one").value,
+            'title_two': document.getElementById("input_title_two").value,
+            'two': document.getElementById("input_two").value
+        };
+        var AddressToSend = "get_About";
+        $.ajax({
+            url: AddressToSend,
+            type: "post",
+            data: JSON.stringify(PostJson),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $("#ERRAlertNew1").hide(300);
+                $("#SuccesAlertNew").show(300);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });
+        return false;
+    }
+</script>
+
+
+
+<script>
+    function copytoclipboard(data, id) {
+        if (data == "about") {
+            $("#input_image").val(id);
+        } else if (data == "comp") {
+            $("#input_img").val(id);
+        }
+    }
+    function Uploding_uploder(data) {
+        if (data == "about") {
+            var fileUpload = $("#uploderInput").get(0);
+        } else if (data == "comp") {
+            var fileUpload = $("#uploderInput1").get(0);
+        }
+        var files = fileUpload.files;
+        var fileData = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            fileData.append(files[i].name, files[i]);
+        }
+        fileData.append('action', 'New');
+        fileData.append('data', data);
+        $.ajax({
+            url: 'up_loder',
+            data: fileData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            success: function (response) {
+                if (data == "about") {
+                    $("#UploderImages").html(response);
+                } else if (data == "comp") {
+                    $("#UploderImages1").html(response);
+                }
+            },
+            error: function () {
+                alert("عدم توانایی در بارگیری فایل")
+            }
+        });
+        return false;
+    }
+</script>
+

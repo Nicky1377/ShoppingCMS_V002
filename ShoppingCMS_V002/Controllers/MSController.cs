@@ -3,9 +3,13 @@ using ShoppingCMS_V002.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Drawing;
+using System.Web.UI.WebControls;
 
 namespace ShoppingCMS_V002.Controllers
 {
@@ -1023,6 +1027,280 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult NEWSHOPS_Customers()
         {
             return View();
+        }
+
+
+        ///////////////////////////////////////////////////
+        /////////////////////////////{   START About   }//////////////////////////////
+        public OpinionAbout data_opAb;
+        List<OpinionAbout> list_opAb = new List<OpinionAbout>();
+
+        public companies data_comp;
+        List<companies> list_comp = new List<companies>();
+        [HttpGet]
+        public ActionResult About()
+        {
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult tab_About()
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            using (DataTable dt = db.Select("SELECT [Id_OpinionAbout],[Name_OpinionAbout],[OpinionAbout],[Is_delete]FROM [dbo].[OpinionAbout]"))
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    data_opAb = new OpinionAbout();
+
+                    if (dt.Rows[i]["Is_delete"].ToString() == "0")
+                    {
+                        data_opAb.Id_OpinionAbout = dt.Rows[i]["Id_OpinionAbout"].ToString();
+                        data_opAb.Name_OpinionAbout = dt.Rows[i]["Name_OpinionAbout"].ToString();
+                        data_opAb.Opinionabout = dt.Rows[i]["OpinionAbout"].ToString();
+                        list_opAb.Add(data_opAb);
+                    }
+                }
+                ViewBag.opin_ab = list_opAb;
+            };
+
+
+            using (DataTable dt = db.Select("SELECT [id_companies],[Image],[Name_companies],[Url],[Is_delete]FROM [dbo].[companies]"))
+            {
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    data_comp = new companies();
+
+                    if (dt.Rows[i]["Is_delete"].ToString() == "0")
+                    {
+                        data_comp.id_companies = dt.Rows[i]["id_companies"].ToString();
+                        data_comp.Image = dt.Rows[i]["Image"].ToString();
+                        data_comp.Name_companies = dt.Rows[i]["Name_companies"].ToString();
+                        data_comp.Url = dt.Rows[i]["Url"].ToString();
+                        list_comp.Add(data_comp);
+                    }
+                }
+                ViewBag.comp = list_comp;
+            };
+
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult get_About(string image, string title_one, string one, string title_two, string two)
+        {
+
+            string res = " ", query;
+
+            query = "INSERT INTO [dbo].[About]([Image],[Title_one],[Text_one],[Title_two],[Text_two])VALUES(@Image,@Title_one,@Text_one,@Title_two,@Text_two)";
+
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            List<ExcParameters> paramss = new List<ExcParameters>();
+            ExcParameters parameters = new ExcParameters();
+
+            parameters = new ExcParameters()
+            {
+                _KEY = "@Image",
+                _VALUE = image
+            };
+
+            paramss.Add(parameters);
+
+            parameters = new ExcParameters()
+            {
+                _KEY = "@Title_one",
+                _VALUE = title_one
+            };
+
+            paramss.Add(parameters);
+
+            parameters = new ExcParameters()
+            {
+                _KEY = "@Text_one",
+                _VALUE = one
+            };
+
+            paramss.Add(parameters);
+
+            parameters = new ExcParameters()
+            {
+                _KEY = "@Title_two",
+                _VALUE = title_two
+            };
+
+            paramss.Add(parameters);
+
+            parameters = new ExcParameters()
+            {
+                _KEY = "@Text_two",
+                _VALUE = two
+            };
+
+            paramss.Add(parameters);
+
+
+            res = db.Script(query, paramss);
+
+            return Content(res);
+        }
+        [HttpPost]
+        public ActionResult up_loder()
+        {
+            string str1 = " ";
+            string Action = Request["action"];
+            string data = Request["data"];
+            if (Action != null || !string.IsNullOrEmpty(Action))
+            {
+                if (Action == "New")
+                {
+                    StringBuilder IMGS = new StringBuilder("");
+                    for (int i = 0; i < Request.Files.Count; i++)
+                    {
+
+                        HttpPostedFileBase file = Request.Files[i];
+                        if (file != null && file.ContentLength > 0)
+                        {
+
+                            string fname = Path.GetFileName(file.FileName);
+                            string EX = Path.GetExtension(file.FileName);
+                            string FileNAME = Guid.NewGuid().ToString() + "-" + fname;
+                            string address = Server.MapPath("~/images/" + FileNAME);
+                            string URLIMG = Statics.AppendServername("images/" + FileNAME);
+                            if (Directory.Exists(Server.MapPath("~/images")))
+                            {
+                                file.SaveAs(address);
+                            }
+                            else
+                            {
+                                System.IO.Directory.CreateDirectory(Server.MapPath("~/images"));
+                                file.SaveAs(address);
+                            }
+                            StringBuilder str = new StringBuilder("");
+                            string iiid = $"{DateTime.Now.Millisecond}{DateTime.Now.Minute}{DateTime.Now.Hour}{DateTime.Now.Second}";
+                            str.Append("<div class=\"col-xl-3 col-lg-3 col-md-3\"><div class=\"kt-portlet\"><div class=\"kt-portlet__body\"><div class=\"kt-widget__files\"><div class=\"kt-widget__media\"><img class=\"kt-widget__img\" style=\"height:200px;width:200px;\" src=\"");
+                            str.Append(URLIMG);
+                            str.Append("\" alt=\"image\"></div><input style=\"width:50px;height:50px;background-color:transparent; border:none;\" type=\"text\" value=\"" + URLIMG + "\" id=\"");
+                            str.Append($"img{iiid}");
+                            str.Append($"\" readonly><button onclick=\"return copytoclipboard('{data}','");
+                            str.Append($"{URLIMG}");
+                            str.Append("')\" class=\"w-100 btn btn-success\">کپی کردن آدرس تصویر</button></div></div></div></div>");
+                            IMGS.Append(str.ToString());
+
+
+                        }
+
+                    }
+                    str1 = IMGS.ToString();
+                    // Response.Write(IMGS.ToString());
+                }
+            }
+            return Content(str1);
+        }
+        [HttpPost]
+        public ActionResult data_switch(string _A, string _B, string _C, string data, string value, string id)
+        {
+            string str2 = " ", query;
+
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            List<ExcParameters> paramss = new List<ExcParameters>();
+            ExcParameters parameters = new ExcParameters();
+
+
+            if (data == "op_about")
+            {
+                if (value == "new")
+                {
+                    query = "INSERT INTO [dbo].[OpinionAbout]([Name_OpinionAbout],[OpinionAbout],[Is_delete]) VALUES (@Name_OpinionAbout,@OpinionAbout,0)";
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@Name_OpinionAbout",
+                        _VALUE = _A
+                    };
+
+                    paramss.Add(parameters);
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@OpinionAbout",
+                        _VALUE = _B
+                    };
+
+                    paramss.Add(parameters);
+
+                    str2 = db.Script(query, paramss);
+
+                }
+                else if (value == "delete")
+                {
+
+                    query = "UPDATE [dbo].[OpinionAbout]SET [Is_delete] = 1 WHERE [Id_OpinionAbout] = @id";
+
+
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@id",
+                        _VALUE = id
+                    };
+
+                    paramss.Add(parameters);
+
+                    str2 = db.Script(query, paramss);
+
+                }
+            }
+            else if (data == "comp")
+            {
+                if (value == "new")
+                {
+                    query = "INSERT INTO [dbo].[companies]([Image],[Name_companies],[Url],[Is_delete])VALUES(@Image,@Name_companies,@Url,0)";
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@Name_companies",
+                        _VALUE = _A
+                    };
+
+                    paramss.Add(parameters);
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@Url",
+                        _VALUE = _B
+                    };
+
+                    paramss.Add(parameters);
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@Image",
+                        _VALUE = _C
+                    };
+
+                    paramss.Add(parameters);
+                    str2 = db.Script(query, paramss);
+
+                }
+                else if (value == "delete")
+                {
+
+                    query = "UPDATE [dbo].[companies] SET [Is_delete] = 1 WHERE [id_companies] = @id";
+
+
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@id",
+                        _VALUE = id
+                    };
+
+                    paramss.Add(parameters);
+
+                    str2 = db.Script(query, paramss);
+
+                }
+            }
+            return Content(str2);
         }
 
     }

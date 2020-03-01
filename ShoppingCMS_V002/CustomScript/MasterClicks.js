@@ -27,3 +27,9 @@ function Add_SCK_CL() {
     $('#PageName').text("ویژگی های محصولات");
     $('#LoadAll').load("https://localhost:44336/MS/SubCatKey");
 }
+
+function AboutUs_CL() {
+    //alert("ویژگی های محصولات");
+    $('#PageName').text("درباره ی ما");
+    $('#LoadAll').load("https://localhost:44336/MS/About");
+}

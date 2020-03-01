@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "tab_About";
+}
+
+<div class="kt-section">
+    <div class="col-lg-10">
+
+        <div class="col-lg-10">
+            <label>نظرات : </label>
+            <input type="text" class="form-control" style="margin-bottom: 30px;" id="input_user" placeholder="اسم کاربر " required>
+            <textarea name="text" class="form-control" style="width: 100%;" id="input_ouser" required placeholder="متن نظر"></textarea>
+        </div>
+
+        <div id="ERRAlertNew" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display: none;">
+            <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="la la-close"></i></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-lg-3 ">
+            <button type="submit" onclick="postdata('op_about','new');" class="btn  w-100" style="background-color: #ffbf00; margin-top: 30px;">ذخیره</button>
+        </div>
+
+        <span class="kt-section__info">
+            لیست نظرات کاربران  .
+        </span>
+        <div class="kt-section__content">
+            <table id="mytab" class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>اسم کاربر</th>
+                        <th>نظرات</th>
+                        <th>وضعیت</th>
+                        <th>اقدامات</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (int i = 0; i < ViewBag.opin_ab.Count; i++)
+                    {
+                        <tr id="@ViewBag.opin_ab[i].Id_OpinionAbout">
+                            <td>@ViewBag.opin_ab[i].Name_OpinionAbout</td>
+                            <td>@ViewBag.opin_ab[i].Opinionabout</td>
+                            <td>
+                                <span class="kt-badge kt-badge--inline kt-badge--success">نمایش</span>
+                            </td>
+                            <td>
+                                <button onclick="postdata('op_about','delete',@ViewBag.opin_ab[i].Id_OpinionAbout);" class="kt-badge kt-badge--inline kt-badge--danger">حذف درباره ما</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<hr style="background: #e1e1e1;width: 100%;height: 1px;" />
+
+<div class="kt-section">
+    <div class="col-lg-10">
+
+        <div class="col-lg-10">
+            <label>همکاران : </label>
+            <input type="text" class="form-control" style="margin-bottom: 30px;" id="input_name" placeholder="اسم شرکت " required>
+            <input type="text" class="form-control" style="margin-bottom: 30px;" id="input_url" placeholder="لینک شرکت " required>
+        </div>
+
+
+        <div class="form-group">
+            <div class=" col-lg-10">
+                <label>آدرس لگو عکس : </label>
+                <input type="text" class="form-control" id="input_img" placeholder="آدرس لگو" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-lg-10">
+                <label for="image" class="col-lg-2 control-label">لگو عکس :</label>
+                <input id="uploderInput1" onchange="Uploding_uploder('comp')" type="file" class="form-control" accept=".png,.jpg,.jpeg" />
+                <div class="row" id="UploderImages1"></div>
+            </div>
+        </div>
+
+
+        <div id="ERRAlertNew2" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display: none;">
+            <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+            <div class="alert-close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="la la-close"></i></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-lg-3 ">
+            <button type="submit" onclick="postdata('comp','new');" class="btn  w-100" style="background-color: #ffbf00; margin-top: 30px;">ذخیره</button>
+        </div>
+
+        <span class="kt-section__info">
+            لیست همکاران .
+        </span>
+        <div class="kt-section__content">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>اسم شرکت</th>
+                        <th>لینک شرکت</th>
+                        <th>لگو شرکت</th>
+                        <th>وضعیت</th>
+                        <th>اقدامات</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (int i = 0; i < ViewBag.comp.Count; i++)
+                    {
+                        <tr id="@ViewBag.comp[i].id_companies">
+                            <td>@ViewBag.comp[i].Name_companies</td>
+                            <td><h10>@ViewBag.comp[i].Url</h10></td>
+                            <td><div style="background-image:url(@ViewBag.comp[i].Image); background-repeat:no-repeat; background-position:center center; height: 77px; width: 218px;"></div></td>
+                            <td>
+                                <span class="kt-badge kt-badge--inline kt-badge--success">نمایش</span>
+                            </td>
+                            <td>
+                                <button onclick="postdata('comp','delete','@ViewBag.comp[i].id_companies');" class="kt-badge kt-badge--inline kt-badge--danger">حذف همکاران</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+

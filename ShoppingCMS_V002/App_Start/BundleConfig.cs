@@ -18,7 +18,8 @@ namespace ShoppingCMS_V002
 
             bundles.Add(new ScriptBundle("~/bundles/AddProduct").Include(
                  "~/assets/js/pages/custom/wizard/wizard-3.js",
-                "~/assets/js/pages/crud/file-upload/dropzonejs.js"));
+                "~/assets/js/pages/crud/file-upload/dropzonejs.js",
+                "~/assets/js/pages/crud/forms/widgets/bootstrap-select.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
 

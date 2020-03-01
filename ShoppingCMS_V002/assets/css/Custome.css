@@ -6,15 +6,20 @@
 html * {
     font-family: IRANSansWeb;
 }
-.DangerBackHOVER{}
-.DangerBackHOVER:hover {
-    background-color: #ff0054 !important;
-    color: white !important;
+
+.DangerBackHOVER {
 }
+
+    .DangerBackHOVER:hover {
+        background-color: #ff0054 !important;
+        color: white !important;
+    }
+
 .btn-label-brand-Danger:hover {
     background-color: #ff0054 !important;
     color: #fff !important;
 }
+
 .btn-label-brand-Danger {
     background-color: rgba(247, 186, 4, 0.79) !important;
     color: #0e0e0f !important;
