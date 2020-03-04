@@ -44,20 +44,36 @@
                     </label>
                 </div>
             </div>
+
+
+
         }
 
-
-        <div class="dropzone dropzone-default dropzone-brand dz-clickable" id="kt_dropzone_2">
-            <div class="dropzone-msg dz-message needsclick">
-                <h3 class="dropzone-msg-title">Drop files here or click to upload.</h3>
-                <span class="dropzone-msg-desc">Upload up to 10 files</span>
-            </div>
-        </div>
-
     </div>
+    
+
+    <div class="kt-form__actions">
+        <div class="col-6 offset-3" style="padding-top: 10px;">
+
+        <button id="salam" onclick="submitNextPage(this)" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
+            Submit
+        </button>
+        </div>
+    </div>
+
 </div>
 
 
+<script>
+    function submitNextPage(parameters) {
+        $("#salam").hide(200);
+        $("#btn_next").show(200);
 
+    }
+
+
+
+
+</script>
 
 
