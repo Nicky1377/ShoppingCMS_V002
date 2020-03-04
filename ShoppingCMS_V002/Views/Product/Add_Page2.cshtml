@@ -6,76 +6,214 @@
 
 
 
-    <div class="form-group row">
-        <label class="col-form-label col-lg-3 col-sm-12">type</label>
-        <div class="col-lg-4 col-md-9 col-sm-12">
-            <div class="dropdown bootstrap-select form-control kt-">
-                <select class="form-control kt-selectpicker" data-size="4" tabindex="-98">
+<!-- begin:: div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content" -->
+<!-- begin:: Navar e bala -->
+<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+    <div class="kt-container  kt-container--fluid ">
+        <div class="kt-subheader__main">
+            <div class="kt-subheader__breadcrumbs">
+                <a href="." class="kt-subheader__breadcrumbs-home" style="display: inline-flex;">
+                    <h3 class="kt-subheader__title">داشبورد</h3>
 
-                   
-                        <option value="1">hello</option>
-                   
+                    <span class="kt-subheader__separator kt-hidden"></span>
 
-                </select>
-                <button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="false" title="Mustard">
-                    <div class="filter-option">
-                        <div class="filter-option-inner">
-                            <div class="filter-option-inner-inner"></div>
-                        </div>
-                    </div>
-                </button>
-                <div class="dropdown-menu" style="max-height: 186px; overflow: hidden; min-width: 315px;">
-                    <div class="inner show" role="listbox" id="bs-select-2" tabindex="-1" style="max-height: 160px; overflow-y: auto;" aria-activedescendant="bs-select-2-0">
-                        <ul class="dropdown-menu inner show" role="presentation" style="margin-top: 0px; margin-bottom: 0px;">
-                           
-                                <li class="selected active"><a role="option" class="dropdown-item active selected" id="bs-select-2-0" tabindex="0" aria-setsize="6" aria-posinset="1" aria-selected="true"><span class="text">hello</span></a></li>
 
-                          
-                        </ul>
-                    </div>
-                </div>
+                    <i class="flaticon2-shelter"></i>
+                </a>
+                <span class="kt-subheader__breadcrumbs-separator"></span>
+                <a href="#" class="kt-subheader__breadcrumbs-link">ایجاد محصولات</a>
+
+            </div>
+        </div>
+        <div class="kt-subheader__toolbar">
+            <div class="kt-subheader__wrapper">
             </div>
         </div>
     </div>
+</div>
+
+<!-- end:: Navar e bala -->
+<!-- begin:: div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" -->
+<!-- begin:: Tozihat Optional -->
+<div class="row">
+    <div class="col">
+        <div class="alert alert-light alert-elevate fade show" role="alert">
+            <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
+            <div class="alert-text">
+                توجه داشته باشید که پس از ویرایش دسته بندی اصلی محصولات کلیه محصولات موجود در آن دسته بندی تقییر خواهند کرد
+                <br />
+                <span>
+                    بخش <span class="kt-badge kt-badge--inline kt-badge--warning">غیرفعال کردن</span> تمامی محصولات زیر شاخه آن دسته بندی را از دید کاربران مخفی میکند
+                </span>
+                <br style="height: 10px;" />
+                <span>
+                    بخش <span class="kt-badge kt-badge--inline kt-badge--danger">حذف</span> تمامی محصولات زیرشاخه آن دسته بندی را <span class="kt-badge kt-badge--inline kt-badge--danger">حذف</span> خواهد کرد
+                </span>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end:: Tozihat Optional -->
+<div class="kt-portlet">
+    <div class="kt-portlet__body">
+        <!--begin::Section-->
+        <div class="kt-section">
+
+
+            <div class="form-group row">
+                <label class="col-form-label col-lg-3 col-sm-12">Type</label>
+                <div class=" col-lg-4 col-md-9 col-sm-12">
+                    <select class="form-control kt-select2" id="Select2_A" onchange="return Selectors(this)">
+                        <option value="AK">Alaska</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="CA">California</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-lg-3 col-sm-12">Main</label>
+                <div class=" col-lg-4 col-md-9 col-sm-12">
+                    <select class="form-control kt-select2" id="Select2_B" onchange="return Selectors(this)">
+                        <option value="AK">Alaska</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="CA">California</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label col-lg-3 col-sm-12">Sub</label>
+                <div class=" col-lg-9 col-md-9 col-sm-12">
+                    <select class="form-control kt-select2" id="Select2_C" onchange="return Selectors(this)">
+                        <option value="AK">Alaska</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="CA">S</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-form-label col-lg-3 col-sm-12">Multi Select</label>
+                <div class=" col-lg-9 col-md-9 col-sm-12">
+                    <select class="form-control kt-select2" id="kt_select2_multiple" name="param" multiple="multiple" onchange="return MultSelectorSelect()">
+                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                            <option value="AK" selected>Alaska</option>
+                            <option value="HI">Hawaii</option>
+                        </optgroup>
+                        <optgroup label="Pacific Time Zone">
+                            <option value="CA">California</option>
+                            <option value="NV">Nevada</option>
+                            <option value="OR">Oregon</option>
+                            <option value="WA">Washington</option>
+                        </optgroup>
+                        <optgroup label="Mountain Time Zone">
+                            <option value="AZ">Arizona</option>
+                            <option value="CO">Colorado</option>
+                            <option value="ID">Idaho</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="UT">Utah</option>
+                            <option value="WY">Wyoming</option>
+                        </optgroup>
+                        <optgroup label="Central Time Zone">
+                            <option value="AL">Alabama</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TX">Texas</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="WI">Wisconsin</option>
+                        </optgroup>
+                        <optgroup label="Eastern Time Zone">
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="IN">Indiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="OH">Ohio</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WV">West Virginia</option>
+                        </optgroup>
+                    </select>
+                    <div style="display: block;" class="invalid-feedback">Shucks, check the formatting of that and try again.</div>
+                </div>
+
+            </div>
 
 
 
 
 
 
-    <script>
-        function changeFunc(id) {
-            if (id == 'Type') {
-                var PostJson = {
-                    'value': document.getElementById("datatype").value,
-                    'id': id
-                };
-                document.getElementById("Main").disabled = false;
-            } else if (id == 'Main') {
-                var PostJson = {
-                    'value': document.getElementById("Main").value,
-                    'id': id
-                };
-                document.getElementById("Sub").disabled = false;
-            } else if (id == 'Sub') {
-                var PostJson = {
-                    'value': document.getElementById("Sub").value,
-                    'id': id
-                };
-            }
-            var AddressToSend = "get_Product";
-            $.ajax({
-                url: AddressToSend,
-                type: "post",
-                data: JSON.stringify(PostJson),
-                contentType: "application/json; charset=utf-8",
-                success: function (response) {
 
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(textStatus);
-                }
-            });
-            return false;
+            <!--begin::Alerts-->
+            <div id="SuccesAlertEdit" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="">
+                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="alert-text">با موفقیت ثبت شد!</div>
+            </div>
+            <div id="ERRAlertEdit" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="">
+                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+            </div>
+            <!--End::Alerts-->
+
+
+        </div>
+    </div>
+    <div class="kt-portlet__foot">
+        <div class="kt-form__actions">
+            <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
+                <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType('edit','')">ثبت</button>
+            </div>
+
+        </div>
+    </div>
+    <!--end::Form-->
+</div>
+
+
+
+
+
+<!-- end:: div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" -->
+<!-- end:: div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content" -->
+<!--begin::Page Scripts(used by this page) -->
+<script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
+
+<script>
+        $(document).ready(function () {
+            $("#Select2_A").select2();
+            $("#Select2_B").select2();
+            $("#Select2_C").select2();
+            $("#kt_select2_multiple").select2();
+        });
+        function MultSelectorSelect() {
+            console.log("Selected value is: " + $("#kt_select2_multiple").val());
         }
-    </script>
+        function Selectors(ItemS) {
+            console.log("Selected value is: " + $(ItemS).val());
+        }
+</script>
+<!--end::Page Scripts -->
