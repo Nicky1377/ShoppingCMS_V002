@@ -95,11 +95,10 @@
                 </tbody>
             </table>
             <!--End::Table-->
-
-            @foreach (var item in Model)
-            {
-                @Html.Partial("_OptionValue", item);
-            }
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_OptionValue", item);
+        }
 
         </div>
     </div>
@@ -118,23 +117,16 @@
     <script>
         $(document).ready(function () {
             //========================================Begin :: init
-           
-           
-            foreach(var item in @Model)
-        {
-            var kkk = "#tshpSelect2-" + item.Id;
-            console.log("kkk : " + kkk);
-            $("#tshpSelect2-"+item.Id).select2();
-             $("#multyselectSuccess-"+item.Id).hide();
-            $("#multySelectError-"+item.Id).hide();
-            $("#multiSelectLoading-" + item.Id).hide();
-            $("#multiActionSuccessTXT-" + item.Id).hide();
-            $("#multiActionFailTXT-"+item.Id).hide();
-        }
+            $("#kt_select2_page3").select2();
+            $("#multyselectSuccess").hide();
+            $("#multySelectError").hide();
+            $("#multiSelectLoading").hide();
+            $("#multiActionSuccessTXT").hide();
+            $("#multiActionFailTXT").hide();
             //=========================================End :: init
 
 
-            $('.tshpSelect2').on('select2:select', function (e) {
+            $('#kt_select2_page3').on('select2:select', function (e) {
                 //inja oon itemi ke select shode bara ADD ro migire
                 var data = e.params.data;
                 console.log("Selected value is: " + data.id);
@@ -153,7 +145,7 @@
                 $("#multiActionSuccessTXT").show(500);
 
             });
-            $('.tshpSelect2').on('select2:unselect', function (e) {
+            $('#kt_select2_page3').on('select2:unselect', function (e) {
                 //inja oon itemi ke select shode bara DELETE ro migire
                 var data = e.params.data;
                 console.log("UnSelected value is: " + data.id);
@@ -176,8 +168,8 @@
             });
 
         });
-        function MultSelectorSelect(objSelect) {
-            console.log("All Selected value is: " + $(objSelect).val());
+        function MultSelectorSelect() {
+            console.log("All Selected value is: " + $("#kt_select2_page3").val());
 
         }
 

@@ -3,7 +3,7 @@
     <div id="Item_Id" style="display:none">@Model.Id</div>
     <label>@Model.Title</label>
     <div class="input-group" style="width: 100%">
-        <select class="form-control kt-select2 tshpSelect2" style="width: 90%" id="tshpSelect2-@Model.Id" name="param" multiple="multiple" onchange="return MultSelectorSelect(this)">
+        <select class="form-control kt-select2" style="width: 90%" id="kt_select2_page3-@Model.Id" name="param" multiple="multiple" onchange="return MultSelectorSelect()">
             @foreach (var item in Model.Item_List)
             {
                 <option value="@item.Id">@item.Value</option>
@@ -24,3 +24,64 @@
     <div class="valid-feedback" style="display: block" id="multiActionSuccessTXT-@Model.Id">با موفقیت اضافه شد!</div>
     <div class="invalid-feedback" style="display: block" id="multiActionFailTXT-@Model.Id">عدم توانایی در ذخیره داده!</div>
 </div>
+
+<script>
+   $(document).ready(function () {
+            //========================================Begin :: init
+            $("#kt_select2_page3-@Model.Id").select2();
+            $("#multyselectSuccess-@Model.Id").hide();
+            $("#multySelectError-@Model.Id").hide();
+            $("#multiSelectLoading-@Model.Id").hide();
+            $("#multiActionSuccessTXT-@Model.Id").hide();
+            $("#multiActionFailTXT-@Model.Id").hide();
+            //=========================================End :: init
+
+
+            $('#kt_select2_page3-@Model.Id').on('select2:select', function (e) {
+                //inja oon itemi ke select shode bara ADD ro migire
+                var data = e.params.data;
+                console.log("Selected value is: " + data.id);
+                console.log("Selected Text is: " + data.text);
+                //END
+                $("#multyselectSuccess-@Model.Id").hide();
+                $("#multySelectError-@Model.Id").hide();
+                $("#multiSelectLoading-@Model.Id").hide();
+                $("#multiActionSuccessTXT-@Model.Id").hide();
+                $("#multiActionFailTXT-@Model.Id").hide();
+                $("#multiSelectLoading-@Model.Id").show();
+                //ye AjaxMizani
+                //if dorost add shod ya hazf shod
+                $("#multiSelectLoading-@Model.Id").hide(1000);
+                $("#multyselectSuccess-@Model.Id").show(500);
+                $("#multiActionSuccessTXT-@Model.Id").show(500);
+
+            });
+            $('#kt_select2_page3-@Model.Id').on('select2:unselect', function (e) {
+                //inja oon itemi ke select shode bara DELETE ro migire
+                var data = e.params.data;
+                console.log("UnSelected value is: " + data.id);
+                console.log("UnSelected Text is: " + data.text);
+
+                //END
+                $("#multyselectSuccess-@Model.Id").hide();
+                $("#multySelectError-@Model.Id").hide();
+                $("#multiSelectLoading-@Model.Id").hide();
+                $("#multiActionSuccessTXT-@Model.Id").hide();
+                $("#multiActionFailTXT-@Model.Id").hide();
+                $("#multiSelectLoading-@Model.Id").show();
+                //ye AjaxMizani
+                //if dorost add shod ya hazf shod
+                $("#multiSelectLoading-@Model.Id").hide(1000);
+                $("#multySelectError-@Model.Id").show(500);
+                $("#multiActionFailTXT-@Model.Id").show(500);
+
+
+            });
+
+        });
+        function MultSelectorSelect() {
+            console.log("All Selected value is: " + $("#kt_select2_page3-@Model.Id").val());
+
+        }
+
+    </script>
