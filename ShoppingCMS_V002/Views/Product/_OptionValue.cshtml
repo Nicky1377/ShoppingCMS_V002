@@ -1,0 +1,26 @@
+﻿@model ShoppingCMS_V002.ModelViews.AddProductModelV_3
+<div class="form-group form-group-marginless">
+    <div id="Item_Id" style="display:none">@Model.Id</div>
+    <label>@Model.Title</label>
+    <div class="input-group" style="width: 100%">
+        <select class="form-control kt-select2 tshpSelect2" style="width: 90%" id="tshpSelect2-@Model.Id" name="param" multiple="multiple" onchange="return MultSelectorSelect(this)">
+            @foreach (var item in Model.Item_List)
+            {
+                <option value="@item.Id">@item.Value</option>
+            }
+
+        </select>
+        <div class="input-group-append" style="width:10%">
+            <span class="input-group-text bg-success " id="multyselectSuccess-@Model.Id">
+                <i class="la la-thumbs-up text-white"></i>
+            </span>
+            <span class="input-group-text bg-danger " id="multySelectError-@Model.Id">
+                <i class="la la-thumbs-down text-white"></i>
+            </span>
+            <button id="multiSelectLoading-@Model.Id" class="input-group-text btn btn-outline-dark btn-icon kt-spinner kt-spinner--center kt-spinner--sm kt-spinner--danger"></button>
+
+        </div>
+    </div>
+    <div class="valid-feedback" style="display: block" id="multiActionSuccessTXT-@Model.Id">با موفقیت اضافه شد!</div>
+    <div class="invalid-feedback" style="display: block" id="multiActionFailTXT-@Model.Id">عدم توانایی در ذخیره داده!</div>
+</div>

@@ -7,32 +7,6 @@
 
 
 <!-- begin:: div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content" -->
-<!-- begin:: Navar e bala -->
-<div class="kt-subheader   kt-grid__item" id="kt_subheader">
-    <div class="kt-container  kt-container--fluid ">
-        <div class="kt-subheader__main">
-            <div class="kt-subheader__breadcrumbs">
-                <a href="." class="kt-subheader__breadcrumbs-home" style="display: inline-flex;">
-                    <h3 class="kt-subheader__title">داشبورد</h3>
-
-                    <span class="kt-subheader__separator kt-hidden"></span>
-
-
-                    <i class="flaticon2-shelter"></i>
-                </a>
-                <span class="kt-subheader__breadcrumbs-separator"></span>
-                <a href="#" class="kt-subheader__breadcrumbs-link">ایجاد محصولات</a>
-
-            </div>
-        </div>
-        <div class="kt-subheader__toolbar">
-            <div class="kt-subheader__wrapper">
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- end:: Navar e bala -->
 <!-- begin:: div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" -->
 <!-- begin:: Tozihat Optional -->
 <div class="row">
@@ -40,15 +14,7 @@
         <div class="alert alert-light alert-elevate fade show" role="alert">
             <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
             <div class="alert-text">
-                توجه داشته باشید که پس از ویرایش دسته بندی اصلی محصولات کلیه محصولات موجود در آن دسته بندی تقییر خواهند کرد
-                <br />
-                <span>
-                    بخش <span class="kt-badge kt-badge--inline kt-badge--warning">غیرفعال کردن</span> تمامی محصولات زیر شاخه آن دسته بندی را از دید کاربران مخفی میکند
-                </span>
-                <br style="height: 10px;" />
-                <span>
-                    بخش <span class="kt-badge kt-badge--inline kt-badge--danger">حذف</span> تمامی محصولات زیرشاخه آن دسته بندی را <span class="kt-badge kt-badge--inline kt-badge--danger">حذف</span> خواهد کرد
-                </span>
+                توجه داشته باشید که در قسمت  <u><b>ویژگی های محصولات</b></u> تنها مواردی را انتخاب کنید که برروی    قیمت گذاری شما موثر هستند.
 
             </div>
         </div>
@@ -62,147 +28,92 @@
 
 
             <div class="form-group row">
-                <label class="col-form-label col-lg-3 col-sm-12">Type</label>
-                <div class=" col-lg-9 col-md-9 col-sm-12">
-                    <select class="form-control kt-select2" id="Select2_A" onchange="return Selectors(this)" style="width: 100%;"> 
-                        <option value="AK">Alaska</option>
-                        <option value="HI">Hawaii</option>
-                        <option value="CA">California</option>
+                <label class="col-form-label col-lg-3 col-sm-12">سر دسته ی محصولات</label>
+                <div class=" col-lg-6 col-md-9 col-sm-12">
+                    <select class="form-control kt-select2" id="Select2_A" onchange="return Select_Type(this)" style="width: 100%;">
+                        <option value=0 selected disabled hidden>انتخاب کنید</option>
+                        @foreach (var item in Model.Types)
+                        {
+                            <option value=@item.Id>@item.Value</option>
+                        }
                     </select>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-form-label col-lg-3 col-sm-12">Main</label>
-                <div class=" col-lg-9 col-md-9 col-sm-12">
-                    <select class="form-control kt-select2" id="Select2_B" onchange="return Selectors(this)" style="width: 100%;">
-                        <option value="AK">Alaska</option>
-                        <option value="HI">Hawaii</option>
-                        <option value="CA">California</option>
+                <label class="col-form-label col-lg-3 col-sm-12">گروه اصلی محصولات</label>
+                <div class=" col-lg-6 col-md-9 col-sm-12">
+                    <select disabled class="form-control kt-select2" id="Select2_B" onchange="return Select_Main(this)" style="width: 100%;">
+                        <option value=0 selected disabled hidden>انتخاب کنید</option>
+
                     </select>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-form-label col-lg-3 col-sm-12">Sub</label>
-                <div class=" col-lg-9 col-md-9 col-sm-12">
-                    <select class="form-control kt-select2" id="Select2_C" onchange="return Selectors(this)" style="width: 100%;">
-                        <option value="AK">Alaska</option>
-                        <option value="HI">Hawaii</option>
-                        <option value="CA">S</option>
+                <label class="col-form-label col-lg-3 col-sm-12">گروه محصولات</label>
+                <div class=" col-lg-6 col-md-9 col-sm-12">
+                    <select disabled class="form-control kt-select2" id="Select2_C" onchange="return Select_Sub(this)" style="width: 100%;">
+                        <option value=0 selected disabled hidden>انتخاب کنید</option>
+
                     </select>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-form-label col-lg-3 col-sm-12">Multi Select</label>
+                <label class="col-form-label col-lg-3 col-sm-12">ویژگی های محصولات</label>
                 <div class=" col-lg-9 col-md-9 col-sm-12">
-                    <select class="form-control kt-select2" id="kt_select2_multiple" name="param" multiple="multiple" onchange="return MultSelectorSelect()">
-                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                            <option value="AK" selected>Alaska</option>
-                            <option value="HI">Hawaii</option>
-                        </optgroup>
-                        <optgroup label="Pacific Time Zone">
-                            <option value="CA">California</option>
-                            <option value="NV">Nevada</option>
-                            <option value="OR">Oregon</option>
-                            <option value="WA">Washington</option>
-                        </optgroup>
-                        <optgroup label="Mountain Time Zone">
-                            <option value="AZ">Arizona</option>
-                            <option value="CO">Colorado</option>
-                            <option value="ID">Idaho</option>
-                            <option value="MT">Montana</option>
-                            <option value="NE">Nebraska</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="UT">Utah</option>
-                            <option value="WY">Wyoming</option>
-                        </optgroup>
-                        <optgroup label="Central Time Zone">
-                            <option value="AL">Alabama</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TX">Texas</option>
-                            <option value="TN">Tennessee</option>
-                            <option value="WI">Wisconsin</option>
-                        </optgroup>
-                        <optgroup label="Eastern Time Zone">
-                            <option value="CT">Connecticut</option>
-                            <option value="DE">Delaware</option>
-                            <option value="FL">Florida</option>
-                            <option value="GA">Georgia</option>
-                            <option value="IN">Indiana</option>
-                            <option value="ME">Maine</option>
-                            <option value="MD">Maryland</option>
-                            <option value="MA">Massachusetts</option>
-                            <option value="MI">Michigan</option>
-                            <option value="NH">New Hampshire</option>
-                            <option value="NJ">New Jersey</option>
-                            <option value="NY">New York</option>
-                            <option value="NC">North Carolina</option>
-                            <option value="OH">Ohio</option>
-                            <option value="PA">Pennsylvania</option>
-                            <option value="RI">Rhode Island</option>
-                            <option value="SC">South Carolina</option>
-                            <option value="VT">Vermont</option>
-                            <option value="VA">Virginia</option>
-                            <option value="WV">West Virginia</option>
-                        </optgroup>
+                    <select class="form-control kt-select2" id="kt_select2_multiple" name="param" multiple="multiple" onchange="return MultSelectorSelect()" style="width: 100%;">
+                        <option value=0 disabled selected hidden>انتخاب کنید</option>
+                        <option value=1  selected hidden>انتخاب کنید</option>
+                        <option value=2  selected hidden>انتخاب کنید</option>
+
+
                     </select>
-                    <div style="display: block;" class="invalid-feedback">Shucks, check the formatting of that and try again.</div>
+                    @*<div style="display: block;" class="invalid-feedback">Shucks, check the formatting of that and try again.</div>*@
+                   </div>
+
                 </div>
 
+
+
+
+
+
+
+                <!--begin::Alerts-->
+                <div id="SuccesAlertEdit" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                    <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                    <div class="alert-text">با موفقیت ثبت شد!</div>
+                </div>
+                <div id="ERRAlertEdit" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                    <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                    <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+                </div>
+                <!--End::Alerts-->
+
+
             </div>
-
-
-
-
-
-
-
-            <!--begin::Alerts-->
-            <div id="SuccesAlertEdit" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="">
-                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                <div class="alert-text">با موفقیت ثبت شد!</div>
-            </div>
-            <div id="ERRAlertEdit" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="">
-                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
-            </div>
-            <!--End::Alerts-->
-
-
         </div>
-    </div>
-    <div class="kt-portlet__foot">
-        <div class="kt-form__actions">
-            <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
-                <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType('edit','')">ثبت</button>
+        <div class="kt-portlet__foot">
+            <div class="kt-form__actions">
+                <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
+                    <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType2()">ثبت</button>
+                </div>
+
             </div>
-
         </div>
+        <!--end::Form-->
     </div>
-    <!--end::Form-->
-</div>
 
 
 
 
 
-<!-- end:: div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" -->
-<!-- end:: div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content" -->
-<!--begin::Page Scripts(used by this page) -->
-<script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
+    <!-- end:: div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" -->
+    <!-- end:: div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content" -->
+    <!--begin::Page Scripts(used by this page) -->
+    <script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
 
-<script>
+    <script>
         $(document).ready(function () {
             $("#Select2_A").select2();
             $("#Select2_B").select2();
@@ -210,10 +121,137 @@
             $("#kt_select2_multiple").select2();
         });
         function MultSelectorSelect() {
-            console.log("Selected value is: " + $("#kt_select2_multiple").val());
+            console.log("SubKey Selected value is: " + $("#kt_select2_multiple").val());
         }
-        function Selectors(ItemS) {
-            console.log("Selected value is: " + $(ItemS).val());
+        function Select_Type(ItemS) {
+            console.log("Type Selected value is: " + $(ItemS).val());
+            $('#Select2_B').prop("disabled", false);
+            $.ajax({
+                url: "/Product/DropListFiller",
+                type: "post",
+                data: { "drop": "MainCat", "id": $(ItemS).val() },
+                success: function (response) {
+
+                    var token = response;
+                    var s = "<option value=0 selected >انتخاب کنید</option>";
+                    for (var i = 0; i < token.length; i++) {
+                        s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
+                    }
+
+                    document.getElementById('Select2_B').innerHTML = s;
+
+                    //alert(token[0].Value);
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
         }
-</script>
-<!--end::Page Scripts -->
+
+        function Select_Main(ItemS) {
+            console.log("Main Selected value is: " + $(ItemS).val());
+
+            $('#Select2_C').prop("disabled", false);
+            $.ajax({
+                url: "/Product/DropListFiller",
+                type: "post",
+                data: { "drop": "SubCat", "id": $(ItemS).val() },
+                success: function (response) {
+
+                    var token = response;
+                    var s = "<option value=0 selected>انتخاب کنید</option>";
+                    for (var i = 0; i < token.length; i++) {
+                        s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
+                    }
+
+                    document.getElementById('Select2_C').innerHTML = s;
+         
+                    //alert(token[0].Value);
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        }
+
+        function Select_Sub(ItemS) {
+            console.log("Sub Selected value is: " + $(ItemS).val());
+
+            $('#kt_select2_multiple').prop("disabled", false);
+            $.ajax({
+                url: "/Product/DropListFiller",
+                type: "post",
+                data: { "drop": "SubCat_Key", "id": $(ItemS).val() },
+                success: function (response) {
+
+                    var token = response;
+                    var s = "<option value=0 selected disabled hidden>انتخاب کنید</option>";
+                    s += "<optgroup label=" + $("#Select2_C option:selected").text() + ">";
+                  //  alert($("#Select2_C option:selected").text());
+                    for (var i = 0; i < token.length; i++) {
+
+                        s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
+                    }
+                    s += "</optgroup>"
+                    document.getElementById('kt_select2_multiple').innerHTML = s;
+
+                    //alert(token[0].Value);
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+
+
+        }
+
+
+        function SubmitedType2() {
+            
+            if ($("#Select2_A option:selected").val() === '0') {
+                $("#ERRAlertEdit").show(300);
+            } else if ($("#Select2_B option:selected").val() === '0') {
+                $("#ERRAlertEdit").show(300);
+            } else if ($("#Select2_C option:selected").val() === '0') {
+                $("#ERRAlertEdit").show(300);
+            } else if ($("#kt_select2_multiple").val() == "") {
+                $("#ERRAlertEdit").show(300);
+            } else {
+
+                var PostJson = {
+                        'Type': $("#Select2_A option:selected").val(),
+                        'Main': $("#Select2_B option:selected").val(),
+                        'id': '@Model.Id',
+                        'Sub': $("#Select2_C option:selected").val(),
+                        'SubKey':$("#kt_select2_multiple").val()
+                };
+
+                $.ajax({
+                    url: '/Product/Save_Step2',
+                    type: "post",
+                    data: JSON.stringify(PostJson),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        $("#ERRAlertEdit").hide(300);
+                        $("#SuccesAlertEdit").show(300);
+                        //alert(response);
+                         $('#step3').load("https://localhost:44336/Product/Add_Page3?Ids="+ $("#kt_select2_multiple").val());
+                        
+                        alert("https://localhost:44336/Product/Add_Page3?Ids="+ $("#kt_select2_multiple").val());
+                        
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+            }
+
+        }
+
+
+
+    </script>
+    <!--end::Page Scripts -->

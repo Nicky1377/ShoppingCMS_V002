@@ -1,53 +1,186 @@
-﻿
+﻿@using ShoppingCMS_V002.ModelViews
+@model List<AddProductModelV_3>
 @{
     ViewBag.Title = "Add_Page3";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="kt-portlet">
+    <div class="kt-portlet__body">
+        <!--begin::Section-->
+        <div class="kt-section">
 
-<h2>Add_Page3</h2>
 
-<div class="form-group row">
-    <label class="col-form-label col-lg-3 col-sm-12">Options Size</label>
-    <div class="col-lg-4 col-md-9 col-sm-12">
-        <div class="dropdown bootstrap-select form-control kt- dropup">
-            <select class="form-control kt-selectpicker" data-size="4" tabindex="-98">
-                <option>option1</option>
-                <option>option2</option>
-                <option>option3</option>
-                <option>option4</option>
-                <option>option5</option>
-                <option>option6</option>
-            </select><button type="button" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="false" title="option1"><div class="filter-option"><div class="filter-option-inner"><div class="filter-option-inner-inner">option1</div></div> </div></button>
-            <div class="dropdown-menu" style="max-height: 186px; overflow: hidden; min-width: 315px;">
-                <div class="inner show" role="listbox" id="bs-select-2" tabindex="-1" style="max-height: 160px; overflow-y: auto;" aria-activedescendant="bs-select-2-0">
-                <ul class="dropdown-menu inner show" role="presentation" style="margin-top: 0px; margin-bottom: 0px;">
-                <li class="selected active">
-                    <a role="option" class="dropdown-item active selected" id="bs-select-2-0" tabindex="0" aria-setsize="6" aria-posinset="1" aria-selected="true"><span class="text">Mustard</span>
-                    </a>
-                    </li>
-                <li>
-                    <a role="option" class="dropdown-item" id="bs-select-2-1" tabindex="0" aria-setsize="6" aria-posinset="2"><span class="text">Ketchup</span>
-                        </a>
-                    </li>
-                <li>
-                    <a role="option" class="dropdown-item" id="bs-select-2-2" tabindex="0" aria-setsize="6" aria-posinset="3"><span class="text">Relish</span>
-                        </a>
-                    </li>
-                <li>
-                    <a role="option" class="dropdown-item" id="bs-select-2-3" tabindex="0" aria-setsize="6" aria-posinset="4"><span class="text">Tent</span>
-                        </a>
-                    </li>
-                <li>
-                    <a role="option" class="dropdown-item" id="bs-select-2-4" tabindex="0" aria-setsize="6" aria-posinset="5"><span class="text">Flashlight</span>
-                        </a>
-                    </li>
-                <li>
-                    <a role="option" class="dropdown-item" id="bs-select-2-5" tabindex="0"><span class="text">Toilet Paper</span>
-                        </a>
-                    </li>
-                    </ul>
+
+            <div class="form-group ">
+                <label>ثبت جزئیات</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Key :</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with checkbox">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Value : </span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with checkbox">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-success" type="button">ثبت!</button>
+                    </div>
                 </div>
             </div>
+
+            <div class="form-group " style="display:none">
+                <label>ویرایش جزئیات</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Key :</span>
+                    </div>
+                    <input type="text" class="form-control">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Value : </span>
+                    </div>
+                    <input type="text" class="form-control">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-warning" type="button">اعمال تغییرات!</button>
+                    </div>
+                </div>
+            </div>
+            <!--begin::Alerts-->
+            <div id="SuccesAlertEdit" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="alert-text">با موفقیت ثبت شد!</div>
+            </div>
+            <div id="ERRAlertEdit" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+            </div>
+            <!--End::Alerts-->
+            <!--begin::Table-->
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Key</th>
+                        <th>Value</th>
+                        <th>وضعیت</th>
+                        <th>اقدامات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Jhon</td>
+                        <td>Stone</td>
+                        <td>
+                            <span class="kt-badge kt-badge--inline kt-badge--success">فعال</span>
+                            <span class="kt-badge kt-badge--inline kt-badge--danger">حذف شده</span>
+                            <span class="kt-badge kt-badge--inline kt-badge--warning">غیر فعال</span>
+                        </td>
+                        <td>
+
+
+
+
+
+
+                            <a class="kt-badge kt-badge--inline kt-badge--success" style="cursor: pointer;" href="">فعال</a>
+                            <a class="kt-badge kt-badge--inline kt-badge--danger" style="cursor: pointer;" href="">حذف شده</a>
+                            <a class="kt-badge kt-badge--inline kt-badge--warning" style="cursor: pointer;" href="">غیر فعال</a>
+
+
+
+
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <!--End::Table-->
+
+            @foreach (var item in Model)
+            {
+                @Html.Partial("_OptionValue", item);
+            }
+
         </div>
     </div>
+    <div class="kt-portlet__foot">
+        <div class="kt-form__actions">
+            <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
+                <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType('edit','')">ثبت</button>
+            </div>
+
+        </div>
+    </div>
+    <!--end::Form-->
+    <!--begin::Page Scripts(used by this page) -->
+
+
+    <script>
+        $(document).ready(function () {
+            //========================================Begin :: init
+           
+           
+            foreach(var item in @Model)
+        {
+            var kkk = "#tshpSelect2-" + item.Id;
+            console.log("kkk : " + kkk);
+            $("#tshpSelect2-"+item.Id).select2();
+             $("#multyselectSuccess-"+item.Id).hide();
+            $("#multySelectError-"+item.Id).hide();
+            $("#multiSelectLoading-" + item.Id).hide();
+            $("#multiActionSuccessTXT-" + item.Id).hide();
+            $("#multiActionFailTXT-"+item.Id).hide();
+        }
+            //=========================================End :: init
+
+
+            $('.tshpSelect2').on('select2:select', function (e) {
+                //inja oon itemi ke select shode bara ADD ro migire
+                var data = e.params.data;
+                console.log("Selected value is: " + data.id);
+                console.log("Selected Text is: " + data.text);
+                //END
+                $("#multyselectSuccess").hide();
+                $("#multySelectError").hide();
+                $("#multiSelectLoading").hide();
+                $("#multiActionSuccessTXT").hide();
+                $("#multiActionFailTXT").hide();
+                $("#multiSelectLoading").show();
+                //ye AjaxMizani
+                //if dorost add shod ya hazf shod
+                $("#multiSelectLoading").hide(1000);
+                $("#multyselectSuccess").show(500);
+                $("#multiActionSuccessTXT").show(500);
+
+            });
+            $('.tshpSelect2').on('select2:unselect', function (e) {
+                //inja oon itemi ke select shode bara DELETE ro migire
+                var data = e.params.data;
+                console.log("UnSelected value is: " + data.id);
+                console.log("UnSelected Text is: " + data.text);
+
+                //END
+                $("#multyselectSuccess").hide();
+                $("#multySelectError").hide();
+                $("#multiSelectLoading").hide();
+                $("#multiActionSuccessTXT").hide();
+                $("#multiActionFailTXT").hide();
+                $("#multiSelectLoading").show();
+                //ye AjaxMizani
+                //if dorost add shod ya hazf shod
+                $("#multiSelectLoading").hide(1000);
+                $("#multySelectError").show(500);
+                $("#multiActionFailTXT").show(500);
+
+
+            });
+
+        });
+        function MultSelectorSelect(objSelect) {
+            console.log("All Selected value is: " + $(objSelect).val());
+
+        }
+
+    </script>
+    <!--end::Page Scripts -->
 </div>

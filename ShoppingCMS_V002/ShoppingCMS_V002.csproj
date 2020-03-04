@@ -134,7 +134,6 @@
     <Compile Include="Models\AddProduct_P1.cs" />
     <Compile Include="Models\AddProduct_P2.cs" />
     <Compile Include="Models\companies.cs" />
-    <Compile Include="Models\DropDownModel.cs" />
     <Compile Include="Models\Id_ValueModel.cs" />
     <Compile Include="Models\MainCategory.cs" />
     <Compile Include="Models\new_shop.cs" />
@@ -148,6 +147,7 @@
     <Compile Include="Models\type.cs" />
     <Compile Include="Models\TypeASPX.cs" />
     <Compile Include="ModelViews\AddProductModelV_2.cs" />
+    <Compile Include="ModelViews\AddProductModelV_3.cs" />
     <Compile Include="ModelViews\ProductListModelView.cs" />
     <Compile Include="OtherClasses\ModelFiller.cs" />
     <Compile Include="OtherClasses\SearchClass.cs" />
@@ -491,6 +491,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="SQL\ESF98\11\PandaMarketCMS.sql" />
+    <Content Include="SQL\ESF98\14\PandaMarketCMS.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -529,6 +530,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\MS\About.cshtml" />
     <Content Include="Views\MS\tab_About.cshtml" />
+    <Content Include="Views\Product\_OptionValue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

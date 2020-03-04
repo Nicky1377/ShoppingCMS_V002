@@ -86,34 +86,66 @@ namespace ShoppingCMS_V002.OtherClasses
 
 
 
-        public DropDownModel DropFiller(string drop , int id=0)
+        public List<Id_ValueModel> DropFiller(string drop , int id=0)
         {
             string query = "";
             if (drop == "Type")
             {
-                query = "SELECT [id_PT],[PTname]FROM [tbl_Product_Type] WHERE ISDelete=0 AND ISDESABLED=0";
+                query = "SELECT [id_PT] as id ,[PTname] as [name] FROM [tbl_Product_Type] WHERE ISDelete=0 AND ISDESABLED=0";
 
             }
             else if (drop == "MainCat")
             {
                 if (id != 0)
                 {
-                    query = "SELECT [id_MC],[MCName]FROM[tbl_Product_MainCategory] WHERE ISDelete=0 AND ISDESABLED=0 AND id_PT=" + id;
+                    query = "SELECT [id_MC] as id,[MCName] as [name] FROM[tbl_Product_MainCategory] WHERE ISDelete=0 AND ISDESABLED=0 AND id_PT=" + id;
                 }
             }
             else if (drop == "SubCat")
             {
                 if (id != 0)
                 {
-                    query = "SELECT [id_SC],[SCName]FROM [tbl_Product_SubCategory]WHERE ISDelete=0 AND ISDESABLED =0 AND id_MC=" + id;
+                    query = "SELECT [id_SC] as id,[SCName] as [name] FROM [tbl_Product_SubCategory]WHERE ISDelete=0 AND ISDESABLED =0 AND id_MC=" + id;
                 }
             }
+            else if (drop == "SubCat_Key")
+            {
+                if (id != 0)
+                {
+                    query = "SELECT [id_SCOK] as id,[SCOKName] as [name] FROM[tbl_Product_SubCategoryOptionKey]WHERE ISDelete=0 AND [ISDESABLED]=0 AND [id_SC]=" + id;
+                }
+            }
+            else if (drop == "SubCat_Value")
+            {
+                if (id != 0)
+                {
+                    query = "SELECT [id_SCOV] as id,[SCOVValueName] as [name] FROM[tbl_Product_SubCategoryOptionValue]WHERE[id_SCOK] = " + id;
+                }
+            }
+            List<Id_ValueModel> result = new List<Id_ValueModel>();
+            if (!query.Equals(""))
+            {
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+
+                DataTable dt = db.Select(query);
 
 
 
-
-            DropDownModel result = new DropDownModel();
-
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    var maodel = new Id_ValueModel()
+                    {
+                        Id = Convert.ToInt32(dt.Rows[i]["id"]),
+                        Value = dt.Rows[i]["name"].ToString()
+                    };
+                    result.Add(maodel);
+                }
+            }
+            else
+            {
+                result.Add(new Id_ValueModel { Id = 0, Value = "انتخاب کنید" });
+            }
 
             return result;
         }
