@@ -118,59 +118,60 @@
     <script>
         $(document).ready(function () {
             //========================================Begin :: init
-           
-           
-            foreach(var item in @Model)
-        {
-            var kkk = "#tshpSelect2-" + item.Id;
-            console.log("kkk : " + kkk);
-            $("#tshpSelect2-"+item.Id).select2();
-             $("#multyselectSuccess-"+item.Id).hide();
-            $("#multySelectError-"+item.Id).hide();
-            $("#multiSelectLoading-" + item.Id).hide();
-            $("#multiActionSuccessTXT-" + item.Id).hide();
-            $("#multiActionFailTXT-"+item.Id).hide();
-        }
+
+
+
+
+            $("select[name='tshpSelect2']").select2();
+            $(".multyselectSuccess").hide();
+            $(".multySelectError").hide();
+            $(".multiSelectLoading").hide();
+            $(".multiActionSuccessTXT").hide();
+            $(".multiActionFailTXT").hide();
+
             //=========================================End :: init
 
 
             $('.tshpSelect2').on('select2:select', function (e) {
                 //inja oon itemi ke select shode bara ADD ro migire
                 var data = e.params.data;
+                var idSelected = e.currentTarget.id.replace("tshpSelect2-","");
+                console.log("e.currentTarget.id : "+e.currentTarget.id);
                 console.log("Selected value is: " + data.id);
                 console.log("Selected Text is: " + data.text);
                 //END
-                $("#multyselectSuccess").hide();
-                $("#multySelectError").hide();
-                $("#multiSelectLoading").hide();
-                $("#multiActionSuccessTXT").hide();
-                $("#multiActionFailTXT").hide();
-                $("#multiSelectLoading").show();
+                $("#multyselectSuccess-"+idSelected).hide();
+                $("#multySelectError-"+idSelected).hide();
+                $("#multiSelectLoading-"+idSelected).hide();
+                $("#multiActionSuccessTXT-"+idSelected).hide();
+                $("#multiActionFailTXT-"+idSelected).hide();
+                $("#multiSelectLoading-"+idSelected).show();
                 //ye AjaxMizani
                 //if dorost add shod ya hazf shod
-                $("#multiSelectLoading").hide(1000);
-                $("#multyselectSuccess").show(500);
-                $("#multiActionSuccessTXT").show(500);
+                $("#multiSelectLoading-"+idSelected).hide(1000);
+                $("#multyselectSuccess-"+idSelected).show(500);
+                $("#multiActionSuccessTXT-"+idSelected).show(500);
 
             });
             $('.tshpSelect2').on('select2:unselect', function (e) {
                 //inja oon itemi ke select shode bara DELETE ro migire
                 var data = e.params.data;
+                var idSelected = e.currentTarget.id.replace("tshpSelect2-","");
                 console.log("UnSelected value is: " + data.id);
                 console.log("UnSelected Text is: " + data.text);
 
                 //END
-                $("#multyselectSuccess").hide();
-                $("#multySelectError").hide();
-                $("#multiSelectLoading").hide();
-                $("#multiActionSuccessTXT").hide();
-                $("#multiActionFailTXT").hide();
-                $("#multiSelectLoading").show();
+                $("#multyselectSuccess-"+idSelected).hide();
+                $("#multySelectError-"+idSelected).hide();
+                $("#multiSelectLoading-"+idSelected).hide();
+                $("#multiActionSuccessTXT-"+idSelected).hide();
+                $("#multiActionFailTXT-"+idSelected).hide();
+                $("#multiSelectLoading-"+idSelected).show();
                 //ye AjaxMizani
                 //if dorost add shod ya hazf shod
-                $("#multiSelectLoading").hide(1000);
-                $("#multySelectError").show(500);
-                $("#multiActionFailTXT").show(500);
+                $("#multiSelectLoading-"+idSelected).hide(1000);
+                $("#multySelectError-"+idSelected).show(500);
+                $("#multiActionFailTXT-"+idSelected).show(500);
 
 
             });
