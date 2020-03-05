@@ -1,105 +1,70 @@
-﻿@using ShoppingCMS_V002.ModelViews
-@model List<AddProductModelV_3>
+﻿@model ShoppingCMS_V002.ModelViews.AddProductModelV_3
+
 @{
     ViewBag.Title = "Add_Page3";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
+
 <div class="kt-portlet">
     <div class="kt-portlet__body">
         <!--begin::Section-->
         <div class="kt-section">
 
+            @foreach (var item in Model.Item_List)
+            {
+                @Html.Partial("_OptionValue", item);
+            }
 
 
-            <div class="form-group ">
+            <div style="margin-top:1%" id="Add_option" class="form-group ">
                 <label>ثبت جزئیات</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Key :</span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox">
+                    <input id="Add_Key" type="text" class="form-control" aria-label="Text input with checkbox">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Value : </span>
                     </div>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox">
+                    <input id="Add_Value" type="text" class="form-control" aria-label="Text input with checkbox">
                     <div class="input-group-prepend">
-                        <button class="btn btn-success" type="button">ثبت!</button>
+                        <button class="btn btn-success" type="button" onclick="return NewClick(@Model.Id)">ثبت!</button>
                     </div>
                 </div>
             </div>
 
-            <div class="form-group " style="display:none">
+            <div id="editOption" class="form-group " style="display:none; margin-top:1%">
                 <label>ویرایش جزئیات</label>
+                <div style="display:none" id="edit_id"></div>
                 <div class="input-group">
-                    <div class="input-group-prepend">
+                    <div  class="input-group-prepend">
                         <span class="input-group-text">Key :</span>
                     </div>
-                    <input type="text" class="form-control">
+                    <input id="edit_key" type="text" class="form-control">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Value : </span>
                     </div>
-                    <input type="text" class="form-control">
+                    <input id="edit_value" type="text" class="form-control">
                     <div class="input-group-prepend">
-                        <button class="btn btn-warning" type="button">اعمال تغییرات!</button>
+                        <button class="btn btn-warning" type="button" onclick="return EditClick(@Model.Id)">اعمال تغییرات!</button>
                     </div>
                 </div>
             </div>
             <!--begin::Alerts-->
-            <div id="SuccesAlertEdit" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+            <div id="SuccesAlertEdit3" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
                 <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
                 <div class="alert-text">با موفقیت ثبت شد!</div>
             </div>
-            <div id="ERRAlertEdit" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+            <div id="ERRAlertEdit3" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
                 <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
                 <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
             </div>
             <!--End::Alerts-->
-            <!--begin::Table-->
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                        <th>#</th>
-                        <th>Key</th>
-                        <th>Value</th>
-                        <th>وضعیت</th>
-                        <th>اقدامات</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Jhon</td>
-                        <td>Stone</td>
-                        <td>
-                            <span class="kt-badge kt-badge--inline kt-badge--success">فعال</span>
-                            <span class="kt-badge kt-badge--inline kt-badge--danger">حذف شده</span>
-                            <span class="kt-badge kt-badge--inline kt-badge--warning">غیر فعال</span>
-                        </td>
-                        <td>
+         <div id="optiontable">
 
+         </div>
 
-
-
-
-
-                            <a class="kt-badge kt-badge--inline kt-badge--success" style="cursor: pointer;" href="">فعال</a>
-                            <a class="kt-badge kt-badge--inline kt-badge--danger" style="cursor: pointer;" href="">حذف شده</a>
-                            <a class="kt-badge kt-badge--inline kt-badge--warning" style="cursor: pointer;" href="">غیر فعال</a>
-
-
-
-
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <!--End::Table-->
-
-            @foreach (var item in Model)
-            {
-                @Html.Partial("_OptionValue", item);
-            }
 
         </div>
     </div>
@@ -119,8 +84,8 @@
         $(document).ready(function () {
             //========================================Begin :: init
 
-
-
+            
+            $('#optiontable').load("https://localhost:44336/Product/Options_Table?id=1");
 
             $("select[name='tshpSelect2']").select2();
             $(".multyselectSuccess").hide();
@@ -182,6 +147,100 @@
 
         }
 
+        function EditClick(pId) {
+            alert("EditClick");
+            var id = $('#edit_id').text();
+            var key = $('#edit_key').val();
+            alert(key);
+            
+            var Value = $('#edit_value').val();
+            alert(Value);
+            if (key != "" && Value != "") {
+                var PostJson = {
+                    'action': 'edit',
+                    'id': id,
+                    'Key': key,
+                    'value': Value
+                };
+                $.ajax({
+                    url: "/Product/Op_delete_edit",
+                    type: "post",
+                    data: PostJson,
+                    success: function (response) {
+
+                        $('#optiontable').load("https://localhost:44336/Product/Options_Table?id=" + pId);
+                        
+                        alert("success");
+                        $('#SuccesAlertEdit3').show();
+                        setTimeout(function () { $('#SuccesAlertEdit3').hide(500); }, 2000);
+                        $('#ERRAlertEdit3').hide(200);
+                        setTimeout(function ()
+                        {
+                            $('#editOption').hide();
+                            $('#Add_option').show();
+                        }
+                            , 3000);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            } else {
+                alert("else");
+                $('#ERRAlertEdit3').show(200);
+            }
+        }
+
+        function NewClick(id) {
+
+            //alert("NewClick");
+            var key = $('#Add_Key').val();
+           // alert(key);
+            var Value = $('#Add_Value').val();
+            if (key != "" && Value != "") {
+                var PostJson = {
+                    'action': 'new',
+                    'id': id,
+                    'Key': key,
+                    'value': Value
+                };
+
+                $.ajax({
+                    url: "/Product/Op_delete_edit",
+                    type: "post",
+                    data: PostJson,
+                    success: function (response) {
+
+                        $('#optiontable').load("https://localhost:44336/Product/Options_Table?id=" + id);
+                        $('#Add_Key').val("");
+                        $('#Add_Value').val("");
+                        alert("success");
+                        $('#SuccesAlertEdit3').show(200);
+                        $('#ERRAlertEdit3').hide(200);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            } else {
+               // alert("else");
+                $('#ERRAlertEdit3').show(200);
+            }
+        }
+
+        function ToJson() {
+            var json = '{';
+            var otArr = [];
+
+            
+            @*for (var __ia = 0; __ia < @Model.Item_List.Count; __ia++) {
+                var itArr = [];
+                var keyId=@Model.Item_List[__ia]
+                itArr.push('"KeyId":"' + $('Item_Id-'+) + '"');
+                itArr.push('"Values":"' + $(this).text() + '"');
+            }*@
+        }
     </script>
     <!--end::Page Scripts -->
+
 </div>

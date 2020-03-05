@@ -150,5 +150,28 @@ namespace ShoppingCMS_V002.OtherClasses
             return result;
         }
 
+        public List<AddPro_Options> OptionsFiller(int id)
+        {
+            var result = new List<AddPro_Options>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            DataTable dt = db.Select("SELECT [id_Op],[KeyName],[Value]FROM[tbl_Product_tblOptions] WHERE id_MProduct="+id);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new AddPro_Options() 
+                {
+                    Id=Convert.ToInt32(dt.Rows[i]["id_Op"]),
+                    Num=i+1,
+                    Key=dt.Rows[i]["KeyName"].ToString(),
+                    Value= dt.Rows[i]["Value"].ToString()
+
+                };
+
+                result.Add(model);
+            }
+            return result;
+        }
+
     }
 }

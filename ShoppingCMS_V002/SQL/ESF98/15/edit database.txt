@@ -1,0 +1,24 @@
+﻿USE [PandaMarketCMS]
+GO
+
+/****** Object:  Table [dbo].[tbl_Product_tblOptions]    Script Date: 3/5/2020 3:27:47 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[tbl_Product_tblOptions](
+	[id_Op] [int] IDENTITY(1,1) NOT NULL,
+	[id_MProduct] [int] NOT NULL,
+	[KeyName] [nvarchar](max) NOT NULL,
+	[Value] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_tbl_Product_tblOptions] PRIMARY KEY CLUSTERED 
+(
+	[id_Op] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+----------------------------------------------------------------------------------

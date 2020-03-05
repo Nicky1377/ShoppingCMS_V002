@@ -96,28 +96,72 @@ namespace ShoppingCMS_V002.Controllers
             return Json(model);
             //return Content("hello");
         }
-        public ActionResult Add_Page3(string Ids="0")
+        public ActionResult Add_Page3(string Ids,int id)
         {
             ModelFiller MF = new ModelFiller();
             PDBC db = new PDBC("PandaMarketCMS", true);
             db.Connect();
             var ids = Ids.Split(',');
             
-            var result = new List<AddProductModelV_3>();
+            var Subval = new List<AddPro_SubValues>();
             for (int i = 0; i < ids.Length; i++)
             {
-                var model = new AddProductModelV_3()
+                var model = new AddPro_SubValues()
                 {
                     Id = Convert.ToInt32(ids[i]),
                     Title = db.Select("SELECT[SCOKName]FROM [tbl_Product_SubCategoryOptionKey]where [id_SCOK]=" + ids[i]).Rows[0][0].ToString(),
                     Item_List = MF.DropFiller("SubCat_Value", Convert.ToInt32(ids[i]))
                 };
 
-                result.Add(model);
+                Subval.Add(model);
             }
+
+            var result = new AddProductModelV_3()
+            {
+                Id = id,
+                Item_List=Subval
+            };
+
 
             return View(result);
         }
+
+        public ActionResult Options_Table(int id)
+        {
+            ModelFiller MF = new ModelFiller();
+            var res = MF.OptionsFiller(id);
+
+
+            return View(res);
+        }
+
+        public ActionResult Op_delete_edit(string action, int id,string Key="",string value="")
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            if (action=="edit")
+            {
+                if (Key != "" && value!="")
+                {
+                    db.Script("UPDATE[tbl_Product_tblOptions] SET [KeyName] = N'"+Key+"',[Value] = N'"+value+"' WHERE id_Op=" + id);
+                }
+               
+            }else if (action == "delete")
+            {
+                db.Script("DELETE FROM[tbl_Product_tblOptions] WHERE id_Op="+id);
+            }
+            else if(action=="new")
+            {
+                if (Key != "" && value != "")
+                {
+                    db.Script("INSERT INTO[tbl_Product_tblOptions]VALUES(" + id + ",N'" + Key + "',N'" + value + "')");
+                }
+            }
+
+
+            return Content("done");
+        }
+
         public ActionResult Add_Page4()
         {
             return View();
@@ -158,25 +202,8 @@ namespace ShoppingCMS_V002.Controllers
         }
         public ActionResult test(string Ids = "0")
         {
-            ModelFiller MF = new ModelFiller();
-            PDBC db = new PDBC("PandaMarketCMS", true);
-            db.Connect();
-            var ids = Ids.Split(',');
-
-            var result = new List<AddProductModelV_3>();
-            for (int i = 0; i < ids.Length; i++)
-            {
-                var model = new AddProductModelV_3()
-                {
-                    Id = Convert.ToInt32(ids[i]),
-                    Title = db.Select("SELECT[SCOKName]FROM [tbl_Product_SubCategoryOptionKey]where [id_SCOK]=" + ids[i]).Rows[0][0].ToString(),
-                    Item_List = MF.DropFiller("SubCat_Value", Convert.ToInt32(ids[i]))
-                };
-
-                result.Add(model);
-            }
-
-            return Content(ids[0]);
+           
+            return Content("test");
         }
 
 
