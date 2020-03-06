@@ -153,8 +153,11 @@
     <Compile Include="ModelViews\AddProductModelV_3.cs" />
     <Compile Include="ModelViews\AddProductModelV_4.cs" />
     <Compile Include="ModelViews\ProductListModelView.cs" />
+    <Compile Include="OtherClasses\CheckAccess.cs" />
+    <Compile Include="OtherClasses\itemclas.cs" />
     <Compile Include="OtherClasses\JaygashtClass.cs" />
     <Compile Include="OtherClasses\ModelFiller.cs" />
+    <Compile Include="OtherClasses\OptionsJsonModel.cs" />
     <Compile Include="OtherClasses\SearchClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -538,6 +541,7 @@
     <Content Include="Views\MS\tab_About.cshtml" />
     <Content Include="Views\Product\_OptionValue.cshtml" />
     <Content Include="Views\Product\Options_Table.cshtml" />
+    <Content Include="Views\MS\NotAccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,46 +17,42 @@
             <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
         </div>
         <!--End::Alerts-->
-        @using (Html.BeginForm("Save_Step1", "Product"))
-        {
+        <form>
             <div class="row">
                 <div class="col-xl-6">
 
                     <div class="form-group">
                         <label>نام محصول</label>
-                        @Html.TextBoxFor(m => m.Title, new { placeholder = "", @class = "form-control" })
+                        <input id="Title_p1" class="form-control" placeholder="" />
                         <span class="form-text text-muted">نام و موضوع محصول خود را وارد کنید.</span>
                     </div>
                     <div class="form-group">
                         <label>توضیحات محصول</label>
-                        @Html.TextAreaFor(m => m.Description, new { placeholder = "", @class = "form-control", type = "text" })
+                        <input id="Description_p1" class="form-control" placeholder="" type="text" />
                         <span class="form-text text-muted">توضیحات محصول خود را وارد کنید.</span>
                     </div>
                     <div class="form-group">
                         <label>کلید واژه ی سئو</label>
-                        @Html.TextBoxFor(m => m.SEO_keyword, new { placeholder = "", @class = "form-control" })
+                        <input id="SEO_keyword_p1" class="form-control" placeholder="" />
                         <span class="form-text text-muted">کلید واژه برای موتور جست و جوی گوگل.</span>
                     </div>
                     <div class="form-group">
                         <label>توضیحات سئو</label>
-                        @Html.TextBoxFor(m => m.SEO_description, new { placeholder = "", @class = "form-control" })
+                        <input id="SEO_description_p1" class="form-control" placeholder="" />
                         <span class="form-text text-muted">توضیحات برای موتور جست و جوی گوگل.</span>
                     </div>
                     <div class="form-group">
                         <label>ارزش جست و جو</label>
-                        @Html.TextBoxFor(m => m.SearchGravity, new { placeholder = "", @class = "form-control", type = "number" })
+                        <input id="SearchGravity_p1" class="form-control" placeholder="" type="number"/>
                         <span class="form-text text-muted">نتایج جست و جوی کاربران براین اساس نمایش داده خواهند شد.</span>
                     </div>
                     <label class="kt-checkbox kt-checkbox--brand">
-                        @Html.CheckBoxFor(m => m.IsAd) تبلیغ شود؟
+                        <input id="IsAd_p1" class="form-control" type="checkbox" />تبلیغ شود؟
                         <span></span>
                     </label>
                 </div>
             </div>
-
-
-
-        }
+        </form>
 
     </div>
     
@@ -64,7 +60,7 @@
     <div class="kt-form__actions">
         <div class="col-6 offset-3" style="padding-top: 10px;">
 
-        <button id="salam" onclick="submitNextPage(this)" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
+        <button id="Sub_btn1" onclick="submitNextPage(this)" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
             Submit
         </button>
         </div>
@@ -75,9 +71,25 @@
 
 <script>
     function submitNextPage(parameters) {
-        $("#salam").hide(200);
+        var Title = $('#Title_p1').val();
+        alert(Title);
+        var Description = $('#Description_p1').val(); alert(Description);
+        var SEO_keyword = $('#SEO_keyword_p1').val(); alert(SEO_keyword);
+        var SEO_description = $('#SEO_description_p1').val(); alert(SEO_description);
+        var SearchGravity = $('#SearchGravity_p1').val(); alert(SearchGravity);
+        var IsAd = $('#IsAd_p1').val(); alert(IsAd);
+
+        if (Title != "" || Description != "" || SEO_keyword != "" || SEO_description != "" || SearchGravity != "") {
+            $('#ERRAlertEdit1').show();
+        } else {
+            $("#Sub_btn1").hide(200);
         $("#btn_next").show(200);
 
+        }
+
+
+
+        
     }
 
 

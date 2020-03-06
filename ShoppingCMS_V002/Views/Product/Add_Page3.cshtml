@@ -71,7 +71,7 @@
     <div class="kt-portlet__foot">
         <div class="kt-form__actions">
             <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
-                <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType('edit','')">ثبت</button>
+                <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType3()">ثبت</button>
             </div>
 
         </div>
@@ -84,7 +84,7 @@
         $(document).ready(function () {
             //========================================Begin :: init
 
-            
+           
             $('#optiontable').load("https://localhost:44336/Product/Options_Table?id=1");
 
             $("select[name='tshpSelect2']").select2();
@@ -96,7 +96,7 @@
 
             //=========================================End :: init
 
-
+            
             $('.tshpSelect2').on('select2:select', function (e) {
                 //inja oon itemi ke select shode bara ADD ro migire
                 var data = e.params.data;
@@ -148,13 +148,13 @@
         }
 
         function EditClick(pId) {
-            alert("EditClick");
+            //alert("EditClick");
             var id = $('#edit_id').text();
             var key = $('#edit_key').val();
-            alert(key);
+            //alert(key);
             
             var Value = $('#edit_value').val();
-            alert(Value);
+           // alert(Value);
             if (key != "" && Value != "") {
                 var PostJson = {
                     'action': 'edit',
@@ -186,7 +186,7 @@
                     }
                 });
             } else {
-                alert("else");
+                //alert("else");
                 $('#ERRAlertEdit3').show(200);
             }
         }
@@ -228,17 +228,44 @@
             }
         }
 
-        function ToJson() {
+        function SubmitedType3()
+        {
             var json = '{';
             var otArr = [];
+            var flag = false;
+            $('.tshpSelect2').each(function (e, obj) {
+                var idSelected = obj.id.replace("tshpSelect2-", "");
+                var ids = $('#tshpSelect2-' + idSelected).val();
+                if (ids == "") {
+                    flag = true;
+                } 
 
+                    otArr.push('"item": {' + "Mainid:" + idSelected + ',Ids:"' + ids + '"}');
+            });
+
+            json += otArr.join(",") + '}';
+
+
+            if (flag) {
+                $('#ERRAlertEdit3').show(200);
+            } else {
+                var PostJson = {
+                    'Json': json
+                };
+                $.ajax({
+                    url: "/Product/Save_Step3",
+                    type: "post",
+                    data: PostJson,
+                    success: function (response) {
+
+                        alert(response);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            }
             
-            @*for (var __ia = 0; __ia < @Model.Item_List.Count; __ia++) {
-                var itArr = [];
-                var keyId=@Model.Item_List[__ia]
-                itArr.push('"KeyId":"' + $('Item_Id-'+) + '"');
-                itArr.push('"Values":"' + $(this).text() + '"');
-            }*@
         }
     </script>
     <!--end::Page Scripts -->
