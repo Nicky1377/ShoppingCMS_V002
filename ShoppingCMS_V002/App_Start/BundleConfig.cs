@@ -15,7 +15,9 @@ namespace ShoppingCMS_V002
                 "~/assets/js/pages/dashboard.js",
                 "~/CustomScript/MasterClicks.js"
             ));
-
+            bundles.Add(new ScriptBundle("~/bundles/Ckeditor").Include(
+                "~/assets/js/pages/custom/Plugins/ckeditor/ckeditor.js"
+            ));
             bundles.Add(new ScriptBundle("~/bundles/AddProduct").Include(
                  "~/assets/js/pages/custom/wizard/wizard-3.js",
                 "~/assets/js/pages/crud/file-upload/dropzonejs.js",
