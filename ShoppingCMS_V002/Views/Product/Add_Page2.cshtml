@@ -244,10 +244,9 @@
                     success: function (response) {
                         $("#ERRAlertEdit2").hide(300);
                         $("#SuccesAlertEdit2").show(300);
-                        //alert(response);
-                         $('#step3').load("https://localhost:44336/Product/Add_Page3?Ids="+ $("#kt_select2_multiple").val()+"&id=1");
+                        alert(response);
+                         $('#step3').load("https://localhost:44336/Product/Add_Page3?Ids="+ $("#kt_select2_multiple").val()+"&id="+@Model.Id);
                         
-                        alert("https://localhost:44336/Product/Add_Page3?Ids="+ $("#kt_select2_multiple").val());
                         
                         },
                         error: function (jqXHR, textStatus, errorThrown) {

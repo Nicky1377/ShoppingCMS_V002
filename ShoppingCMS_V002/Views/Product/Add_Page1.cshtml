@@ -7,16 +7,7 @@
 <div style="display:none" id="page">1</div>
 <div class="kt-form__section kt-form__section--first">
     <div class="kt-wizard-v3__form">
-        <!--begin::Alerts-->
-        <div id="SuccesAlertEdit1" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
-            <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-            <div class="alert-text">با موفقیت ثبت شد!</div>
-        </div>
-        <div id="ERRAlertEdit1" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
-            <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-            <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
-        </div>
-        <!--End::Alerts-->
+
         <form>
             <div class="row">
                 <div class="col-xl-6">
@@ -43,7 +34,7 @@
                     </div>
                     <div class="form-group">
                         <label>ارزش جست و جو</label>
-                        <input id="SearchGravity_p1" class="form-control" placeholder="" type="number"/>
+                        <input id="SearchGravity_p1" class="form-control" placeholder="" type="number" />
                         <span class="form-text text-muted">نتایج جست و جوی کاربران براین اساس نمایش داده خواهند شد.</span>
                     </div>
                     <label class="kt-checkbox kt-checkbox--brand">
@@ -55,14 +46,24 @@
         </form>
 
     </div>
-    
+
+    <!--begin::Alerts-->
+    <div id="SuccesAlertEdit1" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+        <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+        <div class="alert-text">با موفقیت ثبت شد!</div>
+    </div>
+    <div id="ERRAlertEdit1" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+        <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+        <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+    </div>
+    <!--End::Alerts-->
 
     <div class="kt-form__actions">
         <div class="col-6 offset-3" style="padding-top: 10px;">
 
-        <button id="Sub_btn1" onclick="submitNextPage(this)" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
-            Submit
-        </button>
+            <button id="Sub_btn1" onclick="submitNextPage(this)" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
+                Submit
+            </button>
         </div>
     </div>
 
@@ -72,19 +73,55 @@
 <script>
     function submitNextPage(parameters) {
         var Title = $('#Title_p1').val();
-        alert(Title);
-        var Description = $('#Description_p1').val(); alert(Description);
-        var SEO_keyword = $('#SEO_keyword_p1').val(); alert(SEO_keyword);
-        var SEO_description = $('#SEO_description_p1').val(); alert(SEO_description);
-        var SearchGravity = $('#SearchGravity_p1').val(); alert(SearchGravity);
-        var IsAd = $('#IsAd_p1').val(); alert(IsAd);
+        var Description = $('#Description_p1').val(); 
+        var SEO_keyword = $('#SEO_keyword_p1').val(); 
+        var SEO_description = $('#SEO_description_p1').val(); 
+        var SearchGravity = $('#SearchGravity_p1').val(); 
+        var IsAd ; 
 
-        if (Title != "" || Description != "" || SEO_keyword != "" || SEO_description != "" || SearchGravity != "") {
-            $('#ERRAlertEdit1').show();
+        if (Title != "" && Description != "" && SEO_keyword != "" && SEO_description != "" && SearchGravity != "") {
+            //$("#Sub_btn1").hide(200);
+
+
+            if ($('#IsAd_p1').val() == 'on') {
+                IsAd = 1;
+            } else {
+                IsAd = 0;
+            }
+            alert(IsAd);
+            var PostJson = {
+                'Act_ToDo': 'insert',
+                'Title': Title,
+                'Description': Description,
+                'SEO_keyword': SEO_keyword,
+                'SEO_description': SEO_description,
+                'SearchGravity': SearchGravity,
+                'IsAd': IsAd,
+                'id_CreatedByAdmin': 1
+            };
+
+                $.ajax({
+                    url: '/Product/Save_Step1',
+                    type: "post",
+                    data: JSON.stringify(PostJson),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        $("#ERRAlertEdit1").hide(300);
+                        $("#SuccesAlertEdit1").show(300);
+                        //alert(response);
+                        $('#step2').load("https://localhost:44336/Product/Add_Page2?Id=" + response);
+                        
+                        
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+
+
+            $("#btn_next").show(200);
         } else {
-            $("#Sub_btn1").hide(200);
-        $("#btn_next").show(200);
-
+            $('#ERRAlertEdit1').show();
         }
 
 

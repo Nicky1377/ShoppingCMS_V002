@@ -8,10 +8,9 @@
     <div class="kt-portlet__body">
         <!--begin::Section-->
         <div class="kt-section">
-            <input style="display: none" value="1" id="InputWhichAction-1" name="InputWhichAction" insertedid="1" />
-
-
+            
             <div class="col-12" id="KTPortletSectionTSHPanda-1">
+                <input style="display: none" value="0" id="InputWhichAction-1" name="InputWhichAction" insertedid="1" />
                 <div id="KTPortletSectionCOLOR_TSHPanda-1" class="kt-portlet kt-iconbox  kt-iconbox--animate-slow">
                     <div class="kt-portlet__body">
                         <div id="KTPortletSection_Body_TSHPanda-1" class="kt-iconbox__body" style="">
@@ -71,7 +70,7 @@
 
                                 <div class="form-group ">
                                     <label>قیمت گذاری محصول : <span class="kt-badge kt-badge--success kt-badge--inline" style="font-size: 15px;">قرمز</span>&nbsp;,&nbsp;<span class="kt-badge kt-badge--warning kt-badge--inline" style="font-size: 15px;">فلزی</span></label>
-                                    <br/>
+                                    <br />
                                     <label>اخطار ها :<span id="NoErr-1" class="kt-badge kt-badge--success kt-badge--inline" style="font-size: 15px; display: none">هیچ اخطاری وجود ندارد!</span> <span class="kt-badge kt-badge--warning kt-badge--inline" style="font-size: 15px; display: none" id="ErrorsLog-1">قرمز</span></label>
                                     <div class="input-group" style="padding-bottom: 10px;">
                                         <div class="input-group-prepend"><span class="input-group-text">نوع واحد</span></div>
@@ -392,8 +391,69 @@
     function btnSavePAge4(param) {
         CheckAllInputs(param);
 
+         var PostJson = {
+                'json': $("#Select2_A option:selected").val(),
+                'action': $("#Select2_B option:selected").val(),
+                'id_MProduct': '@Model',
+                'Quantity': $("#Select2_C option:selected").val(),
+                'QuantityModule': $("#kt_select2_multiple").val(),
+                'PriceXquantity': $("#kt_select2_multiple").val(),
+                'PricePerquantity': $("#kt_select2_multiple").val(),
+                'PriceOff': $("#kt_select2_multiple").val(),
+                'offTypeValue': $("#kt_select2_multiple").val(),
+                'OffType': $("#kt_select2_multiple").val(),
+                'id_MainStarTag': $("#kt_select2_multiple").val(),
+                'PriceModule': $("#kt_select2_multiple").val(),
+                'PriceShow': $("#kt_select2_multiple").val()
+        };
+
+
+        alert(subMMM());
 
     }
+
+    function subMMM() {
+        var json = '[';
+        var otArr = [];
+        var flag = false;
+        $('.tshpSelect23').each(function (e, obj) {
+            var idSelected = obj.id.replace("tshpSelect2-", "");
+            var ids = $('#tshpSelect2-' + idSelected).val();
+            if (ids == "") {
+                flag = true;
+            }
+
+            otArr.push('{' + "Mainid:" + idSelected + ',Ids:"' + ids + '"}');
+        });
+
+        json += otArr.join(",") + ']';
+
+
+        if (flag) {
+            $('#ERRAlertEdit3').show(200);
+        } else {
+            var PostJson = {
+                'Json': json
+            };
+            $.ajax({
+                url: "/Product/Save_Step3",
+                type: "post",
+                data: PostJson,
+                success: function (response) {
+
+                    alert(response);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+
+
+        }
+        return json;
+    }       
+
+
     function CheckAllInputs(idINject) {
         //console.log("----------------------------------------------------Start CheckInputs ------------------");
         //console.log('SelectVahedQuntID- : ' + $("#SelectVahedQuntID-" + idINject).val());
