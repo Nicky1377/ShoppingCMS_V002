@@ -16,5 +16,7 @@ namespace ShoppingCMS_V002.ModelViews
         public List<Id_ValueModel> MainTags { get; set; }
         public PricingModel pricingModel { get; set; }
 
+
+
     }
 }
