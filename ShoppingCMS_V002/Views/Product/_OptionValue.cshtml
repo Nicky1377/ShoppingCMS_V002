@@ -1,6 +1,6 @@
-﻿@model ShoppingCMS_V002.ModelViews.AddProductModelV_3
-<div class="form-group form-group-marginless">
-    <div id="Item_Id" style="display:none">@Model.Id</div>
+﻿@model ShoppingCMS_V002.Models.AddPro_SubValues
+<div style="margin-top:1%" class="form-group form-group-marginless">
+    <div id="Item_Id-@Model.Id" style="display:none">@Model.Id</div>
     <label>@Model.Title</label>
     <div class="input-group" style="width: 100%">
         <select class="form-control kt-select2 tshpSelect2" style="width: 90%" id="tshpSelect2-@Model.Id" name="tshpSelect2" multiple="multiple" onchange="return MultSelectorSelect(this)">

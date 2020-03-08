@@ -1,13 +1,11 @@
 ﻿using MD.PersianDateTime;
+using Newtonsoft.Json;
 using ShoppingCMS_V002.DBConnect;
 using ShoppingCMS_V002.Models;
 using ShoppingCMS_V002.ModelViews;
 using ShoppingCMS_V002.OtherClasses;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ShoppingCMS_V002.Controllers
@@ -17,166 +15,295 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Product_List()
         {
-            return View();
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess","MS");
         }
 
         public ActionResult Product_table(bool SearchBox, string text = "")
         {
-            //var itemList = new ProductModel()
-            //{
-            //    deleted = false,
-            //    disabled = true,
-            //    Category = "محصولات دیجیتال-موبایل-سامسونگ گلکسی s8",
-            //    MainPrice = "12000000",
-            //    Description = "گوشی خوبیه",
-            //    AddBy = "niky",
-            //    PicPath = "https://localhost:44395/assets/download.jpg",
-            //    Date = "1398/12/4",
-            //    Title = "galaxy s8",
-            //    Id = 1,
-            //    Num = 1
-            //};
-
-            ModelFiller MF = new ModelFiller();
-            string query = "";
-            if (SearchBox)
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
             {
-                query = MF.QueryMaker(true, text);
+
+                ModelFiller MF = new ModelFiller();
+                string query = "";
+                if (SearchBox)
+                {
+                    query = MF.QueryMaker(true, text);
+                }
+                else
+                {
+                    query = MF.QueryMaker(false);
+                }
+
+
+                var Model = new ProductListModelView()
+                {
+                    ProductModels = MF.productModels_List(query)
+                };
+
+
+                //var list=new List<ProductModel>();
+                //list.Add(itemList);
+                //list.Add(itemList);
+                //list.Add(itemList);
+                //var Model = new ProductListModelView()
+                //{
+                //    ProductModels = list
+                //};
+
+
+                return View(Model);
+
             }
             else
-            {
-                query = MF.QueryMaker(false);
-            }
-
-
-            var Model = new ProductListModelView()
-            {
-                ProductModels = MF.productModels_List(query)
-            };
-
-
-            //var list=new List<ProductModel>();
-            //list.Add(itemList);
-            //list.Add(itemList);
-            //list.Add(itemList);
-            //var Model = new ProductListModelView()
-            //{
-            //    ProductModels = list
-            //};
-
-
-            return View(Model);
+                return RedirectToAction("NotAccess", "MS");
         }
 
         public ActionResult Add_Product()
         {
-            return View();
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
 
         public ActionResult Add_Page1()
         {
-            return View();
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
         public ActionResult Add_Page2()
         {
-            ModelFiller MF = new ModelFiller();
-
-            AddProductModelV_2 model = new AddProductModelV_2()
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
             {
-                Types = MF.DropFiller("Type")
-            };
+                ModelFiller MF = new ModelFiller();
 
-            return View(model);
+                AddProductModelV_2 model = new AddProductModelV_2()
+                {
+                    Types = MF.DropFiller("Type")
+                };
+
+                return View(model);
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
         [HttpPost]
         public ActionResult DropListFiller(string drop, int id = 0)
         {
-            ModelFiller MF = new ModelFiller();
-            var model = MF.DropFiller(drop, id);
-            return Json(model);
-            //return Content("hello");
-        }
-        public ActionResult Add_Page3(string Ids="0")
-        {
-            ModelFiller MF = new ModelFiller();
-            PDBC db = new PDBC("PandaMarketCMS", true);
-            db.Connect();
-            var ids = Ids.Split(',');
-            
-            var result = new List<AddProductModelV_3>();
-            for (int i = 0; i < ids.Length; i++)
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
             {
-                var model = new AddProductModelV_3()
+                ModelFiller MF = new ModelFiller();
+                var model = MF.DropFiller(drop, id);
+                return Json(model);
+                //return Content("hello");
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+        public ActionResult Add_Page3(string Ids,int id)
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                ModelFiller MF = new ModelFiller();
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+                var ids = Ids.Split(',');
+
+                var Subval = new List<AddPro_SubValues>();
+                for (int i = 0; i < ids.Length; i++)
                 {
-                    Id = Convert.ToInt32(ids[i]),
-                    Title = db.Select("SELECT[SCOKName]FROM [tbl_Product_SubCategoryOptionKey]where [id_SCOK]=" + ids[i]).Rows[0][0].ToString(),
-                    Item_List = MF.DropFiller("SubCat_Value", Convert.ToInt32(ids[i]))
+                    var model = new AddPro_SubValues()
+                    {
+                        Id = Convert.ToInt32(ids[i]),
+                        Title = db.Select("SELECT[SCOKName]FROM [tbl_Product_SubCategoryOptionKey]where [id_SCOK]=" + ids[i]).Rows[0][0].ToString(),
+                        Item_List = MF.DropFiller("SubCat_Value", Convert.ToInt32(ids[i]))
+                    };
+
+                    Subval.Add(model);
+                }
+
+                var result = new AddProductModelV_3()
+                {
+                    Id = id,
+                    Item_List = Subval
                 };
 
-                result.Add(model);
-            }
 
-            return View(result);
+                return View(result);
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
+
+        public ActionResult Options_Table(int id)
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                ModelFiller MF = new ModelFiller();
+                var res = MF.OptionsFiller(id);
+
+
+                return View(res);
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+
+           
+        }
+
+        public ActionResult Op_delete_edit(string action, int id,string Key="",string value="")
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+                if (action == "edit")
+                {
+                    if (Key != "" && value != "")
+                    {
+                        db.Script("UPDATE[tbl_Product_tblOptions] SET [KeyName] = N'" + Key + "',[Value] = N'" + value + "' WHERE id_Op=" + id);
+                    }
+
+                }
+                else if (action == "delete")
+                {
+                    db.Script("DELETE FROM[tbl_Product_tblOptions] WHERE id_Op=" + id);
+                }
+                else if (action == "new")
+                {
+                    if (Key != "" && value != "")
+                    {
+                        db.Script("INSERT INTO[tbl_Product_tblOptions]VALUES(" + id + ",N'" + Key + "',N'" + value + "')");
+                    }
+                }
+
+
+                return Content("done");
+
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
         public ActionResult Add_Page4()
         {
-            return View();
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
         public ActionResult Add_Page5()
         {
-            return View();
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
 
         public ActionResult Save_Step1(AddProduct_P1 addProduct_P1)
         {
 
-            return View();
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
         [HttpPost]
         public ActionResult Save_Step2(string Type,string Main,string Sub,string SubKey,int id)
         {
-            return Content(Type);
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return Content(Type);
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+            
         }
-        public ActionResult Save_Step3()
+        public ActionResult Save_Step3(string Json)
         {
-            return View();
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+               // var JsonList = JsonConvert.DeserializeObject<OptionsJsonModel>(Json);
+
+                return Content("");
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
         public ActionResult Save_Step4()
         {
-            return View();
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
         public ActionResult Save_Step5()
         {
-            return View();
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
 
         public ActionResult MainDropDown(string drop,int id=0)
         {
-            
 
-            return View();
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
         }
         public ActionResult test(string Ids = "0")
         {
-            ModelFiller MF = new ModelFiller();
-            PDBC db = new PDBC("PandaMarketCMS", true);
-            db.Connect();
-            var ids = Ids.Split(',');
-
-            var result = new List<AddProductModelV_3>();
-            for (int i = 0; i < ids.Length; i++)
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
             {
-                var model = new AddProductModelV_3()
-                {
-                    Id = Convert.ToInt32(ids[i]),
-                    Title = db.Select("SELECT[SCOKName]FROM [tbl_Product_SubCategoryOptionKey]where [id_SCOK]=" + ids[i]).Rows[0][0].ToString(),
-                    Item_List = MF.DropFiller("SubCat_Value", Convert.ToInt32(ids[i]))
-                };
-
-                result.Add(model);
+                return Content("test");
             }
-
-            return Content(ids[0]);
+            else
+                return RedirectToAction("NotAccess", "MS");
+            
         }
 
 

@@ -131,8 +131,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddPor_page4_Model.cs" />
     <Compile Include="Models\AddProduct_P1.cs" />
     <Compile Include="Models\AddProduct_P2.cs" />
+    <Compile Include="Models\AddPro_Options.cs" />
+    <Compile Include="Models\AddPro_SubValues.cs" />
     <Compile Include="Models\companies.cs" />
     <Compile Include="Models\Id_ValueModel.cs" />
     <Compile Include="Models\MainCategory.cs" />
@@ -148,8 +151,13 @@
     <Compile Include="Models\TypeASPX.cs" />
     <Compile Include="ModelViews\AddProductModelV_2.cs" />
     <Compile Include="ModelViews\AddProductModelV_3.cs" />
+    <Compile Include="ModelViews\AddProductModelV_4.cs" />
     <Compile Include="ModelViews\ProductListModelView.cs" />
+    <Compile Include="OtherClasses\CheckAccess.cs" />
+    <Compile Include="OtherClasses\itemclas.cs" />
+    <Compile Include="OtherClasses\JaygashtClass.cs" />
     <Compile Include="OtherClasses\ModelFiller.cs" />
+    <Compile Include="OtherClasses\OptionsJsonModel.cs" />
     <Compile Include="OtherClasses\SearchClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -607,6 +615,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="SQL\ESF98\11\PandaMarketCMS.sql" />
     <Content Include="SQL\ESF98\14\PandaMarketCMS.sql" />
+    <Content Include="SQL\ESF98\15\edit database.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -646,6 +655,8 @@
     <Content Include="Views\MS\About.cshtml" />
     <Content Include="Views\MS\tab_About.cshtml" />
     <Content Include="Views\Product\_OptionValue.cshtml" />
+    <Content Include="Views\Product\Options_Table.cshtml" />
+    <Content Include="Views\MS\NotAccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

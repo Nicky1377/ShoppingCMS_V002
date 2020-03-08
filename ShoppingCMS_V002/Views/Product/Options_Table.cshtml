@@ -1,0 +1,81 @@
+﻿@using ShoppingCMS_V002.Models
+@model List<AddPro_Options>
+@{
+    ViewBag.Title = "Options_Table";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--begin::Table-->
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th style="width:10%">#</th>
+            <th style="width:30%">Key</thstyle="width:30%">
+            <th style="width:30%">Value</th>
+            <th style="width:30%">اقدامات</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Num</th>
+                <td style="display:none" id="Id-@item.Id">@item.Id</td>
+                <td id="Key-@item.Id">@item.Key</td>
+                <td id="Value-@item.Id">@item.Value</td>
+
+                <td>
+
+
+                    <div class="btn-group mr-2" role="group" aria-label="...">
+                        <button style="border:none" type="button" class="btn btn-secondary" onclick="return Click_op_edit(@item.Id)"><i class="la la-edit"></i></button>
+
+                        <button style="border:none" type="button" class="btn btn-secondary" onclick="return Click_op_del(@item.Id)"><i class="la la-close"></i></button>
+                    </div>
+
+
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+<!--End::Table-->
+
+<script>
+    
+
+    function Click_op_del(id) {
+        
+        $.ajax({
+            url: "/Product/Op_delete_edit",
+            type: "post",
+            data: { "action": "delete", "id": id },
+            success: function (response) {
+
+                $('#optiontable').load("https://localhost:44336/Product/Options_Table?id=1");
+                alert("success");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
+
+    
+
+    function Click_op_edit(id) {
+
+        var key = $('#Key-' + id).text();
+        var value = $('#Value-' + id).text();
+        
+        $('#edit_id').text(id);
+        $('#edit_key').val(key);
+        $('#edit_value').val(value);
+
+        $('#editOption').show();
+        $('#Add_option').hide();
+    }
+    
+</script>

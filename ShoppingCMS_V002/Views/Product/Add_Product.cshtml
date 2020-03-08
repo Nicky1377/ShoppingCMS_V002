@@ -32,7 +32,7 @@
                             <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
                                 <div class="kt-wizard-v3__nav-body">
                                     <div class="kt-wizard-v3__nav-label">
-                                        <span>3</span> ویژگی ها ی محصول
+                                        <span>3</span> ویژگی های محصول
                                     </div>
                                     <div class="kt-wizard-v3__nav-bar"></div>
                                 </div>
@@ -40,7 +40,7 @@
                             <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
                                 <div class="kt-wizard-v3__nav-body">
                                     <div class="kt-wizard-v3__nav-label">
-                                        <span>4</span> قیمت گذاری
+                                        <span>4</span> قیمت گذاری اولیه
                                     </div>
                                     <div class="kt-wizard-v3__nav-bar"></div>
                                 </div>
@@ -48,7 +48,7 @@
                             <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
                                 <div class="kt-wizard-v3__nav-body">
                                     <div class="kt-wizard-v3__nav-label">
-                                        <span>5</span> تائید نهایی
+                                        <span>5</span> قیمت گذاری نهایی
                                     </div>
                                     <div class="kt-wizard-v3__nav-bar"></div>
                                 </div>
@@ -98,7 +98,7 @@
                             </button>
                         </div>
                         <!--end: Form Actions -->
-
+                        
                     </div>
                     <!--end: Form Wizard Form-->
                 </div>
@@ -111,18 +111,17 @@
 
 @Scripts.Render("~/bundles/jquery");
 @Scripts.Render("~/bundles/AddProduct");
-@Scripts.Render("~/bundles/Ckeditor");
 <script>
-    $(document).ready(function () {
-        $('#step1').load("https://localhost:44336/Product/Add_Page1");
-        $('#step2').load("https://localhost:44336/Product/Add_Page2");
-        // $('#step3').load("https://localhost:44336/Product/Add_Page3");
-        $('#step4').load("https://localhost:44336/Product/Add_Page4");
-        $('#step5').load("https://localhost:44336/Product/Add_Page5");
-    });
+        $(document).ready(function () {
+            $('#step1').load("https://localhost:44336/Product/Add_Page1");
+            $('#step2').load("https://localhost:44336/Product/Add_Page2");
+            $('#step3').load("https://localhost:44336/Product/Add_Page3?Ids=1,2&id=1");
+            $('#step4').load("https://localhost:44336/Product/Add_Page4");
+            $('#step5').load("https://localhost:44336/Product/Add_Page5");
+        });
 
     function NextPage() {
         var mes = $('#page').text();
         alert(mes);
     }
-</script>
+    </script>

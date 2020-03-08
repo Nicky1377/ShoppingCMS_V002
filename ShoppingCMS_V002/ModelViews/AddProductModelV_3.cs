@@ -9,7 +9,8 @@ namespace ShoppingCMS_V002.ModelViews
     public class AddProductModelV_3
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public List<Id_ValueModel> Item_List { get; set; }
+        public List<AddPro_SubValues> Item_List { get; set; }
+        public AddPro_Options OptionItem { get; set; }
+
     }
 }
