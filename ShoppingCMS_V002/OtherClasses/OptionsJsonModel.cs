@@ -8,8 +8,12 @@ namespace ShoppingCMS_V002.OtherClasses
 {
     public class OptionsJsonModel
     {
-        [JsonProperty("item")]
-        public List<itemclas> item { get; set; }
+        //[JsonProperty("item")]
+        //public List<itemclas> item { get; set; }
+        [JsonProperty("Mainid")]
+        public int MainId { get; set; }
+        [JsonProperty("Ids")]
+        public string Ids { get; set; }
     }
 
 }

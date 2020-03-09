@@ -86,7 +86,7 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-        public ActionResult Add_Page2()
+        public ActionResult Add_Page2(int Id)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
@@ -95,6 +95,7 @@ namespace ShoppingCMS_V002.Controllers
 
                 AddProductModelV_2 model = new AddProductModelV_2()
                 {
+                    Id=Id,
                     Types = MF.DropFiller("Type")
                 };
 
@@ -227,13 +228,16 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        public ActionResult Save_Step1(AddProduct_P1 addProduct_P1)
+        [HttpPost]
+        public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity ,int IsAd)
         {
-
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
-                return View();
+                ModelFiller MF = new ModelFiller();
+
+
+                return Content(MF.Product_Action_Step1(Act_ToDo, id_CreatedByAdmin, Title, Description, SEO_keyword, SEO_description, SearchGravity, IsAd));
             }
             else
                 return RedirectToAction("NotAccess", "MS");
@@ -244,7 +248,8 @@ namespace ShoppingCMS_V002.Controllers
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
-                return Content(Type);
+                ModelFiller MF = new ModelFiller();
+                return Content(MF.Product_Action_Step2(Type, Main, Sub, SubKey, id));
             }
             else
                 return RedirectToAction("NotAccess", "MS");
@@ -255,19 +260,35 @@ namespace ShoppingCMS_V002.Controllers
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
-               // var JsonList = JsonConvert.DeserializeObject<OptionsJsonModel>(Json);
+                var JsonList = JsonConvert.DeserializeObject<List<OptionsJsonModel>>(Json);
 
-                return Content("");
+                return Content(JsonList.Count.ToString());
             }
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-        public ActionResult Save_Step4()
+        public ActionResult Save_Step4(string json, string action, int id_MProduct, int Quantity, int QuantityModule, int PriceXquantity, int PricePerquantity, int PriceOff, int offTypeValue, int OffType, int id_MainStarTag, int PriceModule, int PriceShow)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
-                return View();
+                ModelFiller MF = new ModelFiller();
+                JaygashtClass jaygashtClass = new JaygashtClass();
+                var jaygashts = jaygashtClass.Result(json);
+                string itemid = "0";
+                foreach (var item in jaygashts)
+                {
+                    itemid = MF.MainProduct_Actions(action, id_MProduct, Quantity, QuantityModule, PriceXquantity, PricePerquantity, PriceOff, offTypeValue, OffType, id_MainStarTag, PriceModule, PriceShow);
+
+                    PDBC db = new PDBC("PandaMarketCMS", true);
+                    db.Connect();
+
+                    foreach (var itm in item)
+                    {
+                        db.Script("INSERT INTO[tbl_Product_connectorToMPC_SCOV] VALUES(" + itemid + "," + itm.ValId + ")");
+                    }
+                }
+                return Content("Success");
             }
             else
                 return RedirectToAction("NotAccess", "MS");
@@ -294,12 +315,24 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-        public ActionResult test(string Ids = "0")
+        
+        [HttpPost]
+        public ActionResult test(int id)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
-                return Content("test");
+                List<ExcParameters> paramss = new List<ExcParameters>();
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+                var parameters = new ExcParameters()
+                {
+                    _KEY = "@value",
+                    _VALUE = "pink"
+                };
+                paramss.Add(parameters);
+                string s = db.Script("INSERT INTO [dbo].[tbl_Product_SubCategoryOptionValue]([id_SCOK],[SCOVValueName]) Output Inserted.id_SCOV VALUES(1, @value )",paramss);
+                return Content(s);
             }
             else
                 return RedirectToAction("NotAccess", "MS");

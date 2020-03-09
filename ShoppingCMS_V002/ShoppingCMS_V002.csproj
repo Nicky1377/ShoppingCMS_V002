@@ -143,6 +143,7 @@
     <Compile Include="Models\opinion.cs" />
     <Compile Include="Models\OpinionAbout.cs" />
     <Compile Include="Models\Pictures.cs" />
+    <Compile Include="Models\PricingModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\Statics.cs" />
     <Compile Include="Models\SubCategory.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="ModelViews\AddProductModelV_2.cs" />
     <Compile Include="ModelViews\AddProductModelV_3.cs" />
     <Compile Include="ModelViews\AddProductModelV_4.cs" />
+    <Compile Include="ModelViews\AddProductModelV_5.cs" />
     <Compile Include="ModelViews\ProductListModelView.cs" />
     <Compile Include="OtherClasses\CheckAccess.cs" />
     <Compile Include="OtherClasses\itemclas.cs" />
@@ -657,6 +659,7 @@
     <Content Include="Views\Product\_OptionValue.cshtml" />
     <Content Include="Views\Product\Options_Table.cshtml" />
     <Content Include="Views\MS\NotAccess.cshtml" />
+    <Content Include="Views\Product\_PricingPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
