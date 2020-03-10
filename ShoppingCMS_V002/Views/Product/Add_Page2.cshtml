@@ -104,7 +104,7 @@
         <div class="kt-portlet__foot">
             <div class="kt-form__actions">
                 <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
-                    <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType2()">ثبت</button>
+                    <button id="Sub_btn2" style="width: 100%;" class="btn btn-success" onclick="return SubmitedType2()">ثبت</button>
                 </div>
 
             </div>
@@ -245,10 +245,10 @@
                     success: function (response) {
                         $("#ERRAlertEdit2").hide(300);
                         $("#SuccesAlertEdit2").show(300);
-                        alert(response);
-                         $('#step3').load("https://localhost:44336/Product/Add_Page3?Ids="+ $("#kt_select2_multiple").val()+"&id="+@Model.Id);
-                        
-                        
+                        //alert(response);
+                        $('#step3').load("https://localhost:44336/Product/Add_Page3?Ids=" + $("#kt_select2_multiple").val() + "&id=" +@Model.Id);
+                        $("#Sub_btn2").hide(200);
+                         $("#btn_next").show(200);
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus);

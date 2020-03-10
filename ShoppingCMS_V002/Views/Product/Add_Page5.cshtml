@@ -5,49 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="kt-portlet">
-    <div class="kt-portlet__body">
-        <!--begin::Section-->
-        <div class="kt-section">
+    <div class="kt-portlet">
+        <div class="kt-portlet__body">
+            <!--begin::Section-->
+            <div class="kt-section">
 
-]
-            @foreach (var item in Model)
+                @foreach (var item in Model)
                 {
                     @Html.Partial("_PricingPage", item);
                 }
 
-            
 
-
-            <div class="col-lg-3">
-                <div class="kt-portlet bg-success" >
-                    <div class="kt-portlet__head kt-portlet__head--right kt-portlet__head--noborder  kt-ribbon kt-ribbon--clip kt-ribbon--left kt-ribbon--info" style="/*! padding-top: 10px; */padding: 10px;">
-                        <div class="kt-ribbon__target" style="top: 12px;">
-                            <span class="kt-ribbon__inner"></span>Ribbon
-                        </div>
-                        <div class="kt-portlet__head-label" style="width: 100%;">
-                            <h3 class="kt-portlet__head-title" style="width: 100%;">
-                                <img src="https://unsplash.it/250/187?image=400" style="width: 100%;">
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="kt-portlet__body kt-portlet__body--fit-top">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Inceptos imperdiet magna! Sed fusce fames tempus
-                    </div>
-                </div>
             </div>
-
         </div>
-    </div>
-    <div style="display:none" class="kt-portlet__foot">
-        <div class="kt-form__actions">
-            <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
-                <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType('edit','')">ثبت</button>
-            </div>
-
-        </div>
-    </div>
-</div>
+    </div> 
+    
 <!--end::Form-->
 
 <script>
@@ -78,21 +50,28 @@
             $("#btnSavePage5-" + SectionID).show(100);
             $("#btnDeletePage5-" + SectionID).show(100);
             $("#KTPortletSectionCOLOR_TSHPanda-" + SectionID).addClass("kt-iconbox--warning");
+            $("#KTPortletSectionTSHPanda-" + SectionID + " input").prop("disabled", false);
+            $("#KTPortletSectionTSHPanda-" + SectionID + " select").prop("disabled", false);
         }
         if (SectionVal == "2") {
             $("#svgDeletepage5-" + SectionID).show(100);
             $("#btnRestorepage5-" + SectionID).show(100);
             $("#KTPortletSectionCOLOR_TSHPanda-" + SectionID).addClass("kt-iconbox--danger");
+            $("#KTPortletSectionTSHPanda-" + SectionID + " input").prop("disabled", true);
+            $("#KTPortletSectionTSHPanda-" + SectionID+" select").prop("disabled", true);
         }
         if (SectionVal == "3") {
             $("#svgSuccesspage5-" + SectionID).show(100);
             $("#btnEditPage5-" + SectionID).show(100);
             $("#btnDeletePage5-" + SectionID).show(100);
             $("#KTPortletSectionCOLOR_TSHPanda-" + SectionID).addClass("kt-iconbox--success");
+             $("#KTPortletSectionTSHPanda-" + SectionID + " input").prop("disabled", true);
+            $("#KTPortletSectionTSHPanda-" + SectionID+" select").prop("disabled", true);
         }
 
     }
     $(document).ready(function () {
+       // $('#btn_Submit').show(200);
         $("input[name='InputWhichAction']").each(function () {
             var SectionVall = $(this).val();
             var SectionIDD = $(this).attr('insertedid');
@@ -230,17 +209,62 @@
 
     function btnEditPAge5(param) {
         if (param != '0') {
-            $('#InputWhichAction-' + param).attr('value', '1');
+            alert("edit5");
+            SectionPosition('1', param);
         }
     }
     function btnDeletePAge5(param) {
         if (param != '0') {
+            $('#KTPortletSection_BodyLoad_TSHPanda-' + param).show();
+            var PostJson = {
+                'ActTodo': 'delete',
+                'id': param,
+            };
 
+             $.ajax({
+            url: '/Product/Save_Step5',
+            type: "post",
+            data: JSON.stringify(PostJson),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+               
+                alert(response);
+               
+                $('#KTPortletSection_BodyLoad_TSHPanda-' + param).hide();
+                SectionPosition('2', param);
+                $('#KTPortletSection_Body_TSHPanda-' + param).show();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });
         }
     }
     function btnRestorePAge5(param) {
         if (param != '0') {
+             $('#KTPortletSection_BodyLoad_TSHPanda-' + param).show();
+            var PostJson = {
+                'ActTodo': 'restore',
+                'id': param,
+            };
 
+             $.ajax({
+            url: '/Product/Save_Step5',
+            type: "post",
+            data: JSON.stringify(PostJson),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+               
+                alert(response);
+               
+                $('#KTPortletSection_BodyLoad_TSHPanda-' + param).hide();
+                SectionPosition('3', param);
+                $('#KTPortletSection_Body_TSHPanda-' + param).show();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });
         }
 
     }
@@ -286,11 +310,11 @@
             data: JSON.stringify(PostJson),
             contentType: "application/json; charset=utf-8",
             success: function (response) {
-                //$("#SuccesAlertEdit4").show(300);
+               
                 alert(response);
-                $('#step5').load("https://localhost:44336/Product/Add_Page5?Id=" + $("#Mpro_").text());
+               
                 $('#KTPortletSection_BodyLoad_TSHPanda-' + param).hide();
-                $('#InputWhichAction-' + param).attr("value", "3");
+                SectionPosition('3', param);
                 $('#KTPortletSection_Body_TSHPanda-' + param).show();
             },
             error: function (jqXHR, textStatus, errorThrown) {

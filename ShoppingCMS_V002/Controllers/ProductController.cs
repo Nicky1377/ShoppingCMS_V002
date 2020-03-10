@@ -65,12 +65,18 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        public ActionResult Add_Product()
+        public ActionResult Add_Product(string Act="insert",int id=0)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
-                return View();
+                var model = new Id_ValueModel()
+                {
+                    Id=id,
+                    Value=Act
+                };
+
+                return View(model);
             }
             else
                 return RedirectToAction("NotAccess", "MS");
@@ -230,12 +236,10 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-<<<<<<< HEAD
-        public ActionResult Add_Page5(int id,int SubId)
-=======
 
-        public ActionResult Add_Page5()
->>>>>>> 676e2037f562fdfd699de9531c8fe388c61f632f
+
+        public ActionResult Add_Page5(int id, int SubId)
+
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
@@ -282,15 +286,24 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
         [HttpPost]
-        public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity ,int IsAd)
+        public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity ,int IsAd,string pics, int id = 0)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
+                string itmId = MF.Product_Action_Step1(Act_ToDo, id_CreatedByAdmin, Title, Description, SEO_keyword, SEO_description, SearchGravity, IsAd);
 
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
 
-                return Content(MF.Product_Action_Step1(Act_ToDo, id_CreatedByAdmin, Title, Description, SEO_keyword, SEO_description, SearchGravity, IsAd));
+                foreach (var item in pics.Split(','))
+                {
+                    db.Script("INSERT INTO [tbl_Product_PicConnector] VALUES (" + itmId + "," + item + ")");
+
+                }
+
+                return Content(itmId);
             }
             else
                 return RedirectToAction("NotAccess", "MS");
@@ -320,7 +333,7 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-        public ActionResult Save_Step4(string json, string ActTodo, int id_MProduct, int Quantity, int QuantityModule, int PricePerquantity, int PriceOff, int offTypeValue, int OffType, int id_MainStarTag, int PriceModule, int PriceShow,string tgs, string describtion)
+        public ActionResult Save_Step4(string json, string ActTodo, int id_MProduct, int Quantity, int QuantityModule, int PricePerquantity, int PriceOff, int offTypeValue, int OffType, int id_MainStarTag, int PriceModule, int PriceShow,string tgs)
         {
             
             CheckAccess check = new CheckAccess();
@@ -328,6 +341,8 @@ namespace ShoppingCMS_V002.Controllers
             {
                 int PriceXquantity = Quantity * PricePerquantity;
                 ModelFiller MF = new ModelFiller();
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
 
                 if (ActTodo == "insert")
                 {
@@ -337,11 +352,9 @@ namespace ShoppingCMS_V002.Controllers
                     string itemid = "0";
                     foreach (var item in jaygashts)
                     {
-                        itemid = MF.MainProduct_Actions(ActTodo, id_MProduct, Quantity, QuantityModule, PriceXquantity, PricePerquantity, PriceOff, offTypeValue, OffType, id_MainStarTag, PriceModule, PriceShow, describtion);
+                        itemid = MF.MainProduct_Actions(ActTodo, id_MProduct, Quantity, QuantityModule, PriceXquantity, PricePerquantity, PriceOff, offTypeValue, OffType, id_MainStarTag, PriceModule, PriceShow);
 
-                        PDBC db = new PDBC("PandaMarketCMS", true);
-                        db.Connect();
-
+                       
 
                         foreach (var itm in item)
                         {
@@ -381,12 +394,26 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-        public ActionResult Save_Step5()
+        public ActionResult Save_Step5(string ActTodo,int id)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
-                return View();
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+
+                if (ActTodo=="delete")
+                {
+                    db.Script("UPDATE [tlb_Product_MainProductConnector] SET [ISDELETE] = 1 WHERE id_MPC="+id);
+
+                }
+                else if(ActTodo == "restore")
+                {
+                    db.Script("UPDATE [tlb_Product_MainProductConnector] SET [ISDELETE] = 0 WHERE id_MPC="+id);
+                }
+
+
+                return Content("success");
             }
             else
                 return RedirectToAction("NotAccess", "MS");

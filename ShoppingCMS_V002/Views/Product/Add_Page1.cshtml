@@ -41,6 +41,15 @@
                         <input id="IsAd_p1" class="form-control" type="checkbox" />تبلیغ شود؟
                         <span></span>
                     </label>
+
+                    <!----------------------------------------------------------------------------------------------->
+                    <div class="form-group">
+                        <label>عکس ها</label>
+                        <input type="hidden" id="Pics_p1" class="form-control" placeholder="" />
+                        <span class="form-text text-muted">1,2,3</span>
+                    </div>
+
+                    <!----------------------------------------------------------------------------------------------->
                 </div>
             </div>
         </form>
@@ -77,10 +86,11 @@
         var SEO_keyword = $('#SEO_keyword_p1').val(); 
         var SEO_description = $('#SEO_description_p1').val(); 
         var SearchGravity = $('#SearchGravity_p1').val(); 
-        var IsAd ; 
+        var IsAd; 
+        var pics = $('#Pics_p1').val();
 
         if (Title != "" && Description != "" && SEO_keyword != "" && SEO_description != "" && SearchGravity != "") {
-            //$("#Sub_btn1").hide(200);
+            
 
 
             if ($('#IsAd_p1').val() == 'on') {
@@ -88,17 +98,39 @@
             } else {
                 IsAd = 0;
             }
-            alert(IsAd);
-            var PostJson = {
-                'Act_ToDo': 'insert',
-                'Title': Title,
-                'Description': Description,
-                'SEO_keyword': SEO_keyword,
-                'SEO_description': SEO_description,
-                'SearchGravity': SearchGravity,
-                'IsAd': IsAd,
-                'id_CreatedByAdmin': 1
-            };
+            //alert(IsAd);
+
+            var act = $('#ActDiv').text();
+            var PostJson;
+            if (act == 'insert') {
+                PostJson = {
+                    'Act_ToDo': 'insert',
+                    'Title': Title,
+                    'Description': Description,
+                    'SEO_keyword': SEO_keyword,
+                    'SEO_description': SEO_description,
+                    'SearchGravity': SearchGravity,
+                    'IsAd': IsAd,
+                    'id_CreatedByAdmin': 1,
+                    'pics': pics
+                };
+            } else if (act == 'edit') {
+                var id = $('#IdtDiv').text();
+                 PostJson = {
+                     'Act_ToDo': 'update',
+                     'id':id,
+                    'Title': Title,
+                    'Description': Description,
+                    'SEO_keyword': SEO_keyword,
+                    'SEO_description': SEO_description,
+                    'SearchGravity': SearchGravity,
+                    'IsAd': IsAd,
+                    'id_CreatedByAdmin': 1,
+                    'pics': pics
+                };
+            }
+
+           
 
                 $.ajax({
                     url: '/Product/Save_Step1',
@@ -110,8 +142,9 @@
                         $("#SuccesAlertEdit1").show(300);
                         //alert(response);
                         $('#step2').load("https://localhost:44336/Product/Add_Page2?Id=" + response);
-                        
-                        
+
+                        $("#Sub_btn1").hide(200);
+                         $("#btn_next").show(200);
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus);
@@ -119,7 +152,7 @@
                     });
 
 
-            $("#btn_next").show(200);
+           
         } else {
             $('#ERRAlertEdit1').show();
         }

@@ -71,7 +71,7 @@
     <div class="kt-portlet__foot">
         <div class="kt-form__actions">
             <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
-                <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType3()">ثبت</button>
+                <button id="Sub_btn3" style="width: 100%;" class="btn btn-success" onclick="return SubmitedType3()">ثبت</button>
             </div>
 
         </div>
@@ -85,7 +85,7 @@
             //========================================Begin :: init
 
            
-            $('#optiontable').load("https://localhost:44336/Product/Options_Table?id=1");
+            $('#optiontable').load("https://localhost:44336/Product/Options_Table?id="+@Model.Id);
 
             $("select[name='tshpSelect2']").select2();
             $(".multyselectSuccess").hide();
@@ -257,8 +257,11 @@
                     type: "post",
                     data: PostJson,
                     success: function (response) {
-
+                        var sub = $("#Select2_C option:selected").val();
+                        $('#step4').load("https://localhost:44336/Product/Add_Page4?SubId="+sub);
                         alert(response);
+                        $("#Sub_btn3").hide(200);
+                        $("#btn_next").show(200);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(textStatus, errorThrown);

@@ -14,14 +14,21 @@ namespace ShoppingCMS_V002
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-     name: "Default",
-     url: "{controller}/{action}",
-     defaults: new { controller = "MS", action = "Index" }
- );
+                name: "Default",
+                url: "{controller}/{action}",
+                defaults: new { controller = "MS", action = "Index" }
+                );
+
 
             routes.MapRoute(
                 name: "Niky",
                 url: "{controller}/{action}");
+
+            routes.MapRoute(
+                name: "AddProduct",
+                url: "اضافه-کردن-محصول/{Act}/{id}",
+                defaults: new { controller = "Product", action = "Add_Product" }
+                );
 
         }
     }

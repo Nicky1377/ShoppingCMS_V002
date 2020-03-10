@@ -10,7 +10,7 @@
         <div class="kt-section">
             
             <div class="col-12" id="KTPortletSectionTSHPanda-1">
-                <input style="display: none" value="1" id="InputWhichAction-0" name="InputWhichAction" insertedid="0" />
+                <input style="display: none" value="0" id="InputWhichAction-0" name="InputWhichAction" insertedid="0" />
                 <div id="KTPortletSectionCOLOR_TSHPanda-0" class="kt-portlet kt-iconbox  kt-iconbox--animate-slow">
                     <div class="kt-portlet__body">
                         <div id="KTPortletSection_Body_TSHPanda-0" class="kt-iconbox__body" style="">
@@ -183,14 +183,7 @@
 
         </div>
     </div>
-    @*<div class="kt-portlet__foot">
-        <div class="kt-form__actions">
-            <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
-                <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType('edit','')">ثبت</button>
-            </div>
-
-        </div>
-    </div>*@
+    
 </div>
 <!--end::Form-->
 <script>
@@ -224,13 +217,13 @@
         }
         if (SectionVal == "2") {
             $("#svgDeletepage4-" + SectionID).show(100);
-            $("#btnRestorepage4-" + SectionID).show(100);
+            //$("#btnRestorepage4-" + SectionID).show(100);
             $("#KTPortletSectionCOLOR_TSHPanda-" + SectionID).addClass("kt-iconbox--danger");
         }
         if (SectionVal == "3") {
             $("#svgSuccesspage4-" + SectionID).show(100);
             $("#btnEditPage4-" + SectionID).show(100);
-            $("#btnDeletePage4-" + SectionID).show(100);
+           // $("#btnDeletePage4-" + SectionID).show(100);
             $("#KTPortletSectionCOLOR_TSHPanda-" + SectionID).addClass("kt-iconbox--success");
         }
 
@@ -378,7 +371,8 @@
 
     function btnEditPAge4(param) {
         if (param != '0') {
-            $('#InputWhichAction-' + param).attr('value', '1');
+            SectionPosition('1', param);
+            alert("edit4");
         }
     }
     function btnDeletePAge4(param) {
@@ -425,8 +419,8 @@
             'id_MainStarTag': $("#MainTagID-" + param + " option:selected").val(),
             'PriceModule': $("#SelectVahedPriceID-" + param + " option:selected").val(),
             'PriceShow': $("#SelectShowPriceID-" + param + " option:selected").val(),
-            'tgs': tg,
-            'describtion':CKEDITOR.instances.CkeditorMein.getData()
+            'tgs': tg
+            
         };
 
          $.ajax({
@@ -435,12 +429,14 @@
                     data: JSON.stringify(PostJson),
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
-                        $("#SuccesAlertEdit4").show(300);
                         alert(response);
-                        $('#step5').load("https://localhost:44336/Product/Add_Page5?Id=" + $("#Mpro_").text());
-                        $('#KTPortletSection_BodyLoad_TSHPanda-' + param).hide();
-                        $('#InputWhichAction-' + param).attr("value", "3");
-                        $('#KTPortletSection_Body_TSHPanda-' + param).show();
+                        var sub = $("#Select2_C option:selected").val();
+                        $('#step5').load("https://localhost:44336/Product/Add_Page5?Id=" + $("#Mpro_").text()+"&SubId="+sub);
+                        $('#KTPortletSection_BodyLoad_TSHPanda-' + param).hide(200);
+                        SectionPosition('3', param);
+                        $('#KTPortletSection_Body_TSHPanda-' + param).show(200);
+                        $("#btn_next").show(200);
+                        
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus);

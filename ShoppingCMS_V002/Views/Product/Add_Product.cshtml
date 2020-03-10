@@ -1,4 +1,4 @@
-﻿
+﻿@model ShoppingCMS_V002.Models.Id_ValueModel
 @{
     ViewBag.Title = "Add_Product";
     Layout = "~/Views/Master/Master.cshtml";
@@ -58,6 +58,9 @@
                     <!--end: Form Wizard Nav -->
                 </div>
                 <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
+                    <div id="ActDiv" style="display:none">@Model.Value</div>
+                    <div id="IdtDiv" style="display:none">@Model.Id</div>
+
                     <!--begin: Form Wizard Form-->
                     <div class="kt-form" style="width:85%!important;" id="kt_form">
                         <!--begin: Form Wizard Step 1-->
@@ -90,8 +93,8 @@
                             <button class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
                                 Previous
                             </button>
-                            <button class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
-                                Submit
+                            <button id="btn_Submit" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit" onclick="return Submittt()">
+                                ثبت نهایی
                             </button>
                             <button id="btn_next" onclick="NextPage()" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next" style="display: none;">
                                 Next Step
@@ -115,14 +118,14 @@
 <script>
     $(document).ready(function () {
         $('#step1').load("https://localhost:44336/Product/Add_Page1");
-        $('#step2').load("https://localhost:44336/Product/Add_Page2?Id=1");
-        $('#step3').load("https://localhost:44336/Product/Add_Page3?Ids=1,2&id=1");
-        $('#step4').load("https://localhost:44336/Product/Add_Page4?SubId=1");
-        $('#step5').load("https://localhost:44336/Product/Add_Page5?id=1&SubId=1");
+        //$('#step2').load("https://localhost:44336/Product/Add_Page2?Id=1");
+        //$('#step3').load("https://localhost:44336/Product/Add_Page3?Ids=1,2&id=1");
+        //$('#step4').load("https://localhost:44336/Product/Add_Page4?SubId=1");
+        //$('#step5').load("https://localhost:44336/Product/Add_Page5?id=1&SubId=1");
     });
 
-    function NextPage() {
-        var mes = $('#page').text();
-        alert(mes);
+    function Submittt() {
+        alert("با موفقیت ثبت شد");
+        location.reload(true);
     }
 </script>

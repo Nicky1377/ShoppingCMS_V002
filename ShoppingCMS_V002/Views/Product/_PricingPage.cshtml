@@ -1,6 +1,6 @@
 ﻿@model ShoppingCMS_V002.ModelViews.AddProductModelV_5
 
-    <div class="col-12" id="KTPortletSectionTSHPanda-1">
+    <div class="col-12" id="KTPortletSectionTSHPanda-@Model.pricingModel.Id">
         @if (Model.pricingModel.IsDeleted)
         {
             <input style="display: none" value="2" id="InputWhichAction-@Model.pricingModel.Id" name="InputWhichAction" insertedid="@Model.pricingModel.Id" />
@@ -133,21 +133,25 @@
                                     }
                                 </select>
                                 <div class="input-group-prepend"><span class="input-group-text">میزان تخفیف</span></div>
-                                <input id="inpOffPrice-@Model.pricingModel.Id" type="text" class="form-control" placeholder="@Model.pricingModel.OffVal" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice(@Model.pricingModel.Id)">                            </div>
+                                <input id="inpOffPrice-@Model.pricingModel.Id" type="text" class="form-control" placeholder="میزان تخفیف" aria-describedby="basic-addon1" disabled="disabled" value="@Model.pricingModel.OffVal"  onkeyup="return CalculateAllPrice(@Model.pricingModel.Id)">                            </div>
                             <span id="PlzSelectVaheds-@Model.pricingModel.Id" class="form-text text-danger">پرکردن تمامی قسمت های بالا اجباریست</span>
 
                             <div class="input-group" style="padding-top: 10px;">
                                 <div class="input-group-prepend"><span class="input-group-text">قیمت هر واحد</span></div>
-                                <input id="inpPrice-@Model.pricingModel.Id" name="inpPriceTSHPSTATIC" type="text" class="form-control" placeholder="@Model.pricingModel.PerQuantity" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice(@Model.pricingModel.Id)">
+
+                                <input id="inpPrice-@Model.pricingModel.Id" name="inpPriceTSHPSTATIC" type="text" class="form-control" placeholder="قیمت هر واحد" aria-describedby="basic-addon1" value="@Model.pricingModel.PerQuantity" disabled="disabled" onkeyup="return CalculateAllPrice(@Model.pricingModel.Id)">
+
                                 <div class="input-group-prepend"><span class="input-group-text">تعداد در هر واحد</span></div>
-                                <input id="VahedID-@Model.pricingModel.Id" name="VahedIDTSHPSTATICS" type="text" class="form-control" placeholder="@Model.pricingModel.Quantity" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice(@Model.pricingModel.Id)">                            </div>
+
+                                <input id="VahedID-@Model.pricingModel.Id" name="VahedIDTSHPSTATICS" type="text" class="form-control" placeholder="تعداد در هر واحد" aria-describedby="basic-addon1" value="@Model.pricingModel.Quantity" disabled="disabled" onkeyup="return CalculateAllPrice(@Model.pricingModel.Id)"> 
+                            </div>
                             <span class="form-text text-muted">تعداد در هر واحد : بطور مثال فروش آن کالا بر اساس کارتن میباشد و در هر کارتن 12 عدد موجود میباشد اگر قیمت هر عدد کالا 10 تومان باشد و در هر کارتن 12 عدد موجود باشد و فروش بصورت کارتنی باشد مشتری رقم 120 تومان را خواهد پرداخت</span>
                         </div>
                         <div class="form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">قیمت پرداختی مشتری</span>
-                                <input id="totalPrice-@Model.pricingModel.Id" name="totalPriceHideTSHPSTATICS" type="text" class="form-control" placeholder="@Model.pricingModel.PriceOff" aria-describedby="basic-addon1" readonly="readonly">
-                                <input id="totalPriceHide-@Model.pricingModel.Id" style="display: none" type="text" class="form-control" placeholder="@Model.pricingModel.PriceOff" aria-describedby="basic-addon1" readonly="readonly">
+                                <input id="totalPrice-@Model.pricingModel.Id" name="totalPriceHideTSHPSTATICS" type="text" class="form-control" placeholder="قیمت پرداختی مشتری" aria-describedby="basic-addon1" value="@Model.pricingModel.PriceOff" readonly="readonly">
+                                <input id="totalPriceHide-@Model.pricingModel.Id" style="display: none" type="text" class="form-control" placeholder="قیمت پرداختی مشتری" aria-describedby="basic-addon1" value="@Model.pricingModel.PriceOff" readonly="readonly">
                             </div>
                             <span id="PlzPriceMAnfi-@Model.pricingModel.Id" class="form-text text-danger" style="display: none">قیمت پرداختی منفی است !</span>
 
