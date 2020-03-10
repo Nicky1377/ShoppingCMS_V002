@@ -8,7 +8,12 @@ namespace ShoppingCMS_V002.ModelViews
 {
     public class AddProductModelV_4
     {
-        public List<AddPor_page4_Model> models { get; set; }
+        public List<Id_ValueModel> PriceType { get; set; }
+        public List<Id_ValueModel> QuantityTypes { get; set; }
+        public List<Id_ValueModel> OffTypes { get; set; }
+        public List<Id_ValueModel> PriceShow { get; set; }
+        public List<Id_ValueModel> Tags { get; set; }
+        public List<Id_ValueModel> MainTags { get; set; }
 
     }
 }

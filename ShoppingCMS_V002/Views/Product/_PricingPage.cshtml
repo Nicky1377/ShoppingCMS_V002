@@ -1,174 +1,227 @@
-﻿
-<div class="col-12" id="KTPortletSectionTSHPanda-1">
-    <input style="display: none" value="0" id="InputWhichAction-1" name="InputWhichAction" insertedid="1" />
-    <div id="KTPortletSectionCOLOR_TSHPanda-1" class="kt-portlet kt-iconbox  kt-iconbox--animate-slow">
-        <div class="kt-portlet__body">
-            <div id="KTPortletSection_Body_TSHPanda-1" class="kt-iconbox__body" style="">
-                <div class="kt-iconbox__icon">
-                    <div class="row">
-                        <svg id="svgFirstUsePage4-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="0" y="0" width="24" height="24" />
-                                <path d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z" fill="#000000" opacity="0.3" />
-                                <path d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z" fill="#000000" />
-                                <rect fill="#000000" opacity="0.3" x="7" y="10" width="5" height="2" rx="1" />
-                                <rect fill="#000000" opacity="0.3" x="7" y="14" width="9" height="2" rx="1" />
-                            </g>
-                        </svg>
-                        <svg id="svgEditpage4-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%;display: none" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="0" y="0" width="24" height="24" />
-                                <path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) " />
-                                <path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                            </g>
-                        </svg>
+﻿@model ShoppingCMS_V002.ModelViews.AddProductModelV_5
+
+    <div class="col-12" id="KTPortletSectionTSHPanda-1">
+        @if (Model.pricingModel.IsDeleted)
+        {
+            <input style="display: none" value="2" id="InputWhichAction-@Model.pricingModel.Id" name="InputWhichAction" insertedid="@Model.pricingModel.Id" />
+
+        }
+        else
+        {
+            <input style="display: none" value="3" id="InputWhichAction-@Model.pricingModel.Id" name="InputWhichAction" insertedid="@Model.pricingModel.Id" />
+
+        }
+
+        <div id="KTPortletSectionCOLOR_TSHPanda-@Model.pricingModel.Id" class="kt-portlet kt-iconbox  kt-iconbox--animate-slow">
+            <div class="kt-portlet__body">
+                <div id="KTPortletSection_Body_TSHPanda-@Model.pricingModel.Id" class="kt-iconbox__body" style="">
+                    <div class="kt-iconbox__icon">
+                        <div class="row">
+                            <svg id="svgFirstUsePage5-@Model.pricingModel.Id" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z" fill="#000000" opacity="0.3" />
+                                    <path d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z" fill="#000000" />
+                                    <rect fill="#000000" opacity="0.3" x="7" y="10" width="5" height="2" rx="1" />
+                                    <rect fill="#000000" opacity="0.3" x="7" y="14" width="9" height="2" rx="1" />
+                                </g>
+                            </svg>
+                            <svg id="svgEditpage5-@Model.pricingModel.Id" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%;display: none" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path d="M12.2674799,18.2323597 L12.0084872,5.45852451 C12.0004303,5.06114792 12.1504154,4.6768183 12.4255037,4.38993949 L15.0030167,1.70195304 L17.5910752,4.40093695 C17.8599071,4.6812911 18.0095067,5.05499603 18.0083938,5.44341307 L17.9718262,18.2062508 C17.9694575,19.0329966 17.2985816,19.701953 16.4718324,19.701953 L13.7671717,19.701953 C12.9505952,19.701953 12.2840328,19.0487684 12.2674799,18.2323597 Z" fill="#000000" fill-rule="nonzero" transform="translate(14.701953, 10.701953) rotate(-135.000000) translate(-14.701953, -10.701953) " />
+                                    <path d="M12.9,2 C13.4522847,2 13.9,2.44771525 13.9,3 C13.9,3.55228475 13.4522847,4 12.9,4 L6,4 C4.8954305,4 4,4.8954305 4,6 L4,18 C4,19.1045695 4.8954305,20 6,20 L18,20 C19.1045695,20 20,19.1045695 20,18 L20,13 C20,12.4477153 20.4477153,12 21,12 C21.5522847,12 22,12.4477153 22,13 L22,18 C22,20.209139 20.209139,22 18,22 L6,22 C3.790861,22 2,20.209139 2,18 L2,6 C2,3.790861 3.790861,2 6,2 L12.9,2 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+                                </g>
+                            </svg>
 
 
-                        <svg id="svgDeletepage4-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%;display: none" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="0" y="0" width="24" height="24" />
-                                <path d="M4.5,3 L19.5,3 C20.3284271,3 21,3.67157288 21,4.5 L21,19.5 C21,20.3284271 20.3284271,21 19.5,21 L4.5,21 C3.67157288,21 3,20.3284271 3,19.5 L3,4.5 C3,3.67157288 3.67157288,3 4.5,3 Z M8,5 C7.44771525,5 7,5.44771525 7,6 C7,6.55228475 7.44771525,7 8,7 L16,7 C16.5522847,7 17,6.55228475 17,6 C17,5.44771525 16.5522847,5 16,5 L8,5 Z M10.5857864,14 L9.17157288,15.4142136 C8.78104858,15.8047379 8.78104858,16.4379028 9.17157288,16.8284271 C9.56209717,17.2189514 10.1952621,17.2189514 10.5857864,16.8284271 L12,15.4142136 L13.4142136,16.8284271 C13.8047379,17.2189514 14.4379028,17.2189514 14.8284271,16.8284271 C15.2189514,16.4379028 15.2189514,15.8047379 14.8284271,15.4142136 L13.4142136,14 L14.8284271,12.5857864 C15.2189514,12.1952621 15.2189514,11.5620972 14.8284271,11.1715729 C14.4379028,10.7810486 13.8047379,10.7810486 13.4142136,11.1715729 L12,12.5857864 L10.5857864,11.1715729 C10.1952621,10.7810486 9.56209717,10.7810486 9.17157288,11.1715729 C8.78104858,11.5620972 8.78104858,12.1952621 9.17157288,12.5857864 L10.5857864,14 Z" fill="#000000" />
-                            </g>
-                        </svg>
+                            <svg id="svgDeletepage5-@Model.pricingModel.Id" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%;display: none" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path d="M4.5,3 L19.5,3 C20.3284271,3 21,3.67157288 21,4.5 L21,19.5 C21,20.3284271 20.3284271,21 19.5,21 L4.5,21 C3.67157288,21 3,20.3284271 3,19.5 L3,4.5 C3,3.67157288 3.67157288,3 4.5,3 Z M8,5 C7.44771525,5 7,5.44771525 7,6 C7,6.55228475 7.44771525,7 8,7 L16,7 C16.5522847,7 17,6.55228475 17,6 C17,5.44771525 16.5522847,5 16,5 L8,5 Z M10.5857864,14 L9.17157288,15.4142136 C8.78104858,15.8047379 8.78104858,16.4379028 9.17157288,16.8284271 C9.56209717,17.2189514 10.1952621,17.2189514 10.5857864,16.8284271 L12,15.4142136 L13.4142136,16.8284271 C13.8047379,17.2189514 14.4379028,17.2189514 14.8284271,16.8284271 C15.2189514,16.4379028 15.2189514,15.8047379 14.8284271,15.4142136 L13.4142136,14 L14.8284271,12.5857864 C15.2189514,12.1952621 15.2189514,11.5620972 14.8284271,11.1715729 C14.4379028,10.7810486 13.8047379,10.7810486 13.4142136,11.1715729 L12,12.5857864 L10.5857864,11.1715729 C10.1952621,10.7810486 9.56209717,10.7810486 9.17157288,11.1715729 C8.78104858,11.5620972 8.78104858,12.1952621 9.17157288,12.5857864 L10.5857864,14 Z" fill="#000000" />
+                                </g>
+                            </svg>
 
 
 
 
-                        <svg id="svgSuccesspage4-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%;display: none" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <rect x="0" y="0" width="24" height="24" />
-                                <path d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z" fill="#000000" opacity="0.3" />
-                                <path d="M10.875,15.75 C10.6354167,15.75 10.3958333,15.6541667 10.2041667,15.4625 L8.2875,13.5458333 C7.90416667,13.1625 7.90416667,12.5875 8.2875,12.2041667 C8.67083333,11.8208333 9.29375,11.8208333 9.62916667,12.2041667 L10.875,13.45 L14.0375,10.2875 C14.4208333,9.90416667 14.9958333,9.90416667 15.3791667,10.2875 C15.7625,10.6708333 15.7625,11.2458333 15.3791667,11.6291667 L11.5458333,15.4625 C11.3541667,15.6541667 11.1145833,15.75 10.875,15.75 Z" fill="#000000" />
-                                <path d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z" fill="#000000" />
-                            </g>
-                        </svg>
+                            <svg id="svgSuccesspage5-@Model.pricingModel.Id" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 100%;display: none" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <path d="M8,3 L8,3.5 C8,4.32842712 8.67157288,5 9.5,5 L14.5,5 C15.3284271,5 16,4.32842712 16,3.5 L16,3 L18,3 C19.1045695,3 20,3.8954305 20,5 L20,21 C20,22.1045695 19.1045695,23 18,23 L6,23 C4.8954305,23 4,22.1045695 4,21 L4,5 C4,3.8954305 4.8954305,3 6,3 L8,3 Z" fill="#000000" opacity="0.3" />
+                                    <path d="M10.875,15.75 C10.6354167,15.75 10.3958333,15.6541667 10.2041667,15.4625 L8.2875,13.5458333 C7.90416667,13.1625 7.90416667,12.5875 8.2875,12.2041667 C8.67083333,11.8208333 9.29375,11.8208333 9.62916667,12.2041667 L10.875,13.45 L14.0375,10.2875 C14.4208333,9.90416667 14.9958333,9.90416667 15.3791667,10.2875 C15.7625,10.6708333 15.7625,11.2458333 15.3791667,11.6291667 L11.5458333,15.4625 C11.3541667,15.6541667 11.1145833,15.75 10.875,15.75 Z" fill="#000000" />
+                                    <path d="M11,2 C11,1.44771525 11.4477153,1 12,1 C12.5522847,1 13,1.44771525 13,2 L14.5,2 C14.7761424,2 15,2.22385763 15,2.5 L15,3.5 C15,3.77614237 14.7761424,4 14.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 L9,2.5 C9,2.22385763 9.22385763,2 9.5,2 L11,2 Z" fill="#000000" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="row pt-1">
+                            <button class="btn btn-warning w-100 " id="btnEditPage5-@Model.pricingModel.Id" onclick="return btnEditPAge5(@Model.pricingModel.Id)">ویرایش</button>
+                        </div>
+                        <div class="row pt-1">
+                            <button class="btn btn-danger w-100  " id="btnDeletePage5-@Model.pricingModel.Id" onclick="return btnDeletePAge5(@Model.pricingModel.Id)">حذف</button>
+                        </div>
+                        <div class="row pt-1">
+                            <button class="btn btn-brand w-100  " id="btnRestorepage5-@Model.pricingModel.Id" onclick="return btnRestorePAge5(@Model.pricingModel.Id)">بازگردانی</button>
+                        </div>
+                        <div class="row pt-1">
+                            <button class="btn btn-success w-100  " id="btnSavePage5-@Model.pricingModel.Id" onclick="return btnSavePAge5(@Model.pricingModel.Id)">ثبت</button>
+                        </div>
                     </div>
-                    <div class="row pt-1">
-                        <button class="btn btn-warning w-100 " id="btnEditPage4-1" onclick="return btnEditPAge4('1')">ویرایش</button>
-                    </div>
-                    <div class="row pt-1">
-                        <button class="btn btn-danger w-100  " id="btnDeletePage4-1" onclick="return btnDeletePAge4('1')">حذف</button>
-                    </div>
-                    <div class="row pt-1">
-                        <button class="btn btn-brand w-100  " id="btnRestorepage4-1" onclick="return btnRestorePAge4('1')">بازگردانی</button>
-                    </div>
-                    <div class="row pt-1">
-                        <button class="btn btn-success w-100  " id="btnSavePage4-1" onclick="return btnSavePAge4('1')">ثبت</button>
+                    <div class="kt-iconbox__desc" style="width: 100%">
+
+                        <div class="form-group ">
+                            <label>
+                                قیمت گذاری محصول :
+                                @*@foreach (var item in Model.pricingModel.Attributes)
+        {
+            <span class="kt-badge kt-badge--success kt-badge--inline" style="font-size: 15px;">@item</span>&nbsp; &nbsp;
+        }*@
+                                <span class="badge badge-pill badge-info kt-badge--inline" style="font-size: 15px;">@Model.pricingModel.Description</span>&nbsp; &nbsp;
+
+                            </label>
+                            <br />
+                            <label>اخطار ها :<span id="NoErr-@Model.pricingModel.Id" class="kt-badge kt-badge--success kt-badge--inline" style="font-size: 15px; display: none">هیچ اخطاری وجود ندارد!</span> <span class="kt-badge kt-badge--warning kt-badge--inline" style="font-size: 15px; display: none" id="ErrorsLog-@Model.pricingModel.Id">قرمز</span></label>
+                            <div class="input-group" style="padding-bottom: 10px;">
+                                <div class="input-group-prepend"><span class="input-group-text">نوع واحد</span></div>
+                                <select class="form-control bootstrap-select" style="border: 1px solid #e2e5ec" id="SelectVahedQuntID-@Model.pricingModel.Id" onchange="return LockUnlockPriceInputs(@Model.pricingModel.Id)">
+                                    <option value="-1">انتخاب فرمایید</option>
+                                    @foreach (var item in Model.QuantityTypes)
+                                    {
+                                        if (item.Id == Model.pricingModel.QuantityType)
+                                        {
+                                            <option selected value="@item.Id">@item.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Id">@item.Value</option>
+                                        }
+
+                                    }
+                                </select>
+                                <div class="input-group-prepend"><span class="input-group-text">واحد قیمتی</span></div>
+                                <select class="form-control bootstrap-select" style="border: 1px solid #e2e5ec" id="SelectVahedPriceID-@Model.pricingModel.Id" onchange="return LockUnlockPriceInputs(@Model.pricingModel.Id)">
+                                    <option value="-1">انتخاب فرمایید</option>
+                                    @foreach (var item in Model.PriceType)
+                                    {
+                                        if (item.Id == Model.pricingModel.PriceModule)
+                                        {
+                                            <option selected value="@item.Id">@item.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Id">@item.Value</option>
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+
+                            <div class="input-group" style="padding-bottom: 10px;">
+                                <div class="input-group-prepend"><span class="input-group-text">نوع تخفیف</span></div>
+                                <select class="form-control bootstrap-select" style="border: 1px solid #e2e5ec" id="SelectOffID-@Model.pricingModel.Id" onchange="return LockUnlockPriceInputs(@Model.pricingModel.Id)">
+                                    <option value="-1">انتخاب فرمایید</option>
+                                    @foreach (var item in Model.OffTypes)
+                                    {
+                                        if (item.Id == Model.pricingModel.OffType)
+                                        {
+                                            <option selected value="@item.Id">@item.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Id">@item.Value</option>
+                                        }
+                                    }
+                                </select>
+                                <div class="input-group-prepend"><span class="input-group-text">میزان تخفیف</span></div>
+                                <input id="inpOffPrice-@Model.pricingModel.Id" type="text" class="form-control" placeholder="@Model.pricingModel.OffVal" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice(@Model.pricingModel.Id)">                            </div>
+                            <span id="PlzSelectVaheds-@Model.pricingModel.Id" class="form-text text-danger">پرکردن تمامی قسمت های بالا اجباریست</span>
+
+                            <div class="input-group" style="padding-top: 10px;">
+                                <div class="input-group-prepend"><span class="input-group-text">قیمت هر واحد</span></div>
+                                <input id="inpPrice-@Model.pricingModel.Id" name="inpPriceTSHPSTATIC" type="text" class="form-control" placeholder="@Model.pricingModel.PerQuantity" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice(@Model.pricingModel.Id)">
+                                <div class="input-group-prepend"><span class="input-group-text">تعداد در هر واحد</span></div>
+                                <input id="VahedID-@Model.pricingModel.Id" name="VahedIDTSHPSTATICS" type="text" class="form-control" placeholder="@Model.pricingModel.Quantity" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice(@Model.pricingModel.Id)">                            </div>
+                            <span class="form-text text-muted">تعداد در هر واحد : بطور مثال فروش آن کالا بر اساس کارتن میباشد و در هر کارتن 12 عدد موجود میباشد اگر قیمت هر عدد کالا 10 تومان باشد و در هر کارتن 12 عدد موجود باشد و فروش بصورت کارتنی باشد مشتری رقم 120 تومان را خواهد پرداخت</span>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">قیمت پرداختی مشتری</span>
+                                <input id="totalPrice-@Model.pricingModel.Id" name="totalPriceHideTSHPSTATICS" type="text" class="form-control" placeholder="@Model.pricingModel.PriceOff" aria-describedby="basic-addon1" readonly="readonly">
+                                <input id="totalPriceHide-@Model.pricingModel.Id" style="display: none" type="text" class="form-control" placeholder="@Model.pricingModel.PriceOff" aria-describedby="basic-addon1" readonly="readonly">
+                            </div>
+                            <span id="PlzPriceMAnfi-@Model.pricingModel.Id" class="form-text text-danger" style="display: none">قیمت پرداختی منفی است !</span>
+
+                            <span id="FullpriceHint-@Model.pricingModel.Id" class="form-text text-muted"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">MainTagID</span>
+                                <select id="MainTagID-@Model.pricingModel.Id" class="form-control kt-select2 tshpSelect2" style="width: 100%" name="tshpSelect2" onchange="return LockUnlockPriceInputs(@Model.pricingModel.Id)">
+                                    <option value="-1">انتخاب کنید</option>
+                                    @foreach (var item in Model.MainTags)
+                                    {
+                                        if (item.Id == Model.pricingModel.MainTagId)
+                                        {
+                                            <option selected value="@item.Id">@item.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Id">@item.Value</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Tags</span>
+                                <select id="SelectTagsID-@Model.pricingModel.Id" class="form-control kt-select2 tshpSelect2" style="width: 100%" name="tshpSelect2" multiple="multiple" onchange="return LockUnlockPriceInputs(@Model.pricingModel.Id)">
+                                    <option value="-1">انتخاب کنید</option>
+                                    @foreach (var item in Model.Tags)
+                                    {
+                                        if (Model.pricingModel.Tags.Contains(item.Id))
+                                        {
+                                            <option selected value="@item.Id">@item.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Id">@item.Value</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">نمایش قیمت</span>
+                                <select id="SelectShowPriceID-@Model.pricingModel.Id" class="form-control kt-select2 tshpSelect2" style="width: 100%" name="tshpSelect2" onchange="return LockUnlockPriceInputs(@Model.pricingModel.Id)">
+                                    <option value="-1">انتخاب کنید</option>
+                                     @foreach (var item in Model.PriceShow)
+                                {
+                                    if (item.Id == Model.pricingModel.PriceShow)
+                                    {
+                                        <option selected value="@item.Id">@item.Value</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id">@item.Value</option>
+                                    }
+                                }
+                                </select>
+                            </div>
+
+                        </div>
+                        @*<span class="input-group-text">متن اختصاصی / توضیحات تکمیلی</span>
+                        <textarea name="CkeditorMein" class="col-12" style="width: 100%"></textarea>*@
+
+
                     </div>
                 </div>
-                <div class="kt-iconbox__desc" style="width: 100%">
-
-                    <div class="form-group ">
-                        <label>قیمت گذاری محصول : <span class="kt-badge kt-badge--success kt-badge--inline" style="font-size: 15px;">قرمز</span>&nbsp;,&nbsp;<span class="kt-badge kt-badge--warning kt-badge--inline" style="font-size: 15px;">فلزی</span></label>
-                        <br />
-                        <label>اخطار ها :<span id="NoErr-1" class="kt-badge kt-badge--success kt-badge--inline" style="font-size: 15px; display: none">هیچ اخطاری وجود ندارد!</span> <span class="kt-badge kt-badge--warning kt-badge--inline" style="font-size: 15px; display: none" id="ErrorsLog-1">قرمز</span></label>
-                        <div class="input-group" style="padding-bottom: 10px;">
-                            <div class="input-group-prepend"><span class="input-group-text">نوع واحد</span></div>
-                            <select class="form-control bootstrap-select" style="border: 1px solid #e2e5ec" id="SelectVahedQuntID-1" onchange="return LockUnlockPriceInputs('1')">
-                                <option value="-1">انتخاب فرمایید</option>
-                                <option value="1">کیلو</option>
-                                <option value="2">تن</option>
-                                <option value="3">کارتن</option>
-                                <option value="4">گرم</option>
-                                <option value="5">بسته</option>
-                            </select>
-                            <div class="input-group-prepend"><span class="input-group-text">واحد قیمتی</span></div>
-                            <select class="form-control bootstrap-select" style="border: 1px solid #e2e5ec" id="SelectVahedPriceID-1" onchange="return LockUnlockPriceInputs('1')">
-                                <option value="-1">انتخاب فرمایید</option>
-                                <option value="0">ریال</option>
-                                <option value="1">تومان</option>
-                                <option value="2">دلار</option>
-                                <option value="3">یورو</option>
-
-                            </select>
-                        </div>
-
-                        <div class="input-group" style="padding-bottom: 10px;">
-                            <div class="input-group-prepend"><span class="input-group-text">نوع تخفیف</span></div>
-                            <select class="form-control bootstrap-select" style="border: 1px solid #e2e5ec" id="SelectOffID-1" onchange="return LockUnlockPriceInputs('1')">
-                                <option value="-1">انتخاب فرمایید</option>
-                                <option value="1">بدون تخفیف</option>
-                                <option value="2">درصدی</option>
-                                <option value="3">مقدار ثابت</option>
-                            </select>
-                            <div class="input-group-prepend"><span class="input-group-text">میزان تخفیف</span></div>
-                            <input id="inpOffPrice-1" type="text" class="form-control" placeholder="قیمت هر واحد" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice('1')">
-                        </div>
-                        <span id="PlzSelectVaheds-1" class="form-text text-danger">پرکردن تمامی قسمت های بالا اجباریست</span>
-
-                        <div class="input-group" style="padding-top: 10px;">
-                            <div class="input-group-prepend"><span class="input-group-text">قیمت هر واحد</span></div>
-                            <input id="inpPrice-1" name="inpPriceTSHPSTATIC" type="text" class="form-control" placeholder="قیمت هر واحد" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice('1')">
-                            <div class="input-group-prepend"><span class="input-group-text">تعداد در هر واحد</span></div>
-                            <input id="VahedID-1" name="VahedIDTSHPSTATICS" type="text" class="form-control" placeholder="تعداد در هر واحد" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice('1')">
-                        </div>
-                        <span class="form-text text-muted">تعداد در هر واحد : بطور مثال فروش آن کالا بر اساس کارتن میباشد و در هر کارتن 12 عدد موجود میباشد اگر قیمت هر عدد کالا 10 تومان باشد و در هر کارتن 12 عدد موجود باشد و فروش بصورت کارتنی باشد مشتری رقم 120 تومان را خواهد پرداخت</span>
+                <div id="KTPortletSection_BodyLoad_TSHPanda-1" class="kt-iconbox__body" style="display: none">
+                    <div class="col-6 offset-3">
+                        <button style="margin-right: 45%;cursor: default;" class="btn btn-success btn-icon btn-circle kt-spinner kt-spinner--center kt-spinner--sm kt-spinner--light"></button>
                     </div>
-                    <div class="form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">قیمت پرداختی مشتری</span>
-                            <input id="totalPrice-1" name="totalPriceHideTSHPSTATICS" type="text" class="form-control" placeholder="قیمت پرداختی مشتری" aria-describedby="basic-addon1" readonly="readonly">
-                            <input id="totalPriceHide-1" style="display: none" type="text" class="form-control" placeholder="قیمت پرداختی مشتری" aria-describedby="basic-addon1" readonly="readonly">
-                        </div>
-                        <span id="PlzPriceMAnfi-1" class="form-text text-danger" style="display: none">قیمت پرداختی منفی است !</span>
-
-                        <span id="FullpriceHint-1" class="form-text text-muted"></span>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">MainTagID</span>
-                            <select id="MainTagID-1" class="form-control kt-select2 tshpSelect2" style="width: 100%" name="tshpSelect2" onchange="return LockUnlockPriceInputs('1')">
-                                <option value="-1">انتخاب کنید</option>
-                                <option value="1">A</option>
-                                <option value="1">b</option>
-                                <option value="1">c</option>
-                                <option value="1">d</option>
-                                <option value="1">e</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Tags</span>
-                            <select id="SelectTagsID-1" class="form-control kt-select2 tshpSelect2" style="width: 100%" name="tshpSelect2" multiple="multiple" onchange="return LockUnlockPriceInputs('1')">
-                                <option value="-1">انتخاب کنید</option>
-                                <option value="1">A</option>
-                                <option value="1">b</option>
-                                <option value="1">c</option>
-                                <option value="1">d</option>
-                                <option value="1">e</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">نمایش قیمت</span>
-                            <select id="SelectShowPriceID-1" class="form-control kt-select2 tshpSelect2" style="width: 100%" name="tshpSelect2" onchange="return LockUnlockPriceInputs('1')">
-                                <option value="-1">انتخاب کنید</option>
-                                <option value="1">A</option>
-                                <option value="1">b</option>
-                                <option value="1">c</option>
-                                <option value="1">d</option>
-                                <option value="1">e</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <span class="input-group-text">متن اختصاصی / توضیحات تکمیلی</span>
-                    <textarea name="CkeditorMein" class="col-12" style="width: 100%"></textarea>
-
-
-
-
-
-
-                </div>
-            </div>
-            <div id="KTPortletSection_BodyLoad_TSHPanda-1" class="kt-iconbox__body" style="display: none">
-                <div class="col-6 offset-3">
-                    <button style="margin-right: 45%;cursor: default;" class="btn btn-success btn-icon btn-circle kt-spinner kt-spinner--center kt-spinner--sm kt-spinner--light"></button>
                 </div>
             </div>
         </div>
     </div>
-</div>

@@ -1,4 +1,5 @@
-﻿
+﻿@using ShoppingCMS_V002.ModelViews
+@model List<AddProductModelV_5>
 @{
     ViewBag.Title = "Add_Page5";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,6 +9,15 @@
     <div class="kt-portlet__body">
         <!--begin::Section-->
         <div class="kt-section">
+
+]
+            @foreach (var item in Model)
+                {
+                    @Html.Partial("_PricingPage", item);
+                }
+
+            
+
 
             <div class="col-lg-3">
                 <div class="kt-portlet bg-success" >
@@ -26,9 +36,10 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
-    <div class="kt-portlet__foot">
+    <div style="display:none" class="kt-portlet__foot">
         <div class="kt-form__actions">
             <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
                 <button style="width: 100%;" class="btn btn-success" onclick="return SubmitedType('edit','')">ثبت</button>
@@ -38,3 +49,359 @@
     </div>
 </div>
 <!--end::Form-->
+
+<script>
+
+
+
+    function SectionPosition(SectionVal, SectionID) {
+
+        //State 0 ==> firstDeclration
+        //State 1 ==> Editing
+        // State 2 ==> Delete
+        //State 3 ==> Submited Success
+        $("#svgFirstUsePage5-" + SectionID).hide();
+        $("#svgEditpage5-" + SectionID).hide();
+        $("#svgDeletepage5-" + SectionID).hide();
+        $("#svgSuccesspage5-" + SectionID).hide();
+        $("#btnEditPage5-" + SectionID).hide();
+        $("#btnDeletePage5-" + SectionID).hide();
+        $("#btnRestorepage5-" + SectionID).hide();
+        $("#btnSavePage5-" + SectionID).hide();
+        if (SectionVal == "0") {
+            $("#svgFirstUsePage5-" + SectionID).show(100);
+            $("#btnSavePage5-" + SectionID).show(100);
+            $("#KTPortletSefctionCOLOR_TSHPanda-" + SectionID).addClass("kt-iconbox--brand");
+        }
+        if (SectionVal == "1") {
+            $("#svgEditpage5-" + SectionID).show(100);
+            $("#btnSavePage5-" + SectionID).show(100);
+            $("#btnDeletePage5-" + SectionID).show(100);
+            $("#KTPortletSectionCOLOR_TSHPanda-" + SectionID).addClass("kt-iconbox--warning");
+        }
+        if (SectionVal == "2") {
+            $("#svgDeletepage5-" + SectionID).show(100);
+            $("#btnRestorepage5-" + SectionID).show(100);
+            $("#KTPortletSectionCOLOR_TSHPanda-" + SectionID).addClass("kt-iconbox--danger");
+        }
+        if (SectionVal == "3") {
+            $("#svgSuccesspage5-" + SectionID).show(100);
+            $("#btnEditPage5-" + SectionID).show(100);
+            $("#btnDeletePage5-" + SectionID).show(100);
+            $("#KTPortletSectionCOLOR_TSHPanda-" + SectionID).addClass("kt-iconbox--success");
+        }
+
+    }
+    $(document).ready(function () {
+        $("input[name='InputWhichAction']").each(function () {
+            var SectionVall = $(this).val();
+            var SectionIDD = $(this).attr('insertedid');
+            SectionPosition(SectionVall, SectionIDD);
+            CheckAllInputs(SectionIDD);
+        });
+
+
+        //===========================================================
+        $("select[name='tshpSelect2']").select2();
+        $("input[name='inpPriceTSHPSTATIC']").inputmask({ mask: "9,999,999,999,999" });
+        $("input[name='totalPriceHideTSHPSTATICS']").inputmask({
+            alias: 'numeric',
+            allowMinus: false,
+            digits: 6,
+            max: 999999999999.999999,
+        });
+        $("input[name='VahedIDTSHPSTATICS']").inputmask({ mask: "999999" });
+    });
+    function LockUnlockPriceInputs(IDsSelects) {
+        var lock = false;
+        if ($("#SelectVahedQuntID-" + IDsSelects).val() == "-1") {
+            lock = true;
+        }
+        if ($("#SelectVahedPriceID-" + IDsSelects).val() == "-1") {
+            lock = true;
+        }
+        if ($("#SelectOffID-" + IDsSelects).val() == "-1") {
+            lock = true;
+        } else {
+            if ($("#SelectOffID-" + IDsSelects).val() == "1") {
+                $("#inpOffPrice-" + IDsSelects).val(0);
+                $("#inpOffPrice-" + IDsSelects).attr('readonly', 'readonly');
+                $("#inpOffPrice-" + IDsSelects).inputmask({ mask: "9" });
+            }
+            if ($("#SelectOffID-" + IDsSelects).val() == "2") {
+                $("#inpOffPrice-" + IDsSelects).removeAttr('readonly');
+                $("#inpOffPrice-" + IDsSelects).inputmask({ mask: "99.99 %" });
+            }
+            if ($("#SelectOffID-" + IDsSelects).val() == "3") {
+                $("#inpOffPrice-" + IDsSelects).removeAttr('readonly');
+                $("#inpOffPrice-" + IDsSelects).inputmask({ mask: "999,999,999,999,999" });
+            }
+
+        }
+        if (lock) {
+            $("#inpPrice-" + IDsSelects).attr('disabled', 'disabled');
+            $("#VahedID-" + IDsSelects).attr('disabled', 'disabled');
+            $("#inpOffPrice-" + IDsSelects).attr('disabled', 'disabled');
+            $("#PlzSelectVaheds-" + IDsSelects).show(200);
+            $("#inpPrice-" + IDsSelects).val("");
+            $("#VahedID-" + IDsSelects).val("");
+            $("#inpOffPrice-" + IDsSelects).val("");
+        } else {
+            $("#inpPrice-" + IDsSelects).removeAttr('disabled');
+            $("#VahedID-" + IDsSelects).removeAttr('disabled');
+            $("#inpOffPrice-" + IDsSelects).removeAttr('disabled');
+            $("#PlzSelectVaheds-" + IDsSelects).hide(200);
+        }
+        CheckAllInputs(IDsSelects);
+
+    }
+    function CalculateAllPrice(IDsSelects) {
+        var vahedp = 0;
+        var pricepervahed = 0;
+        var priceoff = 0;
+        if ($("#VahedID-" + IDsSelects).val() !== "") {
+            vahedp = $("#VahedID-" + IDsSelects).inputmask('unmaskedvalue');
+        }
+        if ($("#inpPrice-" + IDsSelects).val() !== "") {
+            pricepervahed = $("#inpPrice-" + IDsSelects).inputmask('unmaskedvalue');
+        }
+        if ($("#inpOffPrice-" + IDsSelects).val() !== "") {
+            priceoff = $("#inpOffPrice-" + IDsSelects).inputmask('unmaskedvalue');
+        }
+        var First = parseFloat(vahedp);
+        var Second = parseFloat(pricepervahed);
+        var offPRICEBIGINT = parseFloat(priceoff);
+        var offmessage = "";
+        var totalPriceHideee = 0;
+        if ($("#SelectOffID-" + IDsSelects).val() == "1") {
+            offmessage = "  بدون احتساب تخفیف ";
+            totalPriceHideee = First * Second;
+        }
+        if ($("#SelectOffID-" + IDsSelects).val() == "2") {
+            offmessage = "  با احتساب : " + $("#inpOffPrice-" + IDsSelects).val() + " تخفیف ";
+            var kk = First * Second;
+            var aa = offPRICEBIGINT;
+            aa = aa / 10000;
+            aa = 1 - aa;
+            totalPriceHideee = kk * aa;
+        }
+        if ($("#SelectOffID-" + IDsSelects).val() == "3") {
+            offmessage = "  با احتساب : " + $("#inpOffPrice-" + IDsSelects).val() + " " + $("#SelectVahedPriceID-" + IDsSelects + " option:selected").text() + " تخفیف ";
+            var kk = First * Second;
+            totalPriceHideee = kk - offPRICEBIGINT;
+            if (totalPriceHideee < 0) {
+                AlertUser(1, IDsSelects);
+                $("#PlzPriceMAnfi-" + IDsSelects).show(400);
+            } else {
+                AlertUser(0, IDsSelects);
+                $("#PlzPriceMAnfi-" + IDsSelects).hide(400);
+            }
+
+        }
+        $("#totalPriceHide-" + IDsSelects).val(totalPriceHideee);
+        $("#totalPrice-" + IDsSelects).val($("#totalPriceHide-" + IDsSelects).val() + " " + $("#SelectVahedPriceID-" + IDsSelects + " option:selected").text());
+        var Message = "در هر " +
+            $("#SelectVahedQuntID-" + IDsSelects + " option:selected").text() +
+            " از این محصول تعداد : " +
+            vahedp +
+            " موجود میباشد که از قرار قیمت هر عدد از این محصول رقم : " +
+            pricepervahed + " " + $("#SelectVahedPriceID-" + IDsSelects + " option:selected").text() + " " +
+            " میباشد که مشتری به ازای خرید هر واحد  : " +
+            offmessage + " رقم " +
+            $("#totalPriceHide-" + IDsSelects).val() +
+            " " +
+            $("#SelectVahedPriceID-" + IDsSelects + " option:selected").text() +
+            " را پرداخت خواهد نمود";
+        $("#FullpriceHint-" + IDsSelects).text(Message.replace("انتخاب فرمایید", "-"));
+        $("#totalPrice-" + IDsSelects).val(totalPriceHideee);
+        CheckAllInputs(IDsSelects);
+    }
+
+    function AlertUser(parssss, idSection) {
+        //bara buttons has
+        // parssss == 1 ==> desable submites
+        //  xx     == 0 ==> enable submites
+        if (parssss == 1) {
+            $("#btnSavePage5-" + idSection).attr("disabled", "disabled");
+        } else if (parssss == 0) {
+            $("#btnSavePage5-" + idSection).removeAttr("disabled");
+        }
+    }
+
+    function btnEditPAge5(param) {
+        if (param != '0') {
+            $('#InputWhichAction-' + param).attr('value', '1');
+        }
+    }
+    function btnDeletePAge5(param) {
+        if (param != '0') {
+
+        }
+    }
+    function btnRestorePAge5(param) {
+        if (param != '0') {
+
+        }
+
+    }
+    function btnSavePAge5(param) {
+        CheckAllInputs(param);
+
+        $('#KTPortletSection_BodyLoad_TSHPanda-' + param).show();
+
+        var tg = $("#SelectTagsID-" + param).val();
+        console.log('SelectVahedQuntID- : ' + $("#SelectVahedQuntID-" + param + " option:selected").val());
+        console.log('SelectVahedPriceID- : ' + $("#SelectVahedPriceID-" + param + " option:selected").val());
+        console.log('SelectOffID : ' + $("#SelectOffID-" + param + " option:selected").val());
+        console.log('inpOffPrice : ' + $("#inpOffPrice-" + param).val().split("_")[0].replace(/,/g, ""));
+        console.log('inpPrice : ' + $("#inpPrice-" + param).val().split("_")[0].replace(/,/g, ""));
+        console.log('VahedID : ' + $("#VahedID-" + param).val().split("_")[0].replace(/,/g, ""));
+        console.log('totalPrice : ' + $("#totalPrice-" + param).val());
+        console.log('totalPriceHide : ' + $("#totalPriceHide-" + param).val());
+        console.log('MainTagID : ' + $("#MainTagID-" + param + " option:selected").val());
+        console.log('SelectTagsID : ' + $("#SelectTagsID-" + param).val());//len 0
+        console.log('SelectShowPriceID : ' + $("#SelectShowPriceID-" + param + " option:selected").val());
+        console.log('Tags:' + tg);
+        console.log($("#Mpro_").text());
+
+        var PostJson = {
+            'json': subMMM(),
+            'ActTodo': 'update',
+            'id_MProduct': param,
+            'Quantity': $("#VahedID-" + param).val().split("_")[0].replace(/,/g, ""),
+            'QuantityModule': $("#SelectVahedQuntID-" + param + " option:selected").val(),
+            'PricePerquantity': $("#inpPrice-" + param).val().split("_")[0].replace(/,/g, ""),
+            'PriceOff': $("#totalPrice-" + param).val(),
+            'offTypeValue': $("#inpOffPrice-" + param).val().split("_")[0].replace(/,/g, ""),
+            'OffType': $("#SelectOffID-" + param + " option:selected").val(),
+            'id_MainStarTag': $("#MainTagID-" + param + " option:selected").val(),
+            'PriceModule': $("#SelectVahedPriceID-" + param + " option:selected").val(),
+            'PriceShow': $("#SelectShowPriceID-" + param + " option:selected").val(),
+            'tgs': tg
+        };
+
+        $.ajax({
+            url: '/Product/Save_Step4',
+            type: "post",
+            data: JSON.stringify(PostJson),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                //$("#SuccesAlertEdit4").show(300);
+                alert(response);
+                $('#step5').load("https://localhost:44336/Product/Add_Page5?Id=" + $("#Mpro_").text());
+                $('#KTPortletSection_BodyLoad_TSHPanda-' + param).hide();
+                $('#InputWhichAction-' + param).attr("value", "3");
+                $('#KTPortletSection_Body_TSHPanda-' + param).show();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });
+
+    }
+
+    function subMMM() {
+        var json = '[';
+        var otArr = [];
+        var flag = false;
+        $('.tshpSelect23').each(function (e, obj) {
+            var idSelected = obj.id.replace("tshpSelect2-", "");
+            var ids = $('#tshpSelect2-' + idSelected).val();
+            if (ids == "") {
+                flag = true;
+            }
+
+            otArr.push('{' + "Mainid:" + idSelected + ',Ids:"' + ids + '"}');
+        });
+
+        json += otArr.join(",") + ']';
+
+        return json;
+    }
+
+
+    function CheckAllInputs(idINject) {
+        //console.log("----------------------------------------------------Start CheckInputs ------------------");
+        //console.log('SelectVahedQuntID- : ' + $("#SelectVahedQuntID-" + idINject).val());
+        //console.log('SelectVahedPriceID- : ' + $("#SelectVahedPriceID-" + idINject).val());
+        //console.log('SelectOffID : ' + $("#SelectOffID-" + idINject).val());
+        //console.log('inpOffPrice : ' + $("#inpOffPrice-" + idINject).val());
+        //console.log('inpPrice : ' + $("#inpPrice-" + idINject).val());
+        //console.log('VahedID : ' + $("#VahedID-" + idINject).val());
+        //console.log('totalPrice : ' + $("#totalPrice-" + idINject).val());
+        //console.log('totalPriceHide : ' + $("#totalPriceHide-" + idINject).val());
+        //console.log('MainTagID : ' + $("#MainTagID-" + idINject).val());
+        //console.log('SelectTagsID : ' + $("#SelectTagsID-" + idINject).val());//len 0
+        //console.log('SelectShowPriceID : ' + $("#SelectShowPriceID-" + idINject).val());
+        console.log("----------------------------------------------------End CheckInputs ------------------");
+        var CheckAllInputs = false;
+        var ErrMessage = "";
+        var CountErr = 0;
+        if ($("#SelectVahedQuntID-" + idINject).val() == "-1") {
+            CheckAllInputs = true;
+            CountErr = CountErr + 1;
+            ErrMessage += CountErr + "- " + "نوع واحد را انتخاب نمایید " + " ";
+
+        }
+        if ($("#SelectVahedPriceID-" + idINject).val() == "-1") {
+            CheckAllInputs = true;
+            CountErr = CountErr + 1;
+            ErrMessage += CountErr + "- " + "واحد قیمتی را انتخاب نمایید" + " ";
+
+        }
+        if ($("#SelectOffID-" + idINject).val() == "-1") {
+            CheckAllInputs = true;
+            CountErr = CountErr + 1;
+            ErrMessage += CountErr + "- " + "نوع تخفیف را مشخص نمایید" + " ";
+        }
+        if ($("#inpOffPrice-" + idINject).val() == "") {
+            CheckAllInputs = true;
+            CountErr = CountErr + 1;
+            ErrMessage += CountErr + "- " + "میزان تخفیف را مشخص نمایید" + " ";
+
+        }
+        if ($("#inpPrice-" + idINject).val() == "") {
+            CheckAllInputs = true;
+            CountErr = CountErr + 1;
+            ErrMessage += CountErr + "- " + "قیمت هر واحد را مشخص نمایید" + " ";
+        }
+        if ($("#VahedID-" + idINject).val() == "") {
+            CheckAllInputs = true;
+            CountErr = CountErr + 1;
+            ErrMessage += CountErr + "- " + "تعداد در هر واحد را وارد نمایید" + " ";
+        }
+        if ($("#totalPrice-" + idINject).val() == "") {
+            CheckAllInputs = true;
+        }
+        if ($("#MainTagID-" + idINject).val() == "-1") {
+            CheckAllInputs = true;
+            CountErr = CountErr + 1;
+            ErrMessage += CountErr + "- " + "MainTag هارا وارد نمایید" + " ";
+        }
+        if ($("#SelectTagsID-" + idINject).val() == "") {
+            CheckAllInputs = true;
+            CountErr = CountErr + 1;
+            ErrMessage += CountErr + "- " + "Tags را وارد نمایید" + " ";
+        }
+        if ($("#SelectShowPriceID-" + idINject).val() == "-1") {
+            CheckAllInputs = true;
+            CountErr = CountErr + 1;
+            ErrMessage += CountErr + "- " + "نوع نمایش قیمت را وارد نمایید" + " ";
+        }
+        if ($("#totalPriceHide-" + idINject).val() == "-1") {
+            CheckAllInputs = true;
+        }
+        console.log("CheckAllInputs : " + CheckAllInputs);
+        if (CheckAllInputs) {
+            $("#NoErr-" + idINject).hide(250);
+            $("#ErrorsLog-" + idINject).text(ErrMessage);
+            $("#ErrorsLog-" + idINject).show(250);
+            AlertUser(1, idINject);
+        } else {
+            $("#ErrorsLog-" + idINject).hide(250);
+            $("#NoErr-" + idINject).show(250);
+            AlertUser(0, idINject);
+        }
+    }
+
+</script>

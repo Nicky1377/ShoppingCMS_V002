@@ -207,23 +207,66 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        public ActionResult Add_Page4()
+        public ActionResult Add_Page4(int SubId)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
-                return View();
+                ModelFiller MF = new ModelFiller();
+
+                AddProductModelV_4 model = new AddProductModelV_4()
+                {
+                    MainTags=MF.MainTagsModel_Filler(),
+                    OffTypes=MF.OffTypeModel_Filler(),
+                    PriceShow=MF.PriceShowModel_Filler(),
+                    PriceType=MF.MoneyTypeModel_Filler(),
+                    QuantityTypes=MF.PQTModel_Filler(),
+                    Tags=MF.TagsModel_Filler(SubId)
+                };
+
+                return View(model);
+                
             }
             else
                 return RedirectToAction("NotAccess", "MS");
         }
+<<<<<<< HEAD
+        public ActionResult Add_Page5(int id,int SubId)
+=======
 
         public ActionResult Add_Page5()
+>>>>>>> 676e2037f562fdfd699de9531c8fe388c61f632f
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
-                return View();
+                ModelFiller MF = new ModelFiller();
+                List<AddProductModelV_5> result = new List<AddProductModelV_5>();
+
+                var pricingItm = MF.pricingModelfiller(id);
+                var MainTags = MF.MainTagsModel_Filler();
+                var OffTypes = MF.OffTypeModel_Filler();
+                var PriceShow = MF.PriceShowModel_Filler();
+                var PriceType = MF.MoneyTypeModel_Filler();
+                var QuantityTypes = MF.PQTModel_Filler();
+                var Tags = MF.TagsModel_Filler(SubId);
+                foreach (var item in pricingItm)
+                {
+                    var model = new AddProductModelV_5()
+                    {
+                        MainTags = MainTags,
+                        OffTypes = OffTypes,
+                        PriceShow= PriceShow,
+                        PriceType=PriceType,
+                        QuantityTypes=QuantityTypes,
+                        Tags=Tags,
+                        pricingModel=item
+                    };
+                    result.Add(model);
+                }
+
+
+                return View(result);
             }
             else
                 return RedirectToAction("NotAccess", "MS");
@@ -277,27 +320,62 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-        public ActionResult Save_Step4(string json, string action, int id_MProduct, int Quantity, int QuantityModule, int PriceXquantity, int PricePerquantity, int PriceOff, int offTypeValue, int OffType, int id_MainStarTag, int PriceModule, int PriceShow)
+        public ActionResult Save_Step4(string json, string ActTodo, int id_MProduct, int Quantity, int QuantityModule, int PricePerquantity, int PriceOff, int offTypeValue, int OffType, int id_MainStarTag, int PriceModule, int PriceShow,string tgs, string describtion)
         {
+            
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
+                int PriceXquantity = Quantity * PricePerquantity;
                 ModelFiller MF = new ModelFiller();
-                JaygashtClass jaygashtClass = new JaygashtClass();
-                var jaygashts = jaygashtClass.Result(json);
-                string itemid = "0";
-                foreach (var item in jaygashts)
+
+                if (ActTodo == "insert")
                 {
-                    itemid = MF.MainProduct_Actions(action, id_MProduct, Quantity, QuantityModule, PriceXquantity, PricePerquantity, PriceOff, offTypeValue, OffType, id_MainStarTag, PriceModule, PriceShow);
 
-                    PDBC db = new PDBC("PandaMarketCMS", true);
-                    db.Connect();
-
-                    foreach (var itm in item)
+                    JaygashtClass jaygashtClass = new JaygashtClass();
+                    var jaygashts = jaygashtClass.Result(json);
+                    string itemid = "0";
+                    foreach (var item in jaygashts)
                     {
-                        db.Script("INSERT INTO[tbl_Product_connectorToMPC_SCOV] VALUES(" + itemid + "," + itm.ValId + ")");
+                        itemid = MF.MainProduct_Actions(ActTodo, id_MProduct, Quantity, QuantityModule, PriceXquantity, PricePerquantity, PriceOff, offTypeValue, OffType, id_MainStarTag, PriceModule, PriceShow, describtion);
+
+                        PDBC db = new PDBC("PandaMarketCMS", true);
+                        db.Connect();
+
+
+                        foreach (var itm in item)
+                        {
+                            db.Script("INSERT INTO[tbl_Product_connectorToMPC_SCOV] VALUES(" + itemid + "," + itm.ValId + ")");
+                        }
+
+
+
+
+
+                        //string[] str = tgs.Split(',');
+
+                        //for (int i = 0; i < str.Length; i++)
+                        //{
+                        //    
+                        //        db.Script("INSERT INTO [tbl_Product_tagConnector] VALUES(" + itemid + "," + str[i] + ")");
+                        //    
+                        //}
                     }
+                }else if(ActTodo == "update")
+                {
+                    MF.MainProduct_Actions(ActTodo, id_MProduct, Quantity, QuantityModule, PriceXquantity, PricePerquantity, PriceOff, offTypeValue, OffType, id_MainStarTag, PriceModule, PriceShow);
+
+                    //string[] str = tgs.Split(',');
+
+                    //for (int i = 0; i < str.Length; i++)
+                    //{
+                    //    
+                    //        db.Script("DELETE FROM [tbl_Product_tagConnector] WHERE id_MPC=" + id_MProduct);
+                    //        db.Script("INSERT INTO [tbl_Product_tagConnector] VALUES(" + id_MProduct + "," + str[i] + ")");
+                    //    
+                    //}
                 }
+
                 return Content("Success");
             }
             else

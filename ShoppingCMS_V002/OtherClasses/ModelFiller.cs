@@ -174,7 +174,7 @@ namespace ShoppingCMS_V002.OtherClasses
             return result;
         }
 
-        public string MainProduct_Actions(string action,int id_MProduct,int Quantity,int QuantityModule, int PriceXquantity, int PricePerquantity, int PriceOff, int offTypeValue, int OffType, int id_MainStarTag, int PriceModule, int PriceShow)
+        public string MainProduct_Actions(string action,int id_MProduct,int Quantity,int QuantityModule, int PriceXquantity, int PricePerquantity, int PriceOff, int offTypeValue, int OffType, int id_MainStarTag, int PriceModule, int PriceShow,string describtion=" ")
         {
 
             List<ExcParameters> paramss = new List<ExcParameters>();
@@ -257,16 +257,25 @@ namespace ShoppingCMS_V002.OtherClasses
             };
             paramss.Add(parameters);
 
+            parameters = new ExcParameters()
+            {
+                _KEY = "@describtion",
+                _VALUE = describtion
+            };
+            paramss.Add(parameters);
+
             string query = "";
 
             if(action=="insert")
             {
-                query = "INSERT INTO[tlb_Product_MainProductConnector] Output Inserted.id_MPC VALUES(@id_MProduct, @Quantity,  @QuantityModule, @PriceXquantity, @PricePerquantity, @PriceOff, @offTypeValue, @OffType, @id_MainStarTag , 0 , 0 , 0 ,GetDate(), @PriceModule, @PriceShow)";
+                query = "INSERT INTO[tlb_Product_MainProductConnector] Output Inserted.id_MPC VALUES(@id_MProduct, @Quantity, @PriceXquantity, @PricePerquantity, @PriceOff, @offTypeValue, @OffType, @id_MainStarTag , 0 , 0 ,  @QuantityModule ,GetDate(), @PriceModule, @PriceShow,@describtion)";
             }
             else if (action == "update")
             {
+                query = "UPDATE [tlb_Product_MainProductConnector]SET [Quantity] =  @Quantity ,[PriceXquantity] = @PriceXquantity,[PricePerquantity] =@PricePerquantity ,[PriceOff] =@PriceOff ,[offTypeValue] = @offTypeValue ,[OffType] = @PriceOff,[id_MainStarTag] = @id_MainStarTag ,[id_PQT] = @QuantityModule,[PriceModule] = @PriceModule ,[PriceShow] = @PriceShow  WHERE id_MPC=@id_MProduct";
 
-            }else if(action=="delete")
+            }
+            else if(action=="delete")
             {
 
             }
@@ -396,5 +405,219 @@ namespace ShoppingCMS_V002.OtherClasses
 
             return db.Script(query, paramss);
         }
+
+        public List<Id_ValueModel> TagsModel_Filler(int id)
+        {
+            var result = new List<Id_ValueModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            
+            DataTable dt = db.Select("SELECT [id_TE],[TE_name]FROM [tbl_Product_TagEnums] WHERE SubCatId="+id);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id=Convert.ToInt32(dt.Rows[i]["id_TE"]),
+                    Value=dt.Rows[i]["TE_name"].ToString()
+                };
+
+                result.Add(model);
+            }
+
+            return result;
+        }
+
+        public List<Id_ValueModel> MainTagsModel_Filler()
+        {
+            var result = new List<Id_ValueModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [id_MainStarTag],[MST_Name] FROM [tbl_Product_MainStarTags]");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["id_MainStarTag"]),
+                    Value = dt.Rows[i]["MST_Name"].ToString()
+                };
+
+                result.Add(model);
+            }
+
+            return result;
+        }
+
+        public List<Id_ValueModel> OffTypeModel_Filler()
+        {
+            var result = new List<Id_ValueModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [OffType],[OffType_Symbol]FROM .[tbl_Product_OffType]");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["OffType"]),
+                    Value = dt.Rows[i]["OffType_Symbol"].ToString()
+                };
+
+                result.Add(model);
+            }
+
+            return result;
+        }
+
+        public List<Id_ValueModel> PQTModel_Filler()
+        {
+            var result = new List<Id_ValueModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT[id_PQT],[PQT_Demansion] FROM[tbl_Product_ProductQuantityType] order by([PQT_Demansion])");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["id_PQT"]),
+                    Value = dt.Rows[i]["PQT_Demansion"].ToString()
+                };
+
+                result.Add(model);
+            }
+
+            return result;
+        }
+
+        public List<Id_ValueModel> MoneyTypeModel_Filler()
+        {
+            var result = new List<Id_ValueModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [MoneyId],[MoneyTypeName] FROM [tbl_Product_MoneyType]" );
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["MoneyId"]),
+                    Value = dt.Rows[i]["MoneyTypeName"].ToString()
+                };
+
+                result.Add(model);
+            }
+
+            return result;
+        }
+
+        public List<Id_ValueModel> PriceShowModel_Filler()
+        {
+            var result = new List<Id_ValueModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [PriceShowId],[PriceShowformat] FROM [tbl_Product_PriceShow]");
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id = Convert.ToInt32(dt.Rows[i]["PriceShowId"]),
+                    Value = dt.Rows[i]["PriceShowformat"].ToString()
+                };
+
+                result.Add(model);
+            }
+
+            return result;
+        }
+
+        public List<PricingModel> pricingModelfiller(int id)
+        {
+            var result = new List<PricingModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [id_MPC],[Quantity],[PriceXquantity],[PricePerquantity],[PriceOff],[offTypeValue],[OffType],[id_MainStarTag],[ISDELETE],[id_PQT],[PriceModule],[PriceShow],[describtion]FROM[tlb_Product_MainProductConnector] Where [id_MProduct]=" + id);
+           
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new PricingModel()
+                {
+                    Id=Convert.ToInt32(dt.Rows[i]["id_MPC"]),
+                    MainTagId= Convert.ToInt32(dt.Rows[i]["id_MainStarTag"]),
+                    OffType= Convert.ToInt32(dt.Rows[i]["OffType"]),
+                    OffVal=long.Parse(dt.Rows[i]["offTypeValue"].ToString()),
+                    PerQuantity = long.Parse(dt.Rows[i]["PricePerquantity"].ToString()),
+                    PriceOff = long.Parse(dt.Rows[i]["PriceOff"].ToString()),
+                    PriceModule = Convert.ToInt32(dt.Rows[i]["PriceModule"]),
+                    PriceShow = Convert.ToInt32(dt.Rows[i]["PriceShow"]),
+                    Quantity = Convert.ToInt32(dt.Rows[i]["Quantity"]),
+                    QuantityType = Convert.ToInt32(dt.Rows[i]["id_PQT"])
+                    
+                };
+
+                if(dt.Rows[i]["ISDELETE"].ToString()=="1")
+                {
+                    model.IsDeleted = true;
+                }
+                else
+                {
+                    model.IsDeleted = false;
+                }
+
+                List<string> attr = new List<string>();
+                string s = "";
+                DataTable dt1 = db.Select("SELECT B.SCOVValueName FROM [tbl_Product_connectorToMPC_SCOV] as A inner join [tbl_Product_SubCategoryOptionValue] as B On A.id_SCOV=B.id_SCOV WHERE A.id_MPC="+model.Id+" Group By(B.SCOVValueName)");
+                if(dt1.Rows.Count>0)
+                {
+                    for (int j = 0; j < dt1.Rows.Count; j++)
+                    {
+                        attr.Add(dt1.Rows[j]["SCOVValueName"].ToString());
+                        s += dt1.Rows[j]["SCOVValueName"].ToString() + " , ";
+                    }
+                }
+                else
+                {
+                    attr.Add("ندارد");
+                }
+                
+                model.Attributes = attr;
+                model.Description = s;
+                
+                List<int> tags = new List<int>();
+
+                DataTable dt2 = db.Select("SELECT [id_TE] FROM [tbl_Product_tagConnector] WHERE id_MPC=" + model.Id);
+
+                if (dt1.Rows.Count > 0)
+                {
+                    for (int j = 0; j < dt2.Rows.Count; j++)
+                    {
+
+                        tags.Add(Convert.ToInt32(dt2.Rows[j]["id_TE"]));
+
+                    }
+                
+                }
+                else
+                {
+                    tags.Add(0);
+                }
+                model.Tags = tags;
+
+                result.Add(model);
+            }
+
+            return result;
+
+        }
+
+
     }
 }

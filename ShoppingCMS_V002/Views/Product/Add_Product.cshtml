@@ -115,10 +115,10 @@
 <script>
     $(document).ready(function () {
         $('#step1').load("https://localhost:44336/Product/Add_Page1");
-        $('#step2').load("https://localhost:44336/Product/Add_Page2");
+        $('#step2').load("https://localhost:44336/Product/Add_Page2?Id=1");
         $('#step3').load("https://localhost:44336/Product/Add_Page3?Ids=1,2&id=1");
-        $('#step4').load("https://localhost:44336/Product/Add_Page4");
-        $('#step5').load("https://localhost:44336/Product/Add_Page5");
+        $('#step4').load("https://localhost:44336/Product/Add_Page4?SubId=1");
+        $('#step5').load("https://localhost:44336/Product/Add_Page5?id=1&SubId=1");
     });
 
     function NextPage() {
