@@ -660,6 +660,7 @@
     <Content Include="Views\Product\Options_Table.cshtml" />
     <Content Include="Views\MS\NotAccess.cshtml" />
     <Content Include="Views\Product\_PricingPage.cshtml" />
+    <Content Include="Views\Product\UploadPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

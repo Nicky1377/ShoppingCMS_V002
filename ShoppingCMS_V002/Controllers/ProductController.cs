@@ -217,6 +217,7 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
+
         public ActionResult Add_Page5()
         {
             CheckAccess check = new CheckAccess();
@@ -227,7 +228,16 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-
+        public ActionResult UploadPage()
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
         [HttpPost]
         public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity ,int IsAd)
         {
