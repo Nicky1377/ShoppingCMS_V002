@@ -618,6 +618,7 @@
     <Content Include="SQL\ESF98\11\PandaMarketCMS.sql" />
     <Content Include="SQL\ESF98\14\PandaMarketCMS.sql" />
     <Content Include="SQL\ESF98\15\edit database.txt" />
+    <Content Include="SQL\ESF98\20\pandaScript.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
