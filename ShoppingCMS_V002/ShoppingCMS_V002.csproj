@@ -662,6 +662,7 @@
     <Content Include="Views\MS\NotAccess.cshtml" />
     <Content Include="Views\Product\_PricingPage.cshtml" />
     <Content Include="Views\Product\UploadPage.cshtml" />
+    <Content Include="Views\Product\New_SCV.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
