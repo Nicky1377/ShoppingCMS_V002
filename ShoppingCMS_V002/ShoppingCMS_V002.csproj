@@ -148,6 +148,7 @@
     <Compile Include="Models\Statics.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\SubCategoryOptionKey.cs" />
+    <Compile Include="Models\TableModel.cs" />
     <Compile Include="Models\type.cs" />
     <Compile Include="Models\TypeASPX.cs" />
     <Compile Include="ModelViews\AddProductModelV_2.cs" />
@@ -662,7 +663,12 @@
     <Content Include="Views\MS\NotAccess.cshtml" />
     <Content Include="Views\Product\_PricingPage.cshtml" />
     <Content Include="Views\Product\UploadPage.cshtml" />
-    <Content Include="Views\Product\New_SCV.cshtml" />
+    <Content Include="Views\MS\New_SCV.cshtml" />
+    <Content Include="Views\Product\AddTag.cshtml" />
+    <Content Include="Views\Product\Add_MainTag.cshtml" />
+    <Content Include="Views\MS\SCV_table.cshtml" />
+    <Content Include="Views\Product\TagsTable.cshtml" />
+    <Content Include="Views\Product\MainTag_table.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

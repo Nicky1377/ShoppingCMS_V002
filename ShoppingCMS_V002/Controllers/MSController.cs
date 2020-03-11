@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Drawing;
 using System.Web.UI.WebControls;
 using ShoppingCMS_V002.OtherClasses;
+using ShoppingCMS_V002.ModelViews;
 
 namespace ShoppingCMS_V002.Controllers
 {
@@ -1548,6 +1549,66 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess");
 
         }
+        ///////////////////////SCV
+        public ActionResult New_SCV()
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                ModelFiller MF = new ModelFiller();
+
+                AddProductModelV_2 model = new AddProductModelV_2()
+                {
+                    Types = MF.DropFiller("Type")
+                };
+
+                return View(model);
+            }
+            else
+                return RedirectToAction("NotAccess");
+        }
+
+        public ActionResult SCV_Add_Update(string ActTodo,int SCK,string SCV,int id=0)
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+
+                if (ActTodo=="insert")
+                {
+                    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue]VALUES("+SCK+",N'"+SCV+"')");
+                }else if(ActTodo=="update")
+                {
+                    db.Script("UPDATE [tbl_Product_SubCategoryOptionValue]SET [id_SCOK] =" + SCK + " ,[SCOVValueName] =N'" + SCK + "'  WHERE id_SCOV=" + id);
+                }else if (ActTodo == "delete")
+                {
+                    db.Script("DELETE FROM [tbl_Product_SubCategoryOptionValue] WHERE id_SCOV=" + id);
+                    db.Script("DELETE FROM [tbl_Product_connectorToMPC_SCOV] WHERE id_SCOV=" + id);
+                }
+
+                return Content("Success");
+            }
+            else
+                return RedirectToAction("NotAccess");
+        }
+
+        public ActionResult SCV_table(int id)
+        {
+
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                ModelFiller MF = new ModelFiller();
+
+                return View(MF.SCVModel(id));
+            }
+            else
+                return RedirectToAction("NotAccess");
+
+        }
+
 
     }
 }

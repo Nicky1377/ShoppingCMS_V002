@@ -430,7 +430,120 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-        
+
+        public ActionResult AddTag()
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+
+                ModelFiller MF = new ModelFiller();
+
+                AddProductModelV_2 model = new AddProductModelV_2()
+                {
+                    Types = MF.DropFiller("Type")
+                };
+
+                return View(model);
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
+
+        public ActionResult Add_MainTag()
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
+        public ActionResult MainTag_Add_Update(string ActTodo,string Name,string Description,int id=0)
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+
+                if (ActTodo == "insert")
+                {
+                    db.Script("INSERT INTO [tbl_Product_MainStarTags]VALUES(N'" + Description + "',N'" + Name + "')");
+                }
+                else if (ActTodo == "update")
+                {
+                    db.Script("UPDATE [tbl_Product_MainStarTags] SET [MST_Description] =N'" + Description + "' ,[MST_Name] =N'" + Name + "' WHERE id_MainStarTag=" + id);
+                }
+                else if (ActTodo == "delete")
+                {
+                 
+                    db.Script("DELETE FROM [tbl_Product_MainStarTags]WHERE id_MainStarTag=" + id);
+                }
+
+                return Content("Success");
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
+        public ActionResult Tag_Add_Update(string ActTodo,int SubId,string Name,int id =0)
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+
+                if (ActTodo == "insert")
+                {
+                    db.Script("INSERT INTO [tbl_Product_TagEnums]VALUES (N'"+Name+"',"+SubId+")");
+                }
+                else if (ActTodo == "update")
+                {
+                    db.Script("UPDATE [tbl_Product_TagEnums] SET [TE_name] = N'' WHERE id_TE=" + id);
+                }
+                else if (ActTodo == "delete")
+                {
+                    db.Script("DELETE FROM [tbl_Product_tagConnector] WHERE id_TE=" + id);
+                    db.Script("DELETE FROM [tbl_Product_TagEnums] WHERE id_TE=" + id);
+                }
+
+                return Content("Success");
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
+        public ActionResult MainTag_table()
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                ModelFiller MF = new ModelFiller();
+
+                return View(MF.MainTags());
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
+        public ActionResult TagsTable(int id)
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                ModelFiller MF = new ModelFiller();
+
+                return View(MF.Tags(id));
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
         [HttpPost]
         public ActionResult test(int id)
         {
@@ -453,6 +566,8 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
             
         }
+
+
 
 
     }

@@ -1,0 +1,319 @@
+﻿
+@{
+    ViewBag.Title = "Add_MainTag";
+    Layout = "~/Views/Master/Master.cshtml";
+}
+
+<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+    <div class="kt-container  kt-container--fluid ">
+        <div class="kt-subheader__main">
+            <div class="kt-subheader__breadcrumbs">
+                <a href="#" class="kt-subheader__breadcrumbs-home" style="display: inline-flex;">
+                    <h3 class="kt-subheader__title">داشبورد</h3>
+
+                    <span class="kt-subheader__separator kt-hidden"></span>
+
+
+                    <i class="flaticon2-shelter"></i>
+                </a>
+                <span class="kt-subheader__breadcrumbs-separator"></span>
+                <a href="#" id="PageName" class="kt-subheader__breadcrumbs-link"> برچسب های اصلی </a>
+
+            </div>
+        </div>
+        <div class="kt-subheader__toolbar">
+            <div class="kt-subheader__wrapper">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+    <div class="kt-container  kt-container--fluid ">
+        <div class="kt-subheader__main">
+            <div class="kt-subheader__breadcrumbs">
+                <a href="#" class="kt-subheader__breadcrumbs-home" style="display: inline-flex;">
+                    <h3 class="kt-subheader__title">داشبورد</h3>
+
+                    <span class="kt-subheader__separator kt-hidden"></span>
+
+
+                    <i class="flaticon2-shelter"></i>
+                </a>
+                <span class="kt-subheader__breadcrumbs-separator"></span>
+                <a href="#" id="PageName" class="kt-subheader__breadcrumbs-link">  برچسب های اصلی محصولات </a>
+
+            </div>
+        </div>
+        <div class="kt-subheader__toolbar">
+            <div class="kt-subheader__wrapper">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--begin::Section-->
+
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                برچسب های اصلی محصولات
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <!--begin::Section-->
+        <div class="kt-section">
+
+
+            <div class="form-group row">
+                <div id="SCVId_" style="display:none"></div>
+                <label style="margin-right:3%" class="col-form-label col-lg-2 col-sm-12">برچسب محصولات</label>
+                <input type="text" class="form-control col-lg-6 col-md-9 col-sm-12" id="inputNew" placeholder="برچسب موردنظر را وارد نمایید">
+            </div>
+
+
+            <div class="form-group row">
+                <label style="margin-right:3%" class="col-form-label col-lg-2 col-sm-12">توضیحات برچسب </label>
+                <textarea type="text" class="form-control col-lg-6 col-md-9 col-sm-12" id="inputDescription" placeholder="توضیحات برچسب موردنظر را وارد نمایید"></textarea>
+            </div>
+        </div>
+
+        <!--begin::Alerts-->
+        <div id="SuccesAlertEdit2" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+            <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <div class="alert-text">با موفقیت ثبت شد!</div>
+        </div>
+        <div id="ERRAlertEdit2" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+            <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+        </div>
+        <!--End::Alerts-->
+
+
+        <div class="kt-portlet__foot">
+            <div class="kt-form__actions">
+                <button id="newBtn" class="btn btn-primary" onclick="return SubmitedType('New')">ثبت</button>
+
+                <button id="editBtn" style="display:none" class="btn btn-warning" onclick="return SubmitedType('Edit')">ویرایش</button>
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div id="show_tabSCV">
+
+</div>
+
+
+<!--START : DELETEMODAL-->
+<div class="modal fade" id="PandaDeletModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content ">
+            <div class="modal-header alert alert-danger">
+                <h5 class="modal-title" style="color: #fff;" id="exampleModalLongTitle">حذف کردن برچسب های اصلی محصولات </h5>
+                <button type="button" class="close" style="color: black;" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <span>نام دسته بندی انتخاب شده : </span><span id="delete"></span>
+                <br />
+                <span>
+                    بخش <span class="kt-badge kt-badge--inline kt-badge--danger">حذف</span> تمامی محصولات زیرشاخه آن برچسب را <span class="kt-badge kt-badge--inline kt-badge--danger">حذف</span> خواهد کرد
+                    .
+                </span>
+                <br />
+                آیا از این کار مطمئن هستید؟
+            </div>
+            <div class="modal-footer">
+                <input style="width: 100%; height: 50px; display: none;" type="text" value="" id="modeldelete">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">منصرف شدم</button>
+                <button type="button" class="btn btn-outline-danger" onclick="savePics('delete')" data-dismiss="modal">بله،حذف کن!</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END : DELETEMODAL-->
+<!--START : editMODAL-->
+<div class="modal fade" id="PandaedittModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content ">
+            <div class="modal-header alert alert-primary">
+                <h5 class="modal-title" style="color: #fff;" id="exampleModalLongTitle"> ویرایش کردن برچسب های اصلی محصولات </h5>
+                <button type="button" class="close" style="color: black;" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <span>نام دسته بندی انتخاب شده : </span><span id="edit"></span>
+                <br />
+                <span>
+                    بخش <span class="kt-badge kt-badge--inline kt-badge--primary">ویرایش</span> تمامی محصولات زیرشاخه آن برچسب را <span class="kt-badge kt-badge--inline kt-badge--primary">ویرایش</span> خواهد کرد
+                    .
+                </span>
+                <br />
+                آیا از این کار مطمئن هستید؟
+            </div>
+            <div class="modal-footer">
+                <input style="width: 100%; height: 50px;  display: none;" type="text" value="" id="modeledit">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">منصرف شدم</button>
+                <button type="button" class="btn btn-outline-primary" onclick="savePics('edit')" data-dismiss="modal">بله،ویرایش کن!</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END : editMODAL-->
+
+
+
+
+@Scripts.Render("~/bundles/Select2");
+
+<script>
+    $(document).ready(function () {
+       
+        $('#show_tabSCV').load("https://localhost:44336/Product/MainTag_table");
+
+
+    });
+
+    function modalloader(name, id) {
+
+        document.getElementById("delete").innerHTML = name;
+        $("#modeldelete").val(id);
+
+        document.getElementById("edit").innerHTML = name;
+        $("#modeledit").val(id);
+
+        $('#SCVId_').text(id);
+      //  alert(id);
+
+    }
+
+    function savePics(action) {
+        var myObject = {
+            firstName: "#model",
+            lastName: action,
+            fullName: function () {
+                return this.firstName + "" + this.lastName;
+            }
+        }
+        var x = myObject.fullName();
+        var id = $(x).val();
+
+
+        if (action == 'edit') {
+            var naMee = document.getElementById("edit").innerHTML;
+
+            $("#alll").hide();
+            $('#inputNew').val(naMee);
+            $('#newBtn').hide();
+            $('#editBtn').show();
+            
+
+
+
+
+        } else if (action == 'delete') {
+
+            var naMee = document.getElementById("delete").innerHTML;
+            alert(naMee + "  delete");
+            var PostJson = {
+                'ActTodo': 'delete',
+                'Name': $("#inputNew").val(),
+                'Description': $("#inputDescription").val(),
+                'id': $('#SCVId_').text();
+
+            };
+
+            $.ajax({
+                url: '/Product/MainTag_Add_Update',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#ERRAlertEdit2").hide(300);
+                    $("#SuccesAlertEdit2").show(300);
+
+                    $('#show_tabSCV').load("https://localhost:44336/Product/MainTag_table");
+                    
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+
+        }
+        return false;
+    }
+
+   
+
+
+
+
+    function SubmitedType(action) {
+
+       if ($("#inputDescription").val() == '') {
+            $("#ERRAlertEdit2").show(300);
+        } else if ($("#inputNew").val() == '') {
+            $("#ERRAlertEdit2").show(300);
+        } else {
+
+            var PostJson;
+            alert(action);
+            if (action == 'New') {
+                PostJson = {
+                    'ActTodo': 'insert',
+                    'Name': $("#inputNew").val(),
+                    'Description': $("#inputDescription").val(),
+                    'id': 0
+                };
+            } else if (action == 'Edit') {
+                var id = $('#SCVId_').text();
+                alert("edit id : " + id);
+                PostJson = {
+                    'ActTodo': 'update',
+                    'Name': $("#inputNew").val(),
+                    'Description': $("#inputDescription").val(),
+                    'id': id
+                };
+            }
+
+
+
+            $.ajax({
+                url: '/Product/MainTag_Add_Update',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#ERRAlertEdit2").hide(300);
+                    $("#SuccesAlertEdit2").show(300);
+
+                    if (action == 'Edit') {
+                        $('#show_tabSCV').load("https://localhost:44336/Product/MainTag_table");
+                        setTimeout(function () { $('#SuccesAlertEdit2').hide(500); }, 2000);
+                        setTimeout(function () {
+                            $('#editBtn').hide();
+                            $('#newBtn').show();
+                        }, 2000);
+                    } else {
+                        $('#show_tabSCV').load("https://localhost:44336/Product/MainTag_table");
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        }
+
+    }
+
+</script>

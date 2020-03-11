@@ -618,6 +618,92 @@ namespace ShoppingCMS_V002.OtherClasses
 
         }
 
+        public List<TableModel> SCVModel(int id)
+        {
+            var result = new List<TableModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            DataTable dt;
+            if (id==0)
+            {
+                 dt = db.Select("SELECT A.id_SCOV, A.SCOVValueName , B.SCOKName FROM [tbl_Product_SubCategoryOptionValue]as A inner join [tbl_Product_SubCategoryOptionKey] as B On A.id_SCOK=B.id_SCOK Where B.ISDelete=0 AND B.ISDESABLED=0");
+
+            }
+            else
+            {
+                dt = db.Select("SELECT A.id_SCOV, A.SCOVValueName , B.SCOKName FROM [tbl_Product_SubCategoryOptionValue]as A inner join [tbl_Product_SubCategoryOptionKey] as B On A.id_SCOK=B.id_SCOK Where B.ISDelete=0 AND B.ISDESABLED=0 AND A.id_SCOK=" + id);
+            }
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new TableModel()
+                {
+                    Num=i+1,
+                    Id=Convert.ToInt32( dt.Rows[i]["id_SCOV"]),
+                    Group1=dt.Rows[i]["SCOVValueName"].ToString(),
+                    Group2 = dt.Rows[i]["SCOKName"].ToString()
+                };
+
+                result.Add(model);
+            }
+            return result;
+        }
+
+        public List<TableModel> Tags(int SubId)
+        {
+            var result = new List<TableModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            DataTable dt;
+            if (SubId == 0)
+            {
+                dt = db.Select("SELECT [id_TE],[TE_name],B.SCName FROM [tbl_Product_TagEnums] as A inner join [tbl_Product_SubCategory] as B On A.SubCatId=B.id_SC WHERE B.ISDelete=0 AND B.ISDESABLED=0 ");
+
+            }
+            else
+            {
+                dt = db.Select("SELECT [id_TE],[TE_name],B.SCName FROM [tbl_Product_TagEnums] as A inner join [tbl_Product_SubCategory] as B On A.SubCatId=B.id_SC WHERE B.ISDelete=0 AND B.ISDESABLED=0 AND A.SubCatId=" + SubId);
+            }
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new TableModel()
+                {
+                    Num = i + 1,
+                    Id = Convert.ToInt32(dt.Rows[i]["id_TE"]),
+                    Group1 = dt.Rows[i]["TE_name"].ToString(),
+                    Group2 = dt.Rows[i]["SCName"].ToString()
+                };
+
+                result.Add(model);
+            }
+            return result;
+        }
+
+        public List<TableModel> MainTags()
+        {
+            var result = new List<TableModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+           
+              DataTable  dt = db.Select("SELECT [id_MainStarTag],[MST_Description],[MST_Name] FROM [tbl_Product_MainStarTags]");
+
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var model = new TableModel()
+                {
+                    Num = i + 1,
+                    Id = Convert.ToInt32(dt.Rows[i]["id_MainStarTag"]),
+                    Group1 = dt.Rows[i]["MST_Name"].ToString(),
+                    Group2 = dt.Rows[i]["MST_Description"].ToString()
+                };
+
+                result.Add(model);
+            }
+            return result;
+        }
+
 
     }
 }

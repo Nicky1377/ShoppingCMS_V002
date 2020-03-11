@@ -1,0 +1,74 @@
+﻿@using ShoppingCMS_V002.Models
+@model List<TableModel>
+@{
+    ViewBag.Title = "SCV_table";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--START : TBLS-->
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                دسته بندی های اصلی ثبت شده
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+
+        <!--begin::Section-->
+        <div class="kt-section">
+            <span class="kt-section__info">
+                لیست تمامی دسته بندی های اصلی را در جدول زیر میتوانید مشاهده کنید.
+            </span>
+            <div class="kt-section__content">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>نام ویژگی</th>
+                            <th>نام جزئیات</th>
+                            <th>اقدامات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <th scope="row">@item.Num</th>
+                            <td id="IdItem" style="display:none">@item.Id</td>
+                            <td>@item.Group2</td>
+                            <td>@item.Group1</td>
+                            
+                            <td>
+                                    <span class="dropdown">
+
+                                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                                            <i class="la la-ellipsis-h"></i>
+                                        </a>
+                                        <span class="dropdown-menu dropdown-menu-right">
+                                            
+                                                <span class="dropdown-item">
+
+                                                    <button class="btn btn-bold btn btn-outline-danger" style="width: 100%;" data-toggle="modal" data-target="#PandaDeletModal" onclick="modalloader('@item.Group1','@item.Id')"><i class="fa fa-eraser"><span style="font-family: IRANSansWeb; padding-right: 5px;">حذف</span></i></button>
+                                                </span>
+                                               
+                                                <span class="dropdown-item">
+                                                    <button class="btn btn-bold btn btn-outline-primary" style="width: 100%;" data-toggle="modal" data-target="#PandaedittModal" onclick="modalloader('@item.Group1','@item.Id')"><i class="fa fa-check"><span style="font-family: IRANSansWeb; padding-right: 5px;">ویرایش کردن</span></i></button>
+                                                </span>
+                                            
+                                        </span>
+                                    </span>
+                                
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--end::Section-->
+    </div>
+    <!--end::Form-->
+</div>
+<!--END : TBLS-->

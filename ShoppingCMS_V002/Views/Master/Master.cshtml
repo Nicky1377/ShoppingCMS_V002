@@ -255,7 +255,7 @@
                                     <span class="kt-menu__arrow"></span>
                                     <ul class="kt-menu__subnav">
                                         <li class="kt-menu__item " aria-haspopup="true">
-                                            <a href="#NEWSHOPS_Customers" class="kt-menu__link ">
+                                            <a href="@Url.Action("Add_Product","Product")" class="kt-menu__link ">
                                                 <i class="kt-menu__link-bullet flaticon-plus">
                                                     <span></span>
                                                 </i>
@@ -266,7 +266,7 @@
                                             </a>
                                         </li>
                                         <li class="kt-menu__item " aria-haspopup="true">
-                                            <a href="#NEWSHOPS_Customers" onclick="All_Product_CL()" class="kt-menu__link ">
+                                            <a href="@Url.Action("Product_List","Product")" onclick="All_Product_CL()" class="kt-menu__link ">
                                                 <i class="kt-menu__link-bullet flaticon2-pen">
                                                     <span></span>
                                                 </i>
@@ -341,7 +341,7 @@
                                 <div class="kt-menu__submenu ">
                                     <span class="kt-menu__arrow"></span>
                                     <ul class="kt-menu__subnav">
-                                     
+
                                         <li class="kt-menu__item " aria-haspopup="true">
                                             <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                                                 <i class="kt-menu__link-bullet flaticon2-safe">
@@ -356,7 +356,7 @@
                                                 <span class="kt-menu__arrow"></span>
                                                 <ul class="kt-menu__subnav">
                                                     <li class="kt-menu__item " aria-haspopup="true">
-                                                        <a href="" onclick="Add_Type_CL()" class="kt-menu__link ">
+                                                        <a href="@Url.Action("Add_Type","MS")"  class="kt-menu__link ">
                                                             <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                                                 <span></span>
                                                             </i>
@@ -365,7 +365,7 @@
                                                     </li>
 
                                                     <li class="kt-menu__item " aria-haspopup="true">
-                                                        <a href="#NEWSHOPS_MainCat" onclick="Add_MainCat_CL()" class="kt-menu__link ">
+                                                        <a href="@Url.Action("maincat","MS")" class="kt-menu__link ">
                                                             <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                                                 <span></span>
                                                             </i>
@@ -374,7 +374,7 @@
                                                     </li>
 
                                                     <li class="kt-menu__item " aria-haspopup="true">
-                                                        <a href="#NEWSHOPS_SubCat" onclick="Add_SubCat_CL()" class="kt-menu__link ">
+                                                        <a href="@Url.Action("SubCat","MS")" class="kt-menu__link ">
                                                             <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                                                 <span></span>
                                                             </i>
@@ -382,16 +382,60 @@
                                                         </a>
                                                     </li>
                                                     <li class="kt-menu__item " aria-haspopup="true">
-                                                        <a href="#NEWSHOPS_SCK" onclick="Add_SCK_CL()" class="kt-menu__link ">
+                                                        <a href="@Url.Action("SubCatKey","MS")" class="kt-menu__link ">
                                                             <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                                                 <span></span>
                                                             </i>
                                                             <span class="kt-menu__link-text">تعریف ویژگی های محصولات</span>
                                                         </a>
                                                     </li>
-                                                                                                   </ul>
+                                                    <li class="kt-menu__item " aria-haspopup="true">
+                                                        <a href="@Url.Action("New_SCV","MS")" class="kt-menu__link ">
+                                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span>
+                                                            </i>
+                                                            <span class="kt-menu__link-text">تعریف جزئیات ویژگی ها</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </div>
                                         </li>
+
+                                        <li class="kt-menu__item " aria-haspopup="true">
+                                            <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                                                <i class="kt-menu__link-bullet flaticon2-safe">
+                                                    <span></span>
+                                                </i>
+                                                <span class="kt-menu__link-text">تعریف برچسب ها</span>
+                                                <i class="kt-menu__ver-arrow la la-angle-right">
+                                                </i>
+                                            </a>
+
+                                            <div class="kt-menu__submenu " style="" kt-hidden-height="160">
+                                                <span class="kt-menu__arrow"></span>
+                                                <ul class="kt-menu__subnav">
+                                                    <li class="kt-menu__item " aria-haspopup="true">
+                                                        <a href="@Url.Action("Add_MainTag","Product")" class="kt-menu__link ">
+                                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span>
+                                                            </i>
+                                                            <span class="kt-menu__link-text">تعریف برچسب های اصلی</span>
+                                                        </a>
+                                                    </li>
+
+                                                    <li class="kt-menu__item " aria-haspopup="true">
+                                                        <a href="@Url.Action("AddTag","Product")" class="kt-menu__link ">
+                                                            <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+                                                                <span></span>
+                                                            </i>
+                                                            <span class="kt-menu__link-text">تعریف برچسب محصولات</span>
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+
                                         <li class="kt-menu__item " aria-haspopup="true">
                                             <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                                                 <i class="kt-menu__link-bullet flaticon2-safe">
@@ -732,34 +776,6 @@
                 <!-- end:: Header -->
                 <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 
-                    <!-- begin:: Subheader -->
-
-
-                    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
-                        <div class="kt-container  kt-container--fluid ">
-                            <div class="kt-subheader__main">
-                                <div class="kt-subheader__breadcrumbs">
-                                    <a href="https://localhost:44388/TSHPandaPortalAD/" class="kt-subheader__breadcrumbs-home" style="display: inline-flex;">
-                                        <h3 class="kt-subheader__title">داشبورد</h3>
-
-                                        <span class="kt-subheader__separator kt-hidden"></span>
-
-
-                                        <i class="flaticon2-shelter"></i>
-                                    </a>
-                                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                                    <a href="#" id="PageName" class="kt-subheader__breadcrumbs-link"></a>
-
-                                </div>
-                            </div>
-                            <div class="kt-subheader__toolbar">
-                                <div class="kt-subheader__wrapper">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- end:: Subheader -->
                     <!-- begin:: Content -->
                     @RenderBody()
                     <!-- end:: Content -->
