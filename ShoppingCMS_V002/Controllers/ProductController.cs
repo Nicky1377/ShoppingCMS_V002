@@ -6,6 +6,7 @@ using ShoppingCMS_V002.ModelViews;
 using ShoppingCMS_V002.OtherClasses;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace ShoppingCMS_V002.Controllers
@@ -275,6 +276,7 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
+        //============================================================BEGIN::UploadController
         public ActionResult UploadPage()
         {
             CheckAccess check = new CheckAccess();
@@ -285,6 +287,48 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
+
+        public ActionResult UploaderIFRAME()
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+        [HttpPost]
+        public ActionResult UploadImageResult(string Whattodo)
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+                {
+                    var pic = System.Web.HttpContext.Current.Request.Files["uploaderInput"];
+                    Whattodo = "";
+
+                }
+                return Content("salam");
+            }
+            else
+                return Content("");
+        }
+        [HttpPost]
+        public ActionResult GetImageInformation(string IDReqPic)
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+
+                return Content("salam2");
+            }
+            else
+                return Content("");
+        }
+        //============================================================END::UploadController
+
         [HttpPost]
         public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity ,int IsAd,string pics, int id = 0)
         {

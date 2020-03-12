@@ -1,0 +1,321 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css'>
+    @Styles.Render("~/Content/UploaderCss");
+
+</head>
+<body style="height: 620px;">
+    <div style="height: 620px;display: none " id="MainUploader">
+        <div id="AnimateCarProgress" class="MUpload">
+            <div class="ProgressAnimate">
+                <div class="table">
+                    <div class="table-cell">
+                        <div class="modal">
+                            <div id="profile">
+                                <div class="dashes"></div>
+                                <label>عکس را گرفته و اینجا رها کنید و یا کلیک نمایید</label>
+                            </div>
+                            <div style="width: 100%; padding-top: 10px; padding-left: 40px;padding-right: 40px;">
+                                <input type="text" class="InputText" placeholder="نام عکس را وارد نمایید" id="picname" onkeyup=" UploadAll()">
+                                <input type="text" class="InputText" placeholder="توضیحات عکس را وارد نمایید" id="picdesc" onkeyup=" UploadAll()">
+                                <input type="text" class="InputText" placeholder="کلمات کلیدی را وارد نمایید" id="picWords" onkeyup=" UploadAll()">
+                                <input type="text" id="WhatToDo" style="display: none" />
+                                <input type="text" id="profileAvatarChanged" value="0" style="display: none" />
+                                <input type="text" id="profileAvatarChangedAllow" value="0" style="display: none" />
+                                <input type="text" id="UploadedImageIDReturned" value="0" style="display: none" />
+                                <input type="text" id="HasPic" name="name" value="0" style="display: none" />
+                                <input type="text" class="InputText" id="inputWarning" readonly="readonly" style="border-color: red" value="پر کردن تمامی خانه ها اجباریست">
+                                <input type="text" class="borderStatus" id="Status" readonly="readonly" multiple="2" value="با موفقیت ارسال شد">
+                            </div>
+                            <button id="uploadBtn" disabled="disabled" style="padding: 0px 0px; margin-top: 84px; height: 57px; border-radius: 20px; ">
+                                <span id="loadspanButton" class="herobgcolor loadingInput" style="width: 10%;border-radius: 20px; display: none;">&#8203;</span>
+                                <span onclick="return UploadAll()" id="BtnNormalText" style="width: 100%; height: 100%; display: flex; text-align: center; direction: rtl; padding-right: 41%; padding-top: 8px; cursor: pointer; display: none">بارگزاری</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <input type="file" id="mediaFile" />
+            </div>
+        </div>
+    </div>
+    <div style="height: 100%" class="container4" id="container4">
+        <p>در حال بارگزاری پنل آپلود</p>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/trianglify/0.1.5/trianglify.min.js'></script>
+    <script>
+        $(document).ready(function () {
+            //alert(GetURLParameter("MRM"));
+            var GetReq = GetURLParameter("idEdit");
+
+
+
+            if (GetReq === undefined) {
+                $("#WhatToDo").val(0);
+                setTimeout(function () {
+                    Loading();
+                    $("#profileAvatarChangedAllow").val('1');
+                    $("#container4").hide(200);
+                    $("#MainUploader").show(300);
+                },
+                    500);
+            } else {
+                $("#WhatToDo").val(GetURLParameter("idEdit"));
+                $.get("@Url.Action("GetImageInformation", "Product", null, Request.Url.Scheme)", { IDReqPic: "1" })
+                    .done(function (dataa) {
+                        var datssa = JSON.parse(dataa);
+                        console.log(datssa.picWords);
+                        $("#picWords").val(datssa.picWords);
+                        $("#picdesc").val(datssa.picdesc);
+                        $("#picname").val(datssa.picname);
+                        $("#uploadBtn").show(200);
+                        $("#profile").attr("style", "background-image: url('" + datssa.picUrlsrc + "');");
+                        $("#profile").addClass("hasImage");
+                        $("#profileAvatarChangedAllow").val('1');
+                        $("#HasPic").val('1');
+                        UploadAll();
+                    });
+                $("#BtnNormalText").text("ویرایش");
+                setTimeout(function () {
+                    Loading();
+                    $("#container4").hide(200);
+                    $("#MainUploader").show(300);
+                },
+                    500);
+            }
+
+        });
+
+
+        function Uploading_uploader(UploadeFile) {
+            var data = new FormData();
+
+            data.append('uploaderInput', UploadeFile);
+            data.append('EditID', $("#WhatToDo").val());
+
+
+            $("#loadspanButton").attr("style", "width: 10%;border-radius: 20px;");
+            $("#BtnNormalText").hide(100);
+            $("#loadspanButton").show(100);
+            var PercentCompFirst = 0;
+            $.ajax({
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    xhr.upload.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = (evt.loaded / evt.total) * 100;
+                            PercentCompFirst = (percentComplete / 2);
+                            console.log("percentCompleteupload : " + PercentCompFirst);
+                            if (PercentCompFirst > 10) {
+                                $("#loadspanButton").attr("style", "width: " + PercentCompFirst + "%;border-radius: 20px;");
+                            }
+                            //Do something with upload progress here
+                            $("#Status").val("در حال ارسال عکس سمت سرور " + PercentCompFirst + "%");
+                        }
+                    }, false);
+
+                    xhr.addEventListener("progress", function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = (evt.loaded / evt.total) * 100;
+                            percentComplete = percentComplete / 2;
+                            percentComplete = percentComplete + PercentCompFirst;
+                            $("#loadspanButton").attr("style", "width: " + percentComplete + "%;border-radius: 20px;");
+                            //Do something with download progress
+                            $("#Status").val("در حال ارسال عکس سمت سرور " + percentComplete + "%");
+
+                        }
+                    }, false);
+
+                    return xhr;
+                },
+                url: "@Url.Action("UploadImageResult", "Product", null, Request.Url.Scheme)?Whattodo="+$("#WhatToDo").val(),
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: 'POST',
+                success: function (data) {
+                    $("#Status").val("با موفقیت ثبت شد !").addClass("borderStatus-success");
+                    $("#UploadedImageIDReturned").val(data);
+
+                },
+                error: function () {
+                    alert("عدم توانایی در بارگزاری فایل");
+                }
+            });
+
+            return false;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function GetURLParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
+            }
+        }
+
+        function UploadAll() {
+            var CanSend = true;
+            if ($("#picname").val() == '') {
+                CanSend = false;
+            }
+            if ($("#picdesc").val() == '') {
+                CanSend = false;
+            }
+            if ($("#picWords").val() == '') {
+                CanSend = false;
+            }
+            try {
+                if ($("#HasPic").val() == '0') {
+                    CanSend = false;
+                }
+            } catch (err) {
+                console.log(err);
+            }
+            if (CanSend) {
+                console.log(1);
+                $("#inputWarning").hide(300);
+                $("#uploadBtn").attr("style", "padding: 0px; margin-top: 84px; height: 57px;border-radius: 20px;");
+
+            } else {
+                console.log(0);
+                $("#inputWarning").show(300);
+                $("#uploadBtn").attr("style", "display:none;");
+                $("#uploadBtn").hide(1);
+            }
+            //RefreshElements();
+            console.log($("#mediaFile").val());
+            return CanSend;
+        }
+        function RefreshElements() {
+            $("#picWords").val('');
+            $("#picdesc").val('');
+            $("#picname").val('');
+
+            $("#uploadBtn").hide(200);
+            $("#profile").attr("style", "");
+            $("#profile").removeClass("hasImage");
+            $("#mediaFile").val(null);
+        }
+        function Loading() {
+            $("#AnimateCarProgress").addClass('AnimateCarProgress');
+
+            var bg = new Trianglify({
+                noiseIntensity: 0,
+                cellsize: 50,
+                cellpadding: 10,
+                fillOpacity: 1,
+                strokeOpacity: 0
+            });
+            var pattern = bg.generate(document.body.clientWidth, document.body.clientHeight);
+            document.getElementsByClassName("ProgressAnimate")[0].setAttribute('style', 'background-image: ' + pattern.dataUrl + ';height: 100%');
+        }
+
+
+        // ----- On render -----
+        $(function () {
+
+            $('#profile').addClass('dragging').removeClass('dragging');
+        });
+
+        $('#profile').on('dragover', function () {
+            $('#profile').addClass('dragging')
+        }).on('dragleave', function () {
+            $('#profile').removeClass('dragging')
+        }).on('drop', function (e) {
+            $('#profile').removeClass('dragging hasImage');
+
+            if (e.originalEvent) {
+                var file = e.originalEvent.dataTransfer.files[0];
+                console.log(file);
+
+                var reader = new FileReader();
+                $("#profileAvatarChanged").val('1');
+                $("#HasPic").val('1');
+                //attach event handlers here...
+                Uploading_uploader(file);
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    console.log(reader.result);
+                    $('#profile').css('background-image', 'url(' + reader.result + ')').addClass('hasImage');
+                    if (UploadAll()) {
+                        $("#uploadBtn").show(100);
+                        //$("#BtnNormalText").show(100);
+                    }
+                }
+            }
+        })
+        $('#profile').on('click', function (e) {
+            console.log('clicked')
+            $('#mediaFile').click();
+        });
+        window.addEventListener("dragover", function (e) {
+            e = e || event;
+            e.preventDefault();
+        }, false);
+        window.addEventListener("drop", function (e) {
+            e = e || event;
+            e.preventDefault();
+        }, false);
+        $('#mediaFile').change(function (e) {
+            if ($("#profileAvatarChangedAllow").val() == '1') {
+                $("#profileAvatarChanged").val('1');
+                $("#HasPic").val('1');
+                UploadAll();
+                var input = e.target;
+                if (input.files && input.files[0]) {
+                    var file = input.files[0];
+                    Uploading_uploader(file);
+                    var reader = new FileReader();
+
+                    reader.readAsDataURL(file);
+                    reader.onload = function (e) {
+                        console.log(reader.result);
+                        $('#profile').css('background-image', 'url(' + reader.result + ')').addClass('hasImage');
+                        if (UploadAll()) {
+                            $("#uploadBtn").show(100);
+                            //$("#BtnNormalText").show(100);
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
