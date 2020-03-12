@@ -141,7 +141,9 @@
                         $("#ERRAlertEdit1").hide(300);
                         $("#SuccesAlertEdit1").show(300);
                         //alert(response);
-                        $('#step2').load("https://localhost:44336/Product/Add_Page2?Id=" + response);
+                        var url = unescape('@Url.Action("Add_Page2","Product",new { Id="{0}"},Request.Url.Scheme))'.format(response);
+                        //alert(url);
+                        $('#step2').load(url);
 
                         $("#Sub_btn1").hide(200);
                          $("#btn_next").show(200);

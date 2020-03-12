@@ -199,8 +199,10 @@
 <script>
 
     $(document).ready(function () {
-        $('#show_newtype').load("https://localhost:44336/MS/New_type");
-        $('#show_tab').load("https://localhost:44336/MS/table_Type");
+        //$('#show_tab').load("https://localhost:44336/MS/table_Type");
+                $('#show_tab').load("@Url.Action("table_Type","MS",null,Request.Url.Scheme)");
+                //$('#show_newtype').load("https://localhost:44336/MS/New_type");
+                $('#show_newtype').load("@Url.Action("New_type","MS",null,Request.Url.Scheme)");
     });
 
 
@@ -229,8 +231,10 @@
             success: function (response) {
                 $("#ERRAlertNew").hide(300);
                 $("#SuccesAlertNew").show(300);
-                $('#show_tab').load("https://localhost:44336/MS/table_Type");
-                $('#show_newtype').load("https://localhost:44336/MS/New_type");
+                //$('#show_tab').load("https://localhost:44336/MS/table_Type");
+                $('#show_tab').load("@Url.Action("table_Type","MS",null,Request.Url.Scheme)");
+                //$('#show_newtype').load("https://localhost:44336/MS/New_type");
+                $('#show_newtype').load("@Url.Action("New_type","MS",null,Request.Url.Scheme)");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(textStatus);

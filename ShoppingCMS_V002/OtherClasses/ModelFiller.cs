@@ -349,7 +349,7 @@ namespace ShoppingCMS_V002.OtherClasses
 
             if (Action.Equals("insert"))
             {
-                query = "INSERT INTO[tbl_Product] Output Inserted.id_MProduct VALUES(0, @id_CreatedByAdmin , 0 , 0 , 0 , 0 , 0 ,@Description,GETDATE(), @Title , @SEO_description , @SEO_keyword , @IsAd , @SearchGravity , 0 , 0)";
+                query = "INSERT INTO[tbl_Product] Output Inserted.id_MProduct VALUES(1, @id_CreatedByAdmin , 0 , 0 , 0 , 0 , 0 ,@Description,GETDATE(), @Title , @SEO_description , @SEO_keyword , @IsAd , @SearchGravity , 0 , 0)";
             }
             else if (Action == "update")
             {

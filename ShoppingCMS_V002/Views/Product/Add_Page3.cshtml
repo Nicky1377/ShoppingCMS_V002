@@ -7,6 +7,7 @@
 }
 
 <div class="kt-portlet">
+    <div style="display:none" id="abcd">@Model.Id</div>
     <div class="kt-portlet__body">
         <!--begin::Section-->
         <div class="kt-section">
@@ -84,8 +85,8 @@
         $(document).ready(function () {
             //========================================Begin :: init
 
-           
-            $('#optiontable').load("https://localhost:44336/Product/Options_Table?id="+@Model.Id);
+           var url = unescape('@Url.Action("Options_Table","Product",new { id="{0}"},Request.Url.Scheme))'.format(@Model.Id);
+            $('#optiontable').load(url);
 
             $("select[name='tshpSelect2']").select2();
             $(".multyselectSuccess").hide();
@@ -168,7 +169,8 @@
                     data: PostJson,
                     success: function (response) {
 
-                        $('#optiontable').load("https://localhost:44336/Product/Options_Table?id=" + pId);
+                        var url = unescape('@Url.Action("Options_Table","Product",new { id="{0}"},Request.Url.Scheme))'.format(pId);
+                        $('#optiontable').load(url);
                         
                         alert("success");
                         $('#SuccesAlertEdit3').show();
@@ -211,7 +213,8 @@
                     data: PostJson,
                     success: function (response) {
 
-                        $('#optiontable').load("https://localhost:44336/Product/Options_Table?id=" + id);
+                        var url = unescape('@Url.Action("Options_Table","Product",new { id="{0}"},Request.Url.Scheme))'.format(id);
+                        $('#optiontable').load(url);
                         $('#Add_Key').val("");
                         $('#Add_Value').val("");
                         alert("success");
@@ -258,7 +261,9 @@
                     data: PostJson,
                     success: function (response) {
                         var sub = $("#Select2_C option:selected").val();
-                        $('#step4').load("https://localhost:44336/Product/Add_Page4?SubId="+sub);
+                        var url = unescape('@Url.Action("Add_Page4","Product",new { SubId="{0}"},Request.Url.Scheme))'.format(sub);
+
+                        $('#step4').load(url);
                         alert(response);
                         $("#Sub_btn3").hide(200);
                         $("#btn_next").show(200);

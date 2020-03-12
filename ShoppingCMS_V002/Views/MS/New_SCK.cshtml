@@ -127,7 +127,7 @@
 
                               $("#ERRAlertNew").hide(300);
                               $("#SuccesAlertNew").show(300);
-                              $('#show_tabSCK').load("https://localhost:44336/MS/table_SCK");
+                              $('#show_tabSCK').load("@Url.Action("table_SCK","MS",null,Request.Url.Scheme)");
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus);
@@ -160,7 +160,7 @@
                         success: function (response) {
                             $("#ERRAlertEdit").hide(300);
                             $("#SuccesAlertEdit").show(300);
-                            $('#show_tabSCK').load("https://localhost:44336/MS/table_SCK");
+                            $('#show_tabSCK').load("@Url.Action("table_SCK","MS",null,Request.Url.Scheme)");
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus);

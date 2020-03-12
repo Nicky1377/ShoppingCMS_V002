@@ -180,7 +180,7 @@
 <!--END : editMODAL-->
 
 
-
+@Scripts.Render("~/bundles/jquery")
 
 
 @Scripts.Render("~/bundles/Select2");
@@ -193,7 +193,7 @@
         $("#Select2_C").select2();
         $("#Select2_D").select2();
         alert("hellooo");
-        $('#show_tabSCV').load("https://localhost:44336/ms/SCV_table?id=0");
+        $('#show_tabSCV').load("@Url.Action("SCV_table","ms",new {id='0' },Request.Url.Scheme)");
     });
 
     function modalloader(name, id) {
@@ -224,12 +224,12 @@
             var naMee = document.getElementById("edit").innerHTML;
             alert(naMee + "  edit");
 
-           
+
             $("#alll").hide();
             $('#inputNew').val(naMee);
             $('#newBtn').hide();
             $('#editBtn').show();
-            
+
         } else if (action == 'delete') {
 
             var naMee = document.getElementById("delete").innerHTML;
@@ -251,10 +251,14 @@
                     $("#SuccesAlertEdit2").show(300);
 
                     if (action == 'Edit') {
-                        $('#show_tabSCV').load("https://localhost:44336/ms/SCV_table?id=" + $("#Select2_D option:selected").val());
+
+
+                        var url = unescape('@Url.Action("SCV_table","MS",new { id="{0}"},Request.Url.Scheme)'.format($("#Select2_D option:selected").val()));
+                        alert(url);
+                        $('#show_tabSCV').load(url);
 
                     } else {
-                        $('#show_tabSCV').load("https://localhost:44336/ms/SCV_table?id=0");
+                        $('#show_tabSCV').load("@Url.Action("SCV_table","MS",new { id= '0'},Request.Url.Scheme)");
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -398,13 +402,15 @@
                     $("#SuccesAlertEdit2").show(300);
 
                     if (action == 'Edit') {
-                        $('#show_tabSCV').load("https://localhost:44336/ms/SCV_table?id=" + $("#Select2_D option:selected").val());
-                        
+                        var url = unescape('@Url.Action("SCV_table","MS",new { id="{0}"},Request.Url.Scheme)'.format($("#Select2_D option:selected").val()));
+                        alert(url);
+                        $('#show_tabSCV').load(url);
+
                         setTimeout(function () {
                            location.reload(true);
                         }, 2000);
                     } else {
-                        $('#show_tabSCV').load("https://localhost:44336/ms/SCV_table?id=0");
+                         $('#show_tabSCV').load("@Url.Action("SCV_table","MS",new { id= '0'},Request.Url.Scheme)");
                     }
 
                 },
