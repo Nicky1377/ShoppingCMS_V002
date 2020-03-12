@@ -587,6 +587,7 @@
     <Content Include="assets\plugins\custom\kanban\kanban.bundle.js" />
     <Content Include="assets\plugins\custom\kanban\kanban.bundle.rtl.css" />
     <Content Include="assets\plugins\custom\tinymce\tinymce.bundle.js" />
+    <Content Include="assets\plugins\custom\Uploader\UploaderCustome.css" />
     <Content Include="assets\plugins\custom\uppy\uppy.bundle.js" />
     <Content Include="assets\plugins\custom\uppy\uppy.bundle.rtl.css" />
     <Content Include="assets\plugins\global\fonts\%40fortawesome\fa-brands-400.svg" />
@@ -669,6 +670,7 @@
     <Content Include="Views\MS\SCV_table.cshtml" />
     <Content Include="Views\Product\TagsTable.cshtml" />
     <Content Include="Views\Product\MainTag_table.cshtml" />
+    <Content Include="Views\Product\UploaderIFRAME.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

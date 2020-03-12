@@ -37,6 +37,12 @@ namespace ShoppingCMS_V002
                 "~/assets/css/skins/aside/dark.rtl.css",
                 "~/assets/css/Custome.css"
             ));
+            bundles.Add(new StyleBundle("~/Content/UploaderCss").Include(
+                "~/assets/plugins/custom/Uploader/UploaderCustome.css"
+            ));
+
+
+
 
         }
     }
