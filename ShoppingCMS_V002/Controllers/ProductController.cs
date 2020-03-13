@@ -314,7 +314,7 @@ namespace ShoppingCMS_V002.Controllers
                 db.Connect();
                 using (DataTable dt =
                     db.Select(
-                        "SELECT [PicID] ,[PicAddress] ,[alt] ,[uploadPicName]  ,[Descriptions],[id_MProduct] FROM [PandaMarketCMS].[dbo].[v_Images] WHERE [ISDELETE]=0")
+                        "SELECT [PicID] ,[PicAddress] ,[alt] ,[uploadPicName]  ,[Descriptions],[id_MProduct] FROM [v_Images] WHERE [ISDELETE]=0 AND [id_MProduct] is NULL")
                 )
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
@@ -328,7 +328,7 @@ namespace ShoppingCMS_V002.Controllers
                         try
                         {
                             int _l = 0;
-                            if(Int32.TryParse(dt.Rows[i]["PicID"].ToString(),out _l))
+                            if(Int32.TryParse(dt.Rows[i]["id_MProduct"].ToString(),out _l))
                             images.check = 1;
                             else
                                 images.check = 0;
