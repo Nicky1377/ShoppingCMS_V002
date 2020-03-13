@@ -432,7 +432,7 @@
                     success: function (response) {
                         alert(response);
                         var sub = $("#Select2_C option:selected").val();
-                        var url = "@Url.Action("Add_Page5","Product",new { Id="{0}",SubId="{1}"},Request.Url.Scheme)?Id="+$("#Mpro_").text()+"&SubId="+sub;
+                        var url = "@Url.Action("Add_Page5","Product",null,Request.Url.Scheme)?Id="+$("#Mpro_").text()+"&SubId="+sub;
                         $('#step5').load(url);
                         $('#KTPortletSection_BodyLoad_TSHPanda-' + param).hide(200);
                         SectionPosition('3', param);
