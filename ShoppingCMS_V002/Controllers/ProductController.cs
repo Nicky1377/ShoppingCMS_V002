@@ -6,7 +6,11 @@ using ShoppingCMS_V002.ModelViews;
 using ShoppingCMS_V002.OtherClasses;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ShoppingCMS_V002.Controllers
@@ -22,7 +26,7 @@ namespace ShoppingCMS_V002.Controllers
                 return View();
             }
             else
-                return RedirectToAction("NotAccess","MS");
+                return RedirectToAction("NotAccess", "MS");
         }
 
         public ActionResult Product_table(bool SearchBox, string text = "")
@@ -66,15 +70,15 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        public ActionResult Add_Product(string Act="insert",int id=0)
+        public ActionResult Add_Product(string Act = "insert", int id = 0)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
                 var model = new Id_ValueModel()
                 {
-                    Id=id,
-                    Value=Act
+                    Id = id,
+                    Value = Act
                 };
 
                 return View(model);
@@ -102,7 +106,7 @@ namespace ShoppingCMS_V002.Controllers
 
                 AddProductModelV_2 model = new AddProductModelV_2()
                 {
-                    Id=Id,
+                    Id = Id,
                     Types = MF.DropFiller("Type")
                 };
 
@@ -125,7 +129,7 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-        public ActionResult Add_Page3(string Ids,int id)
+        public ActionResult Add_Page3(string Ids, int id)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
@@ -175,10 +179,10 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
 
-           
+
         }
 
-        public ActionResult Op_delete_edit(string action, int id,string Key="",string value="")
+        public ActionResult Op_delete_edit(string action, int id, string Key = "", string value = "")
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
@@ -223,16 +227,16 @@ namespace ShoppingCMS_V002.Controllers
 
                 AddProductModelV_4 model = new AddProductModelV_4()
                 {
-                    MainTags=MF.MainTagsModel_Filler(),
-                    OffTypes=MF.OffTypeModel_Filler(),
-                    PriceShow=MF.PriceShowModel_Filler(),
-                    PriceType=MF.MoneyTypeModel_Filler(),
-                    QuantityTypes=MF.PQTModel_Filler(),
-                    Tags=MF.TagsModel_Filler(SubId)
+                    MainTags = MF.MainTagsModel_Filler(),
+                    OffTypes = MF.OffTypeModel_Filler(),
+                    PriceShow = MF.PriceShowModel_Filler(),
+                    PriceType = MF.MoneyTypeModel_Filler(),
+                    QuantityTypes = MF.PQTModel_Filler(),
+                    Tags = MF.TagsModel_Filler(SubId)
                 };
 
                 return View(model);
-                
+
             }
             else
                 return RedirectToAction("NotAccess", "MS");
@@ -261,11 +265,11 @@ namespace ShoppingCMS_V002.Controllers
                     {
                         MainTags = MainTags,
                         OffTypes = OffTypes,
-                        PriceShow= PriceShow,
-                        PriceType=PriceType,
-                        QuantityTypes=QuantityTypes,
-                        Tags=Tags,
-                        pricingModel=item
+                        PriceShow = PriceShow,
+                        PriceType = PriceType,
+                        QuantityTypes = QuantityTypes,
+                        Tags = Tags,
+                        pricingModel = item
                     };
                     result.Add(model);
                 }
@@ -298,6 +302,107 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
+
+        public ActionResult loadGallery()
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                ImageGalleryModels model = new ImageGalleryModels();
+                model.models=new List<ImageGalleryModel>();
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+                using (DataTable dt =
+                    db.Select(
+                        "SELECT [PicID] ,[PicAddress] ,[alt] ,[uploadPicName]  ,[Descriptions],[id_MProduct] FROM [PandaMarketCMS].[dbo].[v_Images] WHERE [ISDELETE]=0")
+                )
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        ImageGalleryModel images = new ImageGalleryModel();
+                        images.id = dt.Rows[i]["PicID"].ToString();
+                        images.imageAddress(dt.Rows[i]["PicAddress"].ToString());
+                        images.Description = dt.Rows[i]["Descriptions"].ToString();
+                        images.label = dt.Rows[i]["alt"].ToString();
+                        images.ImageName = dt.Rows[i]["uploadPicName"].ToString();
+                        try
+                        {
+                            int _l = 0;
+                            if(Int32.TryParse(dt.Rows[i]["PicID"].ToString(),out _l))
+                            images.check = 1;
+                            else
+                                images.check = 0;
+
+                        }
+                        catch
+                        {
+                            images.check = 0;
+
+                        }
+                        model.models.Add(images);
+
+                    }
+                }
+                return View(model);
+
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
+        public ActionResult UploadEditorResultActions(string IDToEdit, string picname, string picdesc, string picWords)
+        {
+            CheckAccess check = new CheckAccess();
+            if (check.HasAccess)
+            {
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+                List<ExcParameters> EXpars = new List<ExcParameters>();
+                ExcParameters par = new ExcParameters()
+                {
+                    _KEY = "@PicID",
+                    _VALUE = IDToEdit
+                };
+                EXpars.Add(par);
+                par = new ExcParameters()
+                {
+                    _KEY = "@alt",
+                    _VALUE = picdesc
+                };
+                EXpars.Add(par);
+                par = new ExcParameters()
+                {
+                    _KEY = "@uploadPicName",
+                    _VALUE = picname
+                };
+                EXpars.Add(par);
+                par = new ExcParameters()
+                {
+                    _KEY = "@Descriptions",
+                    _VALUE = picWords
+                };
+                EXpars.Add(par);
+                string updateRes =
+                    db.Script(
+                        "UPDATE [tbl_ADMIN_UploaderStructure] SET  [alt] = @alt  ,[uploadPicName] = @uploadPicName  ,[Descriptions] = @Descriptions WHERE [PicID] = @PicID", EXpars);
+                if (updateRes == "1")
+                {
+                    //{"name":"1","id":"1"}
+                    return Content("{\"Res\":\"1\"}");
+
+                }
+                else
+                {
+                    return Content("{\"Res\":\"-2\"}");
+
+                }
+            }
+            else
+                return Content("{\"Res\":\"-1\"}");
+        }
+
+
+
         [HttpPost]
         public ActionResult UploadImageResult(string Whattodo)
         {
@@ -307,13 +412,119 @@ namespace ShoppingCMS_V002.Controllers
                 if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
                 {
                     var pic = System.Web.HttpContext.Current.Request.Files["uploaderInput"];
-                    Whattodo = "";
+                    HttpPostedFile file = pic;
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        string fname = Path.GetFileName(file.FileName);
+                        string EX = Path.GetExtension(file.FileName);
+                        string FileNAME = Guid.NewGuid().ToString() + fname.Replace(" ", "");
+                        string address = Server.MapPath("~/images/Uploaded/" + PersianDateTime.Now.Year + "/" + PersianDateTime.Now.GetLongMonthName + "/" + FileNAME);
+                        string URLIMG = "/images/Uploaded/" + PersianDateTime.Now.Year + "/" + PersianDateTime.Now.GetLongMonthName + FileNAME;
+
+                        if (Directory.Exists(Server.MapPath("~/images/Uploaded/" + PersianDateTime.Now.Year + "/" + PersianDateTime.Now.GetLongMonthName)))
+                        {
+                            file.SaveAs(address);
+                        }
+                        else
+                        {
+                            System.IO.Directory.CreateDirectory(Server.MapPath("~/images/Uploaded/" + PersianDateTime.Now.Year + "/" + PersianDateTime.Now.GetLongMonthName));
+                            file.SaveAs(address);
+                        }
+
+                        PDBC db = new PDBC("PandaMarketCMS", true);
+                        db.Connect();
+                        ExcParameters par = new ExcParameters()
+                        {
+                            _KEY = "@uploadPicName",
+                            _VALUE = FileNAME
+                        };
+                        List<ExcParameters> EXpars = new List<ExcParameters>();
+                        EXpars.Add(par);
+                        if (Whattodo == "0")
+                        {
+
+                            string statusResult = db.Script("INSERT INTO [tbl_ADMIN_UploaderStructure] ([PicCategoryType] ,[ISDELETE] ,[uploadPicName] ) output inserted.PicID VALUES (1,0,@uploadPicName)", EXpars);
+                            int stat = 0;
+                            if (Int32.TryParse(statusResult, out stat))
+                            {
+                                EXpars = new List<ExcParameters>();
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@PicID",
+                                    _VALUE = statusResult
+                                };
+                                EXpars.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@PicAddress",
+                                    _VALUE = URLIMG
+                                };
+                                EXpars.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@PicThumbnailAddress",
+                                    _VALUE = URLIMG
+                                };
+                                EXpars.Add(par);
+
+                                string satt = db.Script(
+                                     "INSERT INTO [tbl_ADMIN_UploadStructure_ImageAddress] ([PicID] ,[PicSizeType] ,[PicAddress] ,[PicThumbnailAddress])  VALUES (@PicID ,1 ,@PicAddress  ,@PicThumbnailAddress )", EXpars);
+                                if (satt == "1")
+                                {
+                                    return Content(statusResult);
+                                }
+                            }
+                            else
+                            {
+                                return Content("0");
+                            }
+                        }
+                        else
+                        {
+                            int stat = 0;
+                            if (Int32.TryParse(Whattodo, out stat))
+                            {
+                                EXpars = new List<ExcParameters>();
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@PicID",
+                                    _VALUE = Whattodo
+                                };
+                                EXpars.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@PicAddress",
+                                    _VALUE = address
+                                };
+                                EXpars.Add(par);
+                                par = new ExcParameters()
+                                {
+                                    _KEY = "@PicThumbnailAddress",
+                                    _VALUE = address
+                                };
+                                EXpars.Add(par);
+
+                                string satt = db.Script(
+                                    "UPDATE [tbl_ADMIN_UploadStructure_ImageAddress] SET  [PicAddress] = @PicAddress  ,[PicThumbnailAddress] = @PicThumbnailAddress  WHERE [PicID] = @PicID ", EXpars);
+                                if (satt == "1")
+                                {
+                                    return Content(Whattodo);
+                                }
+                            }
+                            else
+                            {
+                                return Content("0");
+                            }
+                        }
+
+                    }
+
 
                 }
-                return Content("salam");
+                return Content("-1");
             }
             else
-                return Content("");
+                return Content("-2");
         }
         [HttpPost]
         public ActionResult GetImageInformation(string IDReqPic)
@@ -330,7 +541,7 @@ namespace ShoppingCMS_V002.Controllers
         //============================================================END::UploadController
 
         [HttpPost]
-        public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity ,int IsAd,string pics, int id = 0)
+        public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity, int IsAd, string pics, int id = 0)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
@@ -353,7 +564,7 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
         [HttpPost]
-        public ActionResult Save_Step2(string Type,string Main,string Sub,string SubKey,int id)
+        public ActionResult Save_Step2(string Type, string Main, string Sub, string SubKey, int id)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
@@ -363,7 +574,7 @@ namespace ShoppingCMS_V002.Controllers
             }
             else
                 return RedirectToAction("NotAccess", "MS");
-            
+
         }
         public ActionResult Save_Step3(string Json)
         {
@@ -377,9 +588,9 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-        public ActionResult Save_Step4(string json, string ActTodo, int id_MProduct, int Quantity, int QuantityModule, int PricePerquantity, int PriceOff, int offTypeValue, int OffType, int id_MainStarTag, int PriceModule, int PriceShow,string tgs)
+        public ActionResult Save_Step4(string json, string ActTodo, int id_MProduct, int Quantity, int QuantityModule, int PricePerquantity, int PriceOff, int offTypeValue, int OffType, int id_MainStarTag, int PriceModule, int PriceShow, string tgs)
         {
-            
+
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
             {
@@ -398,7 +609,7 @@ namespace ShoppingCMS_V002.Controllers
                     {
                         itemid = MF.MainProduct_Actions(ActTodo, id_MProduct, Quantity, QuantityModule, PriceXquantity, PricePerquantity, PriceOff, offTypeValue, OffType, id_MainStarTag, PriceModule, PriceShow);
 
-                       
+
 
                         foreach (var itm in item)
                         {
@@ -418,7 +629,8 @@ namespace ShoppingCMS_V002.Controllers
                         //    
                         //}
                     }
-                }else if(ActTodo == "update")
+                }
+                else if (ActTodo == "update")
                 {
                     MF.MainProduct_Actions(ActTodo, id_MProduct, Quantity, QuantityModule, PriceXquantity, PricePerquantity, PriceOff, offTypeValue, OffType, id_MainStarTag, PriceModule, PriceShow);
 
@@ -438,7 +650,7 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
-        public ActionResult Save_Step5(string ActTodo,int id)
+        public ActionResult Save_Step5(string ActTodo, int id)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
@@ -446,14 +658,14 @@ namespace ShoppingCMS_V002.Controllers
                 PDBC db = new PDBC("PandaMarketCMS", true);
                 db.Connect();
 
-                if (ActTodo=="delete")
+                if (ActTodo == "delete")
                 {
-                    db.Script("UPDATE [tlb_Product_MainProductConnector] SET [ISDELETE] = 1 WHERE id_MPC="+id);
+                    db.Script("UPDATE [tlb_Product_MainProductConnector] SET [ISDELETE] = 1 WHERE id_MPC=" + id);
 
                 }
-                else if(ActTodo == "restore")
+                else if (ActTodo == "restore")
                 {
-                    db.Script("UPDATE [tlb_Product_MainProductConnector] SET [ISDELETE] = 0 WHERE id_MPC="+id);
+                    db.Script("UPDATE [tlb_Product_MainProductConnector] SET [ISDELETE] = 0 WHERE id_MPC=" + id);
                 }
 
 
@@ -463,7 +675,7 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        public ActionResult MainDropDown(string drop,int id=0)
+        public ActionResult MainDropDown(string drop, int id = 0)
         {
 
             CheckAccess check = new CheckAccess();
@@ -506,7 +718,7 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        public ActionResult MainTag_Add_Update(string ActTodo,string Name,string Description,int id=0)
+        public ActionResult MainTag_Add_Update(string ActTodo, string Name, string Description, int id = 0)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
@@ -524,7 +736,7 @@ namespace ShoppingCMS_V002.Controllers
                 }
                 else if (ActTodo == "delete")
                 {
-                 
+
                     db.Script("DELETE FROM [tbl_Product_MainStarTags]WHERE id_MainStarTag=" + id);
                 }
 
@@ -534,7 +746,7 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
-        public ActionResult Tag_Add_Update(string ActTodo,int SubId,string Name,int id =0)
+        public ActionResult Tag_Add_Update(string ActTodo, int SubId, string Name, int id = 0)
         {
             CheckAccess check = new CheckAccess();
             if (check.HasAccess)
@@ -544,7 +756,7 @@ namespace ShoppingCMS_V002.Controllers
 
                 if (ActTodo == "insert")
                 {
-                    db.Script("INSERT INTO [tbl_Product_TagEnums]VALUES (N'"+Name+"',"+SubId+")");
+                    db.Script("INSERT INTO [tbl_Product_TagEnums]VALUES (N'" + Name + "'," + SubId + ")");
                 }
                 else if (ActTodo == "update")
                 {
@@ -603,12 +815,12 @@ namespace ShoppingCMS_V002.Controllers
                     _VALUE = "pink"
                 };
                 paramss.Add(parameters);
-                string s = db.Script("INSERT INTO [dbo].[tbl_Product_SubCategoryOptionValue]([id_SCOK],[SCOVValueName]) Output Inserted.id_SCOV VALUES(1, @value )",paramss);
+                string s = db.Script("INSERT INTO [dbo].[tbl_Product_SubCategoryOptionValue]([id_SCOK],[SCOVValueName]) Output Inserted.id_SCOV VALUES(1, @value )", paramss);
                 return Content(s);
             }
             else
                 return RedirectToAction("NotAccess", "MS");
-            
+
         }
 
 

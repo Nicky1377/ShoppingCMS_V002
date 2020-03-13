@@ -1,0 +1,56 @@
+﻿@using ShoppingCMS_V002.Models
+@model ShoppingCMS_V002.Models.ImageGalleryModels
+@{
+    Layout = null;
+}
+@foreach (ImageGalleryModel mymodel in Model.models)
+{
+
+<div class="col-lg-3">
+    <div class="kt-portlet " id="ktportlet-@mymodel.id">
+        <div class="kt-portlet__head kt-portlet__head--right kt-portlet__head--noborder  kt-ribbon kt-ribbon--clip kt-ribbon--left kt-ribbon--info" style="padding: 10px;">
+            <div class="kt-ribbon__target StatusInputSelected" style="top: -2px; right: 20px; background-color: #099fae; display: none" id="CheckPickSelected-@mymodel.id" tshpdatatargetid="@mymodel.id" tshpischeck="@mymodel.check">
+                <i class="flaticon2-correct" style="font-size: 20px;"></i>
+            </div>
+            <div class="kt-portlet__head-label" style="width: 100%;">
+                <h3 class="kt-portlet__head-title" style="width: 100%;">
+                    <img src="@mymodel.Address" style="width: 100%; border-radius: 5px;" onclick="SelectPicID('@mymodel.id')">
+                </h3>
+            </div>
+        </div>
+        <div class="kt-portlet__body kt-portlet__body--fit-top">
+            <gethertags id="GetherTagsID-@mymodel.id" style="display: none">
+                <div class="row">
+                    <div class="input-group">
+                        <span class="input-group-text w-100">نام عکس</span>
+                    </div>
+                    <input type="text" class="form-control" readonly="readonly" value="@mymodel.ImageName" style="direction: rtl;text-align: right;">
+                    <div class="input-group pt-1">
+
+                        <span class="input-group-text w-100">لیبل</span>
+
+                        <input type="text" class="form-control" readonly="readonly" value="@mymodel.label" style="direction: rtl;text-align: right;">
+                    </div>
+                    <div class="input-group pt-1">
+
+                        <span class="input-group-text w-100">توضیح مختصر</span>
+
+                        <input type="text" class="form-control" readonly="readonly" value="@mymodel.Description" style="direction: rtl;text-align: right;">
+                    </div>
+                </div>
+                <div class="row pt-1">
+                    <div class="col-6" style="padding: 1px 1px;">
+
+                        <button class="btn btn-danger w-100" type="button" onclick="return NewClick(@mymodel.id)">حذف!</button>
+                    </div>
+                    <div class="col-6" style="padding: 1px 1px;">
+                        <button class="btn btn-warning w-100" type="button" onclick="return NewClick(@mymodel.id)">ویرایش!</button>
+                    </div>
+
+                </div>
+            </gethertags>
+        </div>
+    </div>
+</div>
+
+}

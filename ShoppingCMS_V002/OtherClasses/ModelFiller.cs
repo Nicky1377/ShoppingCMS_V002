@@ -4,6 +4,8 @@ using ShoppingCMS_V002.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -12,6 +14,21 @@ namespace ShoppingCMS_V002.OtherClasses
 {
     public class ModelFiller
     {
+
+
+        //public static string resizeImage(Image image, int new_height, int new_width,string imageAddress,)
+        //{
+        //    Bitmap new_image = new Bitmap(new_width, new_height);
+        //    Graphics g = Graphics.FromImage((Image)new_image);
+        //    g.InterpolationMode = InterpolationMode.High;
+        //    g.DrawImage(image, 0, 0, new_width, new_height);
+        //    //return new_image;
+        //    return "";
+        //}
+
+
+
+
         public static string AppendServername(string url)
         {
             return "https://" + HttpContext.Current.Request.Url.Authority + "/" + url;

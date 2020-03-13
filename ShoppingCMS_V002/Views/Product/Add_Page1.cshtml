@@ -47,7 +47,7 @@
                         <label>عکس ها</label>
                         <button class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_6" onclick="modalloader()"><i class="fa fa-upload"><span style="font-family: IRANSansWeb;">آپلود عکس</span></i></button>
                         <input type="hidden" id="Pics_p1" class="form-control" placeholder="" />
-                        <span class="form-text text-muted">1,2,3</span>
+                        <input class="form-text text-muted" id="Pics_p2" readonly="readonly"></input>
                     </div>
 
                     <!----------------------------------------------------------------------------------------------->
@@ -100,9 +100,9 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-                <input style="width: 100%; height: 50px;" type="text" value="" id="modalRep1">
+                <input style="width: 100%; height: 50px; display: none" type="text" value="" id="modalRep1">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
-                <button type="button" class="btn btn-primary" onclick="savePics()" data-dismiss="modal">اتمام فرایند</button>
+                <button type="button" class="btn btn-primary" onclick="savePicss()" data-dismiss="modal">اتمام فرایند</button>
             </div>
         </div>
     </div>
@@ -112,6 +112,11 @@
 
 
 <script>
+    function savePicss() {
+        $("#Pics_p1").val($("#modalRep1").val());
+        $("#Pics_p2").val($("#modalRep1").val());
+        console.log("salam, = " + $("#modalRep1").val());
+    }
     function submitNextPage(parameters) {
         var Title = $('#Title_p1').val();
         var Description = $('#Description_p1').val();
@@ -195,50 +200,43 @@
     }
 
     //============================================Begin::UploaderJs
-        function modalloader() {
-            $('#kt_modal_6 .modal-body').load("@Url.Action("UploadPage", "Product", null, Request.Url.Scheme)");
+    function modalloader() {
+        $('#kt_modal_6 .modal-body').load("@Url.Action("UploadPage", "Product", null, Request.Url.Scheme)");
+    }
+
+    function SelectPicID(idparameter) {
+        var PicPosition = $("#CheckPickSelected-" + idparameter);
+        $("gethertags").each(function (e) {
+            $(this).hide(100);
+        });
+        if ($(PicPosition).attr("tshpischeck") == "0") {
+            $("#CheckPickSelected-" + idparameter).show(200);
+            $("#ktportlet-" + idparameter).addClass("bg-success");
+            $("#GetherTagsID-" + idparameter).show(200);
+            $(PicPosition).attr("tshpischeck", "1");
+        } else {
+            $("#CheckPickSelected-" + idparameter).hide(200);
+            $("#ktportlet-" + idparameter).removeClass("bg-success");
+            $("#GetherTagsID-" + idparameter).show(200);
+            $(PicPosition).attr("tshpischeck", "0");
         }
+        CalcPicSelected();
+    }
 
-        function SelectPicID(idparameter) {
-            var PicPosition = $("#CheckPickSelected-" + idparameter);
-            $("gethertags").each(function (e) {
-                $(this).hide(100);
-            });
-            if ($(PicPosition).attr("tshpischeck") == "0") {
-                $("#CheckPickSelected-" + idparameter).show(200);
-                $("#ktportlet-" + idparameter).addClass("bg-success");
-                $("#GetherTagsID-" + idparameter).show(200);
-                $(PicPosition).attr("tshpischeck", "1");
-            } else {
-                $("#CheckPickSelected-" + idparameter).hide(200);
-                $("#ktportlet-" + idparameter).removeClass("bg-success");
-                $("#GetherTagsID-" + idparameter).show(200);
-                $(PicPosition).attr("tshpischeck", "0");
-            }
-        }
+    function CalcPicSelected() {
 
-        function CalcPicSelected() {
-
-            var AllarrList = [];
-            var Allids = "";
-            $(".StatusInputSelected").each(function (e) {
-                console.log($(this).attr("tshpischeck") + " -- " + $(this).attr("tshpdatatargetid"));
-                if ($(this).attr("tshpischeck") == "1") {
-                    var arr = {};
-                    arr["picID"] = $(this).attr("tshpdatatargetid");
-                    AllarrList.push(arr);
-                }
-
-            });
-
-            var selectedids = jQuery.parseJSON($("#GetSelectedIds").val());
-            for (var _SelectorimageID = 0; _SelectorimageID < selectedids.length; selectedids++) {
-                SelectPicID(selectedids[_SelectorimageID].picID);
+            
+        var Allids = "";
+        $(".StatusInputSelected").each(function (e) {
+            console.log($(this).attr("tshpischeck") + " -- " + $(this).attr("tshpdatatargetid"));
+            if ($(this).attr("tshpischeck") == "1") {
+                Allids += $(this).attr("tshpdatatargetid")+",";
+                    
             }
 
-
-            $("#modalRep1").val(Allids);
-        }
+        });
+        $("#modalRep1").val(Allids);
+    }
 
 
 

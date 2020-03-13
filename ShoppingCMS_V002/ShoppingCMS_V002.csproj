@@ -138,10 +138,12 @@
     <Compile Include="Models\AddPro_SubValues.cs" />
     <Compile Include="Models\companies.cs" />
     <Compile Include="Models\Id_ValueModel.cs" />
+    <Compile Include="Models\ImageGalleryModel.cs" />
     <Compile Include="Models\MainCategory.cs" />
     <Compile Include="Models\new_shop.cs" />
     <Compile Include="Models\opinion.cs" />
     <Compile Include="Models\OpinionAbout.cs" />
+    <Compile Include="Models\PicStructure.cs" />
     <Compile Include="Models\Pictures.cs" />
     <Compile Include="Models\PricingModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
@@ -621,6 +623,7 @@
     <Content Include="SQL\ESF98\14\PandaMarketCMS.sql" />
     <Content Include="SQL\ESF98\15\edit database.txt" />
     <Content Include="SQL\ESF98\20\pandaScript.sql" />
+    <Content Include="SQL\ESF98\22\ScriptDatatable.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -671,6 +674,7 @@
     <Content Include="Views\Product\TagsTable.cshtml" />
     <Content Include="Views\Product\MainTag_table.cshtml" />
     <Content Include="Views\Product\UploaderIFRAME.cshtml" />
+    <Content Include="Views\Product\loadGallery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

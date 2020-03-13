@@ -38,7 +38,7 @@
                             </div>
                             <button id="uploadBtn" disabled="disabled" style="padding: 0px 0px; margin-top: 84px; height: 57px; border-radius: 20px; ">
                                 <span id="loadspanButton" class="herobgcolor loadingInput" style="width: 10%;border-radius: 20px; display: none;">&#8203;</span>
-                                <span onclick="return UploadAll()" id="BtnNormalText" style="width: 100%; height: 100%; display: flex; text-align: center; direction: rtl; padding-right: 41%; padding-top: 8px; cursor: pointer; display: none">بارگزاری</span>
+                                <span onclick="return SubmitQ()" id="BtnNormalText" style="width: 100%; height: 100%; text-align: center; direction: rtl;  padding-top: 8px; cursor: pointer; display: inline-block;background-color: #225f95;display: none">بارگزاری</span>
                             </button>
                         </div>
                     </div>
@@ -98,7 +98,24 @@
 
         });
 
+        function SubmitQ() {
+            $.get("@Url.Action("UploadEditorResultActions", "Product", null, Request.Url.Scheme)?IDToEdit="+$("#UploadedImageIDReturned").val()+"&picname="+$("#picname").val()+"&"+"picdesc="+$("#picdesc").val()+"&"+"picWords="+$("#picWords").val())
+                .done(function (dataa) {
+                    console.log(dataa);
+                    var datssa = JSON.parse(dataa);
+                    if (datssa.Res == "1") {
+                        RefreshElements();
+                        $("#Status").val("با موفقیت ثبت شد");
+                        $("#Status").show(500);
+                        setTimeout(function () {
+                            $("#Status").hide(200);
+                            UploadAll();
+                            },
+                            1000);
 
+                    }
+                });
+        }
         function Uploading_uploader(UploadeFile) {
             var data = new FormData();
 
@@ -149,7 +166,8 @@
                 success: function (data) {
                     $("#Status").val("با موفقیت ثبت شد !").addClass("borderStatus-success");
                     $("#UploadedImageIDReturned").val(data);
-
+                    $("#loadspanButton").hide();
+                    UploadAll();
                 },
                 error: function () {
                     alert("عدم توانایی در بارگزاری فایل");
@@ -205,6 +223,7 @@
                 console.log(1);
                 $("#inputWarning").hide(300);
                 $("#uploadBtn").attr("style", "padding: 0px; margin-top: 84px; height: 57px;border-radius: 20px;");
+                $("#BtnNormalText").show(200);
 
             } else {
                 console.log(0);
