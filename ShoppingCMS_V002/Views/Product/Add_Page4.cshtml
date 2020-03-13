@@ -247,11 +247,11 @@
             max: 999999999999.999999,
         });
         $("input[name='VahedIDTSHPSTATICS']").inputmask({ mask: "999999" });
-        CKEDITOR.replace("CkeditorMein", {
-            language: 'fa'
-        });
-        CKEDITOR.instances.CkeditorMein.setData('age matni dashti bayad inja benevisish!!!');
-        console.log("age khasti text e Ckeditor ro begiri ine ==> " + CKEDITOR.instances.CkeditorMein.getData());
+        //CKEDITOR.replace("CkeditorMein", {
+        //    language: 'fa'
+        //});
+        //CKEDITOR.instances.CkeditorMein.setData('age matni dashti bayad inja benevisish!!!');
+        //console.log("age khasti text e Ckeditor ro begiri ine ==> " + CKEDITOR.instances.CkeditorMein.getData());
     });
     function LockUnlockPriceInputs(IDsSelects) {
         var lock = false;
@@ -422,7 +422,8 @@
             'tgs': tg
             
         };
-
+        var aaa = JSON.stringify(PostJson);
+        console.log("aaa : " + aaa);
          $.ajax({
                     url: '/Product/Save_Step4',
                     type: "post",
@@ -431,7 +432,7 @@
                     success: function (response) {
                         alert(response);
                         var sub = $("#Select2_C option:selected").val();
-                        var url = unescape('@Url.Action("Add_Page5","Product",new { Id="{0}",SubId="{1}"},Request.Url.Scheme))'.format($("#Mpro_").text(),sub);
+                        var url = "@Url.Action("Add_Page5","Product",new { Id="{0}",SubId="{1}"},Request.Url.Scheme)?Id="+$("#Mpro_").text()+"&SubId="+sub;
                         $('#step5').load(url);
                         $('#KTPortletSection_BodyLoad_TSHPanda-' + param).hide(200);
                         SectionPosition('3', param);
@@ -457,7 +458,7 @@
                 flag = true;
             }
 
-            otArr.push('{' + "Mainid:" + idSelected + ',Ids:"' + ids + '"}');
+            otArr.push('{"' + 'Mainid":' + idSelected + ',"Ids":"' + ids + '"}');
         });
 
         json += otArr.join(",") + ']';

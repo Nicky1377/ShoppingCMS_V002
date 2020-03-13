@@ -85,7 +85,7 @@
         $(document).ready(function () {
             //========================================Begin :: init
 
-           var url = unescape('@Url.Action("Options_Table","Product",new { id="{0}"},Request.Url.Scheme))'.format(@Model.Id);
+           var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id=@Model.Id';
             $('#optiontable').load(url);
 
             $("select[name='tshpSelect2']").select2();
@@ -169,7 +169,7 @@
                     data: PostJson,
                     success: function (response) {
 
-                        var url = unescape('@Url.Action("Options_Table","Product",new { id="{0}"},Request.Url.Scheme))'.format(pId);
+                        var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id='+pId;
                         $('#optiontable').load(url);
                         
                         alert("success");
@@ -213,7 +213,7 @@
                     data: PostJson,
                     success: function (response) {
 
-                        var url = unescape('@Url.Action("Options_Table","Product",new { id="{0}"},Request.Url.Scheme))'.format(id);
+                        var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id='+id;
                         $('#optiontable').load(url);
                         $('#Add_Key').val("");
                         $('#Add_Value').val("");
@@ -261,8 +261,7 @@
                     data: PostJson,
                     success: function (response) {
                         var sub = $("#Select2_C option:selected").val();
-                        var url = unescape('@Url.Action("Add_Page4","Product",new { SubId="{0}"},Request.Url.Scheme))'.format(sub);
-
+                        var url = "@Url.Action("Add_Page4","Product",null,Request.Url.Scheme)?SubId="+sub;
                         $('#step4').load(url);
                         alert(response);
                         $("#Sub_btn3").hide(200);

@@ -10,7 +10,7 @@
     <thead class="thead-light">
         <tr>
             <th style="width:10%">#</th>
-            <th style="width:30%">Key</thstyle="width:30%">
+            <th style="width:30%">Key</th>
             <th style="width:30%">Value</th>
             <th style="width:30%">اقدامات</th>
         </tr>
@@ -54,7 +54,7 @@
             data: { "action": "delete", "id": id },
             success: function (response) {
 
-                var url = unescape('@Url.Action("Options_Table","Product",new { id="{0}"},Request.Url.Scheme)'.format($('#abcd').text());
+                var url ='@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id='+$('#abcd').text();
 
                 $('#optiontable').load(url);
                 alert("success");

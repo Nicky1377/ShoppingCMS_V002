@@ -40,7 +40,7 @@
             <div class="form-group row">
                 <label class="col-form-label col-lg-3 col-sm-12">سر دسته ی محصولات</label>
                 <div class=" col-lg-6 col-md-9 col-sm-12">
-                    <select class="form-control kt-select2" id="Select2_A" onchange="return Select_Type(this)" style="width: 100%;">
+                    <select class="form-control kt-select2" id="Select2_A" onchange="Select_Type('Select2_A')" style="width: 100%;">
                         <option value=0 selected disabled hidden>انتخاب کنید</option>
                         @foreach (var item in Model.Types)
                         {
@@ -52,7 +52,7 @@
             <div class="form-group row">
                 <label class="col-form-label col-lg-3 col-sm-12">گروه اصلی محصولات</label>
                 <div class=" col-lg-6 col-md-9 col-sm-12">
-                    <select disabled class="form-control kt-select2" id="Select2_B" onchange="return Select_Main(this)" style="width: 100%;">
+                    <select disabled class="form-control kt-select2" id="Select2_B" onchange=" Select_Main('Select2_B')" style="width: 100%;">
                         <option value=0 selected disabled hidden>انتخاب کنید</option>
 
                     </select>
@@ -61,7 +61,7 @@
             <div class="form-group row">
                 <label class="col-form-label col-lg-3 col-sm-12">گروه محصولات</label>
                 <div class=" col-lg-6 col-md-9 col-sm-12">
-                    <select disabled class="form-control kt-select2" id="Select2_C" onchange="return Select_Sub(this)" style="width: 100%;">
+                    <select disabled class="form-control kt-select2" id="Select2_C" onchange=" Select_Sub('Select2_C')" style="width: 100%;">
                         <option value=0 selected disabled hidden>انتخاب کنید</option>
 
                     </select>
@@ -71,7 +71,7 @@
             <div class="form-group row">
                 <label class="col-form-label col-lg-3 col-sm-12">ویژگی های محصولات</label>
                 <div class=" col-lg-9 col-md-9 col-sm-12">
-                    <select disabled class="form-control kt-select2" id="kt_select2_multiple" name="param" multiple="multiple" onchange="return MultSelectorSelect()" style="width: 100%;">
+                    <select disabled class="form-control kt-select2" id="kt_select2_multiple" name="param" multiple="multiple" onchange=" MultSelectorSelect()" style="width: 100%;">
                         <option value=0 disabled selected hidden>انتخاب کنید</option>
                        
 
@@ -114,7 +114,7 @@
 
 
 
-
+<input disabled="disabled"style="display: none"id="addpage3" value="" />
 
     <!-- end:: div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" -->
     <!-- end:: div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content" -->
@@ -132,12 +132,12 @@
             console.log("SubKey Selected value is: " + $("#kt_select2_multiple").val());
         }
         function Select_Type(ItemS) {
-            console.log("Type Selected value is: " + $(ItemS).val());
+            console.log("Type Selected value is: " + $("#"+ItemS).val());
             $('#Select2_B').prop("disabled", false);
             $.ajax({
                 url: "/Product/DropListFiller",
                 type: "post",
-                data: { "drop": "MainCat", "id": $(ItemS).val() },
+                data: { "drop": "MainCat", "id": $("#"+ItemS).val() },
                 success: function (response) {
 
                     var token = response;
@@ -158,13 +158,13 @@
         }
 
         function Select_Main(ItemS) {
-            console.log("Main Selected value is: " + $(ItemS).val());
+            console.log("Main Selected value is: " + $("#"+ItemS).val());
 
             $('#Select2_C').prop("disabled", false);
             $.ajax({
                 url: "/Product/DropListFiller",
                 type: "post",
-                data: { "drop": "SubCat", "id": $(ItemS).val() },
+                data: { "drop": "SubCat", "id": $("#"+ItemS).val() },
                 success: function (response) {
 
                     var token = response;
@@ -185,13 +185,13 @@
         }
 
         function Select_Sub(ItemS) {
-            console.log("Sub Selected value is: " + $(ItemS).val());
+            console.log("Sub Selected value is: " + $("#"+ItemS).val());
 
             $('#kt_select2_multiple').prop("disabled", false);
             $.ajax({
                 url: "/Product/DropListFiller",
                 type: "post",
-                data: { "drop": "SubCat_Key", "id": $(ItemS).val() },
+                data: { "drop": "SubCat_Key", "id": $("#"+ItemS).val() },
                 success: function (response) {
 
                     var token = response;
@@ -246,7 +246,7 @@
                         $("#ERRAlertEdit2").hide(300);
                         $("#SuccesAlertEdit2").show(300);
                         //alert(response);
-                        var url = unescape('@Url.Action("Add_Page3","Product",new { Ids="{0}",id="{1}"},Request.Url.Scheme))'.format($("#kt_select2_multiple").val(),@Model.Id);
+                        var url = "@Url.Action("Add_Page3","Product",null,Request.Url.Scheme)?Ids="+$("#kt_select2_multiple").val()+"&id=@Model.Id";
                         $('#step3').load(url);
                         $("#Sub_btn2").hide(200);
                          $("#btn_next").show(200);
