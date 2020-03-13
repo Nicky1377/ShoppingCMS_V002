@@ -617,6 +617,7 @@
     <Content Include="assets\js\pages\custom\Plugins\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="assets\js\pages\custom\Plugins\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="assets\js\pages\custom\Plugins\ckeditor\skins\moono-lisa\readme.md" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
