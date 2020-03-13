@@ -200,8 +200,8 @@
 <script>
 
     $(document).ready(function () {
-        $('#show_newSCK').load("https://localhost:44336/ms/new_sck");
-        $('#show_tabSCK').load("https://localhost:44336/ms/table_sck");
+        $('#show_newSCK').load("@Url.Action("new_sck","MS",null,Request.Url.Scheme)");
+        $('#show_tabSCK').load("@Url.Action("table_sck","MS",null,Request.Url.Scheme)");
     });
 
     function savePics(action) {

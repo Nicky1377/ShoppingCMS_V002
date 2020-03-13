@@ -113,7 +113,7 @@
 
                               $("#ERRAlertNew").hide(300);
                               $("#SuccesAlertNew").show(300);
-                              $('#show_tab').load("https://localhost:44336/MS/table_Type");
+                              $('#show_tab').load("@Url.Action("table_Type","MS",null,Request.Url.Scheme)");
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus);
@@ -145,7 +145,7 @@
                         success: function (response) {
                             $("#ERRAlertEdit").hide(300);
                             $("#SuccesAlertEdit").show(300);
-                            $('#show_tab').load("https://localhost:44336/MS/table_Type");
+                            $('#show_tab').load("@Url.Action("table_Type","MS",null,Request.Url.Scheme)");
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus);

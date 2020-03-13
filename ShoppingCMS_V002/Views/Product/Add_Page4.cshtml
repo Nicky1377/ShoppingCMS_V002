@@ -431,7 +431,8 @@
                     success: function (response) {
                         alert(response);
                         var sub = $("#Select2_C option:selected").val();
-                        $('#step5').load("https://localhost:44336/Product/Add_Page5?Id=" + $("#Mpro_").text()+"&SubId="+sub);
+                        var url = unescape('@Url.Action("Add_Page5","Product",new { Id="{0}",SubId="{1}"},Request.Url.Scheme))'.format($("#Mpro_").text(),sub);
+                        $('#step5').load(url);
                         $('#KTPortletSection_BodyLoad_TSHPanda-' + param).hide(200);
                         SectionPosition('3', param);
                         $('#KTPortletSection_Body_TSHPanda-' + param).show(200);

@@ -134,7 +134,7 @@
 
 </div>
 
-<div id="show_tabSCV">
+<div id="show_tabTag">
 
 </div>
 
@@ -199,22 +199,22 @@
 
 
 
-
+@Scripts.Render("~/bundles/jquery")
 
 @Scripts.Render("~/bundles/Select2")
 
 <script>
-        $(document).ready(function () {
-            $("#Select2_A").select2();
-            $("#Select2_B").select2();
-            $("#Select2_C").select2();
-            alert("helllo");
-            $('#show_tabSCV').load("https://localhost:44336/Product/TagsTable?id=0");
+    $(document).ready(function () {
+        $("#Select2_A").select2();
+        $("#Select2_B").select2();
+        $("#Select2_C").select2();
+        alert("helllo");
+        $('#show_tabTag').load("@Url.Action("TagsTable","Product",new {id='0' },Request.Url.Scheme)");
 
 
-        });
+    });
 
-     function modalloader(name, id) {
+    function modalloader(name, id) {
 
         document.getElementById("delete").innerHTML = name;
         $("#modeldelete").val(id);
@@ -222,7 +222,7 @@
         document.getElementById("edit").innerHTML = name;
         $("#modeledit").val(id);
 
-         $('#SCVId_').text(id);
+        $('#SCVId_').text(id);
         alert(id);
 
     }
@@ -237,16 +237,16 @@
         }
         var x = myObject.fullName();
         var id = $(x).val();
-        
+
 
         if (action == 'edit') {
             var naMee = document.getElementById("edit").innerHTML;
-            
+
             $("#alll").hide();
             $('#inputNew').val(naMee);
             $('#newBtn').hide();
             $('#editBtn').show();
-            
+
 
 
 
@@ -273,10 +273,12 @@
                     $("#SuccesAlertEdit2").show(300);
 
                     if (action == 'Edit') {
-                        $('#show_tabSCV').load("https://localhost:44336/Product/TagsTable?id=" + $("#Select2_D option:selected").val());
+                        var url = unescape('@Url.Action("TagsTable","Product",new { id="{0}"},Request.Url.Scheme)'.format($("#Select2_D option:selected").val());
+                        //alert(url);
+                        $('#show_tabTag').load(url);
 
                     } else {
-                        $('#show_tabSCV').load("https://localhost:44336/Product/TagsTable?id=0");
+                        $('#show_tabTag').load("@Url.Action("TagsTable","Product",new {id='0' },Request.Url.Scheme)");
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -288,82 +290,82 @@
         return false;
     }
 
-        function Select_Type(ItemS) {
-            console.log("Type Selected value is: " + $(ItemS).val());
-            $('#Select2_B').prop("disabled", false);
-            $.ajax({
-                url: "/Product/DropListFiller",
-                type: "post",
-                data: { "drop": "MainCat", "id": $(ItemS).val() },
-                success: function (response) {
+    function Select_Type(ItemS) {
+        console.log("Type Selected value is: " + $(ItemS).val());
+        $('#Select2_B').prop("disabled", false);
+        $.ajax({
+            url: "/Product/DropListFiller",
+            type: "post",
+            data: { "drop": "MainCat", "id": $(ItemS).val() },
+            success: function (response) {
 
-                    var token = response;
-                    var s = "<option value=0 selected disabled hidden>انتخاب کنید</option>";
-                    for (var i = 0; i < token.length; i++) {
-                        s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
-                    }
-
-                    document.getElementById('Select2_B').innerHTML = s;
-
-                    //alert(token[0].Value);
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
+                var token = response;
+                var s = "<option value=0 selected disabled hidden>انتخاب کنید</option>";
+                for (var i = 0; i < token.length; i++) {
+                    s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
                 }
-            });
-        }
 
-        function Select_Main(ItemS) {
-            console.log("Main Selected value is: " + $(ItemS).val());
+                document.getElementById('Select2_B').innerHTML = s;
 
-            $('#Select2_C').prop("disabled", false);
-            $.ajax({
-                url: "/Product/DropListFiller",
-                type: "post",
-                data: { "drop": "SubCat", "id": $(ItemS).val() },
-                success: function (response) {
+                //alert(token[0].Value);
 
-                    var token = response;
-                    var s = "<option value=0 selected disabled hidden>انتخاب کنید</option>";
-                    for (var i = 0; i < token.length; i++) {
-                        s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
-                    }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
 
-                    document.getElementById('Select2_C').innerHTML = s;
+    function Select_Main(ItemS) {
+        console.log("Main Selected value is: " + $(ItemS).val());
 
-                    //alert(token[0].Value);
+        $('#Select2_C').prop("disabled", false);
+        $.ajax({
+            url: "/Product/DropListFiller",
+            type: "post",
+            data: { "drop": "SubCat", "id": $(ItemS).val() },
+            success: function (response) {
 
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
+                var token = response;
+                var s = "<option value=0 selected disabled hidden>انتخاب کنید</option>";
+                for (var i = 0; i < token.length; i++) {
+                    s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
                 }
-            });
-        }
+
+                document.getElementById('Select2_C').innerHTML = s;
+
+                //alert(token[0].Value);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
 
 
     function Select_Sub(ItemS) {
         console.log("Sub Selected value is: " + $(ItemS).val());
 
-         $('#show_tabSCV').load("https://localhost:44336/Product/TagsTable?id="+$(ItemS).val());
+        $('#show_tabSCV').load("https://localhost:44336/Product/TagsTable?id=" + $(ItemS).val());
     }
 
 
 
 
-        function SubmitedType(action) {
+    function SubmitedType(action) {
 
-            if ($("#Select2_A option:selected").val() === '0') {
-                $("#ERRAlertEdit2").show(300);
-            } else if ($("#Select2_B option:selected").val() === '0') {
-                $("#ERRAlertEdit2").show(300);
-            } else if ($("#Select2_C option:selected").val() === '0') {
-                $("#ERRAlertEdit2").show(300);
-            } else if ($("#inputNew").val() == '') {
-                $("#ERRAlertEdit2").show(300);
-            } else {
+        if ($("#Select2_A option:selected").val() === '0') {
+            $("#ERRAlertEdit2").show(300);
+        } else if ($("#Select2_B option:selected").val() === '0') {
+            $("#ERRAlertEdit2").show(300);
+        } else if ($("#Select2_C option:selected").val() === '0') {
+            $("#ERRAlertEdit2").show(300);
+        } else if ($("#inputNew").val() == '') {
+            $("#ERRAlertEdit2").show(300);
+        } else {
 
-               var PostJson;
+            var PostJson;
             alert(action);
             if (action == 'New') {
                 PostJson = {
@@ -395,14 +397,16 @@
                     $("#SuccesAlertEdit2").show(300);
 
                     if (action == 'Edit') {
-                        $('#show_tabSCV').load("https://localhost:44336/Product/TagsTable?id=" + $("#Select2_D option:selected").val());
+                       var url = unescape('@Url.Action("TagsTable","Product",new { id="{0}"},Request.Url.Scheme)'.format($("#Select2_D option:selected").val());
+                        //alert(url);
+                        $('#show_tabTag').load(url);
                         setTimeout(function () { $('#SuccesAlertEdit2').hide(500); }, 2000);
                         setTimeout(function () {
                             $('#editBtn').hide();
                             $('#newBtn').show();
                         }, 2000);
                     } else {
-                        $('#show_tabSCV').load("https://localhost:44336/Product/TagsTable?id=0");
+                         $('#show_tabTag').load("@Url.Action("TagsTable","Product",new {id='0' },Request.Url.Scheme)");
                     }
 
                 },
@@ -410,9 +414,9 @@
                     alert(textStatus);
                 }
             });
-            }
-
         }
+
+    }
 
 </script>
 

@@ -107,8 +107,8 @@
 
 </div>
 
-<div id="show_tabSCV">
-
+<div id="show_tabMain">
+    helloo
 </div>
 
 
@@ -171,14 +171,14 @@
 
 
 
-
+@Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/Select2");
 
 <script>
     $(document).ready(function () {
-       
-        $('#show_tabSCV').load("https://localhost:44336/Product/MainTag_table");
 
+        $('#show_tabMain').load("@Url.Action("MainTag_table","Product",null,Request.Url.Scheme)");
+//        alert("@Url.Action("MainTag_table","Product",null,Request.Url.Scheme)");
 
     });
 
@@ -214,7 +214,7 @@
             $('#inputNew').val(naMee);
             $('#newBtn').hide();
             $('#editBtn').show();
-            
+
 
 
 
@@ -227,7 +227,7 @@
                 'ActTodo': 'delete',
                 'Name': $("#inputNew").val(),
                 'Description': $("#inputDescription").val(),
-                'id': $('#SCVId_').text();
+                'id': $('#SCVId_').text()
 
             };
 
@@ -240,8 +240,8 @@
                     $("#ERRAlertEdit2").hide(300);
                     $("#SuccesAlertEdit2").show(300);
 
-                    $('#show_tabSCV').load("https://localhost:44336/Product/MainTag_table");
-                    
+                    $('#show_tabMain').load("@Url.Action("MainTag_table","Product",null,Request.Url.Scheme)");
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus);
@@ -252,7 +252,7 @@
         return false;
     }
 
-   
+
 
 
 
@@ -297,14 +297,14 @@
                     $("#SuccesAlertEdit2").show(300);
 
                     if (action == 'Edit') {
-                        $('#show_tabSCV').load("https://localhost:44336/Product/MainTag_table");
+                        $('#show_tabSCV').load("@Url.Action("MainTag_table","Product",null,Request.Url.Scheme)");
                         setTimeout(function () { $('#SuccesAlertEdit2').hide(500); }, 2000);
                         setTimeout(function () {
                             $('#editBtn').hide();
                             $('#newBtn').show();
                         }, 2000);
                     } else {
-                        $('#show_tabSCV').load("https://localhost:44336/Product/MainTag_table");
+                        $('#show_tabSCV').load("@Url.Action("MainTag_table","Product",null,Request.Url.Scheme)");
                     }
 
                 },

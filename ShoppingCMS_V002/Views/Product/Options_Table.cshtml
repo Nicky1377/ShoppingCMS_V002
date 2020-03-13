@@ -42,19 +42,21 @@
     </tbody>
 </table>
 <!--End::Table-->
-
+@Scripts.Render("~/bundles/jquery")
 <script>
-    
+
 
     function Click_op_del(id) {
-        
+
         $.ajax({
             url: "/Product/Op_delete_edit",
             type: "post",
             data: { "action": "delete", "id": id },
             success: function (response) {
 
-                $('#optiontable').load("https://localhost:44336/Product/Options_Table?id=1");
+                var url = unescape('@Url.Action("Options_Table","Product",new { id="{0}"},Request.Url.Scheme)'.format($('#abcd').text());
+
+                $('#optiontable').load(url);
                 alert("success");
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -63,13 +65,13 @@
         });
     }
 
-    
+
 
     function Click_op_edit(id) {
 
         var key = $('#Key-' + id).text();
         var value = $('#Value-' + id).text();
-        
+
         $('#edit_id').text(id);
         $('#edit_key').val(key);
         $('#edit_value').val(value);
@@ -77,5 +79,5 @@
         $('#editOption').show();
         $('#Add_option').hide();
     }
-    
+
 </script>

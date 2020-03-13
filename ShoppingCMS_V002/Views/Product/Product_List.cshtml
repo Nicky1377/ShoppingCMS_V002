@@ -4,29 +4,29 @@
     Layout = "~/Views/Master/Master.cshtml";
 }
 
-    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
-        <div class="kt-container  kt-container--fluid ">
-            <div class="kt-subheader__main">
-                <div class="kt-subheader__breadcrumbs">
-                    <a href="#" class="kt-subheader__breadcrumbs-home" style="display: inline-flex;">
-                        <h3 class="kt-subheader__title">داشبورد</h3>
+<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+    <div class="kt-container  kt-container--fluid ">
+        <div class="kt-subheader__main">
+            <div class="kt-subheader__breadcrumbs">
+                <a href="#" class="kt-subheader__breadcrumbs-home" style="display: inline-flex;">
+                    <h3 class="kt-subheader__title">داشبورد</h3>
 
-                        <span class="kt-subheader__separator kt-hidden"></span>
+                    <span class="kt-subheader__separator kt-hidden"></span>
 
 
-                        <i class="flaticon2-shelter"></i>
-                    </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="#" id="PageName" class="kt-subheader__breadcrumbs-link"> لیست تمام محصولات </a>
+                    <i class="flaticon2-shelter"></i>
+                </a>
+                <span class="kt-subheader__breadcrumbs-separator"></span>
+                <a href="#" id="PageName" class="kt-subheader__breadcrumbs-link"> لیست تمام محصولات </a>
 
-                </div>
             </div>
-            <div class="kt-subheader__toolbar">
-                <div class="kt-subheader__wrapper">
-                </div>
+        </div>
+        <div class="kt-subheader__toolbar">
+            <div class="kt-subheader__wrapper">
             </div>
         </div>
     </div>
+</div>
 
 
 
@@ -64,10 +64,11 @@
     </div>
 </div>
 <!-- end:: Content -->
-
+@Scripts.Render("~/bundles/jquery")
 <script>
-    $(document).ready(function() {
-        $('#table').load("https://localhost:44336/Product/Product_table?SearchBox=false");
+    $(document).ready(function () {
+        var url = unescape('@Url.Action("Product_table","Product",new { SearchBox="false"},Request.Url.Scheme)');
+        $('#table').load(url);
     });
 
 
@@ -80,7 +81,9 @@
     function sClick() {
         var m = $('#search_box').val();
         //alert("hello");
-        $('#table').load("https://localhost:44336/Product/Product_table?SearchBox=true&text="+m);
+         var url = unescape('@Url.Action("Product_table","Product",new { SearchBox="true",text="{0}"},Request.Url.Scheme)'.format(m));
+        $('#table').load(url);
+
     }
 
 </script>

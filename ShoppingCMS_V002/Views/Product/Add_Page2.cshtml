@@ -246,7 +246,8 @@
                         $("#ERRAlertEdit2").hide(300);
                         $("#SuccesAlertEdit2").show(300);
                         //alert(response);
-                        $('#step3').load("https://localhost:44336/Product/Add_Page3?Ids=" + $("#kt_select2_multiple").val() + "&id=" +@Model.Id);
+                        var url = unescape('@Url.Action("Add_Page3","Product",new { Ids="{0}",id="{1}"},Request.Url.Scheme))'.format($("#kt_select2_multiple").val(),@Model.Id);
+                        $('#step3').load(url);
                         $("#Sub_btn2").hide(200);
                          $("#btn_next").show(200);
                         },

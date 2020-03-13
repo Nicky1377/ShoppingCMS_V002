@@ -200,8 +200,11 @@
 @Scripts.Render("~/bundles/jquery")
 <script>
     $(document).ready(function () {
-        $('#show_newCat').load("https://localhost:44336/ms/new_cat");
-        $('#show_tabCat').load("https://localhost:44336/ms/table_cat");
+        //$('#show_newCat').load("https://localhost:44336/ms/new_cat");
+        //$('#show_tabCat').load("https://localhost:44336/ms/table_cat");
+        $('#show_newCat').load("@Url.Action("New_Cat","MS",null,Request.Url.Scheme)");
+        $('#show_tabCat').load("@Url.Action("table_Cat","MS",null,Request.Url.Scheme)");
+
         //alert("hello");
     });
 
@@ -230,8 +233,8 @@
 
                 $("#ERRAlertNew").hide(300);
                 $("#SuccesAlertNew").show(300);
-                $('#show_tabCat').load("https://localhost:44336/MS/table_Cat");
-                $('#show_newCat').load("https://localhost:44336/MS/New_Cat");
+                $('#show_newCat').load("@Url.Action("New_Cat","MS",null,Request.Url.Scheme)");
+                $('#show_tabCat').load("@Url.Action("table_Cat","MS",null,Request.Url.Scheme)");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(textStatus);

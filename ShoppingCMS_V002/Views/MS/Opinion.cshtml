@@ -22,7 +22,7 @@
                 data: JSON.stringify(PostJson),
                 contentType: "application/json; charset=utf-8",
                 success: function (response) {
-                     $('#Opinion_show').load("https://localhost:44336/MS/Opinion_show");
+                     $('#Opinion_show').load("@Url.Action("Opinion_show","MS",null,Request.Url.Scheme)");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus);

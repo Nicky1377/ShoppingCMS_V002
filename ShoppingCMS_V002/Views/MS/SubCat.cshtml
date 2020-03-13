@@ -200,8 +200,8 @@
 <script>
 
     $(document).ready(function () {
-        $('#show_newSub').load("https://localhost:44336/ms/new_sub");
-        $('#show_tabSub').load("https://localhost:44336/ms/table_sub");
+        $('#show_newSub').load("@Url.Action("new_sub","MS",null,Request.Url.Scheme)");
+        $('#show_tabSub').load("@Url.Action("table_Sub","MS",null,Request.Url.Scheme)");
     });
 
     function savePics(action) {
@@ -228,8 +228,9 @@
             success: function (response) {
                 $("#ERRAlertNew").hide(300);
                 $("#SuccesAlertNew").show(300);
-                $('#show_tabSub').load("https://localhost:44336/MS/table_Sub");
-                $('#show_newSub').load("https://localhost:44336/MS/New_Sub");
+                $('#show_newSub').load("@Url.Action("new_sub","MS",null,Request.Url.Scheme)");
+                $('#show_tabSub').load("@Url.Action("table_Sub","MS",null,Request.Url.Scheme)");
+                
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(textStatus);
