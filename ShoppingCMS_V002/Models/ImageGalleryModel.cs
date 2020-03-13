@@ -19,7 +19,7 @@ namespace ShoppingCMS_V002.Models
         public int check { set; get; }
         public void imageAddress(string url)
         {
-            Address = "https://" + HttpContext.Current.Request.Url.Authority + "/" + url;
+            Address = "https://" + HttpContext.Current.Request.Url.Authority  + url;
         }
     }
 }

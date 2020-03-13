@@ -419,7 +419,7 @@ namespace ShoppingCMS_V002.Controllers
                         string EX = Path.GetExtension(file.FileName);
                         string FileNAME = Guid.NewGuid().ToString() + fname.Replace(" ", "");
                         string address = Server.MapPath("~/images/Uploaded/" + PersianDateTime.Now.Year + "/" + PersianDateTime.Now.GetLongMonthName + "/" + FileNAME);
-                        string URLIMG = "/images/Uploaded/" + PersianDateTime.Now.Year + "/" + PersianDateTime.Now.GetLongMonthName + FileNAME;
+                        string URLIMG = "/images/Uploaded/" + PersianDateTime.Now.Year + "/" + PersianDateTime.Now.GetLongMonthName + "/"+FileNAME;
 
                         if (Directory.Exists(Server.MapPath("~/images/Uploaded/" + PersianDateTime.Now.Year + "/" + PersianDateTime.Now.GetLongMonthName)))
                         {
