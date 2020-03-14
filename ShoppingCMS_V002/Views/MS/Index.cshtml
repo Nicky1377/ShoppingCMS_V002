@@ -6,3 +6,61 @@
 
 <div id="LoadAll"></div>
 
+<div id="MAinDiv" class="col-lg-10">
+    <div class="form-group">
+        <label>نام کاربری</label>
+        <input id="username" class="form-control" placeholder="" />
+        <span class="form-text text-muted">نام کاربری خود را وارد کنید.</span>
+    </div>
+    <div class="form-group">
+        <label>رمز عبور</label>
+        <input id="Pass" class="form-control" placeholder="" type="text" />
+        <span class="form-text text-muted">رمز عبور خود را وارد کنید.</span>
+    </div>
+
+    <div class="kt-form__actions">
+        <div class="col-6 offset-3" style="padding-top: 10px;">
+
+            <button id="Sub_btn1" onclick="submit()" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
+                Submit
+            </button>
+        </div>
+    </div>
+</div>
+<div  class="kt-form__actions">
+    <div class="col-6 offset-3" style="padding-top: 10px;">
+
+        <button style="display:none" id="DB_Btn" Onclick="return doneEE()" class="btn btn-warning btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
+            اعمال تغییرات دیتابیس
+        </button>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    function submit() {
+        if ($('#username').val() == 'PandaTe@m' && $('#Pass').val() == 'P@nd@s1377') {
+            $('#MAinDiv').hide();
+            $('#DB_Btn').show();
+        } else {
+            alert("نام کاربری یا رمز عبور اشتباه است.")
+        }
+    }
+
+    function doneEE() {
+        //alert("hello");
+        $.ajax({
+            url: '/Product/test',
+            type: "get",
+            success: function (response) {
+                alert(response);
+                $('#DB_Btn').hide();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(textStatus);
+            }
+        });
+    }
+
+
+</script>
