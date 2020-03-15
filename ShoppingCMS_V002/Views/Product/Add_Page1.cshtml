@@ -14,7 +14,7 @@
 
                     <div class="form-group">
                         <label>نام محصول</label>
-                        <input id="Title_p1" class="form-control" placeholder="" />
+                        <input id="Title_p1" class="form-control" placeholder="" onchange="return ChangeAllInput(this)" />
                         <span class="form-text text-muted">نام و موضوع محصول خود را وارد کنید.</span>
                     </div>
                     <div class="form-group">
@@ -45,7 +45,7 @@
                     <!----------------------------------------------------------------------------------------------->
                     <div class="form-group">
                         <label>عکس ها</label>
-                        <button class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_6" onclick="modalloader()"><i class="fa fa-upload"><span style="font-family: IRANSansWeb;">آپلود عکس</span></i></button>
+                        <button id="picss" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_6" onclick="modalloader()"><i class="fa fa-upload"><span style="font-family: IRANSansWeb;">آپلود عکس</span></i></button>
                         <input type="hidden" id="Pics_p1" class="form-control" placeholder="" />
                         <input class="form-text text-muted" id="Pics_p2" readonly="readonly"></input>
                     </div>

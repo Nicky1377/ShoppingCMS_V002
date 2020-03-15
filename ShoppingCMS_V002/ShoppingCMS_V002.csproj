@@ -160,6 +160,7 @@
     <Compile Include="ModelViews\AddProductModelV_5.cs" />
     <Compile Include="ModelViews\ProductListModelView.cs" />
     <Compile Include="OtherClasses\CheckAccess.cs" />
+    <Compile Include="OtherClasses\Encryption.cs" />
     <Compile Include="OtherClasses\itemclas.cs" />
     <Compile Include="OtherClasses\JaygashtClass.cs" />
     <Compile Include="OtherClasses\ModelFiller.cs" />
@@ -2192,6 +2193,7 @@
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.css</DependentUpon>
     </Content>
+    <Content Include="CustomScript\AddProScript.js" />
     <Content Include="CustomScript\MasterClicks.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
