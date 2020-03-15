@@ -1,0 +1,74 @@
+[
+  {
+    "outputFileName": "assets/css/pages/wizard/wizard-3.rtl.min.css",
+    "inputFiles": [
+      "assets/css/pages/wizard/wizard-3.rtl.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/plugins/custom/fullcalendar/fullcalendar.bundle.rtl.min.css",
+    "inputFiles": [
+      "assets/plugins/custom/fullcalendar/fullcalendar.bundle.rtl.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/plugins/global/plugins.bundle.rtl.min.css",
+    "inputFiles": [
+      "assets/plugins/global/plugins.bundle.rtl.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/css/style.bundle.rtl.min.css",
+    "inputFiles": [
+      "assets/css/style.bundle.rtl.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/css/skins/header/base/light.rtl.min.css",
+    "inputFiles": [
+      "assets/css/skins/header/base/light.rtl.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/css/skins/header/menu/light.rtl.min.css",
+    "inputFiles": [
+      "assets/css/skins/header/menu/light.rtl.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/css/skins/brand/dark.rtl.min.css",
+    "inputFiles": [
+      "assets/css/skins/brand/dark.rtl.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/css/skins/aside/dark.rtl.min.css",
+    "inputFiles": [
+      "assets/css/skins/aside/dark.rtl.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/plugins/custom/Uploader/UploaderCustome.min.css",
+    "inputFiles": [
+      "assets/plugins/custom/Uploader/UploaderCustome.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/css/Custome.min.css",
+    "inputFiles": [
+      "assets/css/Custome.css"
+    ]
+  },
+  {
+    "outputFileName": "assets/plugins/global/plugins.bundle.min.js",
+    "inputFiles": [
+      "assets/plugins/global/plugins.bundle.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/Site.min.css",
+    "inputFiles": [
+      "Content/Site.css"
+    ]
+  }
+]

@@ -64,7 +64,7 @@
     </div>
 </div>
 <!-- end:: Content -->
-@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryCore.js")
 <script>
     $(document).ready(function () {
         var url = unescape('@Url.Action("Product_table","Product",new { SearchBox="false"},Request.Url.Scheme)');
