@@ -127,18 +127,20 @@ function fillJson(pg)
     var CookieString ="" ;
 
     if (pg == '1') {
-        CookieString= 
-        '{"Title":'+Title+
-        ',"Description":'+Description+
-        ',"SEO_keyword":'+SEO_keyword+
-        ',"SEO_description":'+SEO_description+
-        ',"SearchGravity":'+SearchGravity+
-        ',"IsAd":'+IsAd+
-        ',"pics":'+pics+'}'
+        CookieString =
+            '{"Page":' + pg +
+            ',"Title":' + Title +
+            ',"Description":' + Description +
+            ',"SEO_keyword":' + SEO_keyword +
+            ',"SEO_description":' + SEO_description +
+            ',"SearchGravity":' + SearchGravity +
+            ',"IsAd":' + IsAd +
+            ',"pics":' + pics + '}';
     }
     else if (pg == '2') {
         CookieString =
-            '{"Title":' + Title +
+            '{"Page":' + pg +
+            ',"Title":' + Title +
             ',"Description":' + Description +
             ',"SEO_keyword":' + SEO_keyword +
             ',"SEO_description":' + SEO_description +
@@ -153,7 +155,8 @@ function fillJson(pg)
     }
     else if (pg == '3') {
         CookieString =
-            '{"Title":' + Title +
+            '{"Page":' + pg +
+            ',"Title":' + Title +
             ',"Description":' + Description +
             ',"SEO_keyword":' + SEO_keyword +
             ',"SEO_description":' + SEO_description +
@@ -169,7 +172,8 @@ function fillJson(pg)
     }
     else if (pg == '4') {
         CookieString =
-            '{"Title":' + Title +
+            '{"Page":' + pg +
+            ',"Title":' + Title +
             ',"Description":' + Description +
             ',"SEO_keyword":' + SEO_keyword +
             ',"SEO_description":' + SEO_description +

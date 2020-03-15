@@ -143,10 +143,7 @@
             });
 
         });
-        function MultSelectorSelect(objSelect) {
-            console.log("All Selected value is: " + $(objSelect).val());
-
-        }
+      
 
         function EditClick(pId) {
             //alert("EditClick");
@@ -263,7 +260,7 @@
                         var sub = $("#Select2_C option:selected").val();
                         var url = "@Url.Action("Add_Page4","Product",null,Request.Url.Scheme)?SubId="+sub;
                         $('#step4').load(url);
-                        alert(response);
+                        FreezItmsP3();
                         $("#Sub_btn3").hide(200);
                         $("#btn_next").show(200);
                     },

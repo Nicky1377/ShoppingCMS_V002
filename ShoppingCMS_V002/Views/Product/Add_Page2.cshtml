@@ -11,23 +11,8 @@
 <!-- begin:: Tozihat Optional -->
 <div class="row">
     <div class="col">
-        <div style="display:none" id="Mpro_">@Model.Id</div>
-        @*<div class="alert alert-light alert-elevate fade show" role="alert">
-            <div class="alert-icon"><i class="flaticon-warning kt-font-brand"></i></div>
-            <div class="alert-text">
-                توجه داشته باشید که در قسمت  <u><b>ویژگی های محصولات</b></u> تنها مواردی را انتخاب کنید که برروی    قیمت گذاری شما موثر هستند.
-
-            </div>
-        </div>*@
-        @*<div class="alert alert-outline-warning fade show" role="alert">
-            <div class="alert-icon"><i class="flaticon-warning"></i></div>
-            <div class="alert-text"> توجه داشته باشید که در قسمت  <u><b>ویژگی های محصولات</b></u> تنها مواردی را انتخاب کنید که برروی    قیمت گذاری شما موثر هستند.</div>
-            <div class="alert-close">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true"><i class="la la-close"></i></span>
-                </button>
-            </div>
-        </div>*@
+        <div style="display:none" id="Mpro_" onchange="return ChangeAllInput('2')">@Model.Id</div>
+        
     </div>
 </div>
 <!-- end:: Tozihat Optional -->
@@ -130,6 +115,7 @@
         });
         function MultSelectorSelect() {
             console.log("SubKey Selected value is: " + $("#kt_select2_multiple").val());
+            ChangeAllInput('2');
         }
         function Select_Type(ItemS) {
             console.log("Type Selected value is: " + $("#"+ItemS).val());
@@ -147,7 +133,7 @@
                     }
 
                     document.getElementById('Select2_B').innerHTML = s;
-
+                    ChangeAllInput('2');
                     //alert(token[0].Value);
 
                 },
@@ -174,7 +160,7 @@
                     }
 
                     document.getElementById('Select2_C').innerHTML = s;
-         
+                    ChangeAllInput('2');
                     //alert(token[0].Value);
 
                 },
@@ -206,6 +192,7 @@
                     document.getElementById('kt_select2_multiple').innerHTML = s;
 
                     //alert(token[0].Value);
+                    ChangeAllInput('2');
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -248,6 +235,7 @@
                         //alert(response);
                         var url = "@Url.Action("Add_Page3","Product",null,Request.Url.Scheme)?Ids="+$("#kt_select2_multiple").val()+"&id=@Model.Id";
                         $('#step3').load(url);
+                        FreezItmsP2()
                         $("#Sub_btn2").hide(200);
                          $("#btn_next").show(200);
                         },

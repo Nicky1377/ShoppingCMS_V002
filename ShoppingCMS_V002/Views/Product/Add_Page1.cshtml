@@ -14,31 +14,31 @@
 
                     <div class="form-group">
                         <label>نام محصول</label>
-                        <input id="Title_p1" class="form-control" placeholder="" onchange="return ChangeAllInput(this)" />
+                        <input id="Title_p1" class="form-control" placeholder="" onchange="return ChangeAllInput('1')" />
                         <span class="form-text text-muted">نام و موضوع محصول خود را وارد کنید.</span>
                     </div>
                     <div class="form-group">
                         <label>توضیحات محصول</label>
-                        <input id="Description_p1" class="form-control" placeholder="" type="text" />
+                        <input id="Description_p1" class="form-control" placeholder="" type="text" onchange="return ChangeAllInput('1')"/>
                         <span class="form-text text-muted">توضیحات محصول خود را وارد کنید.</span>
                     </div>
                     <div class="form-group">
                         <label>کلید واژه ی سئو</label>
-                        <input id="SEO_keyword_p1" class="form-control" placeholder="" />
+                        <input id="SEO_keyword_p1" class="form-control" placeholder="" onchange="return ChangeAllInput('1')"/>
                         <span class="form-text text-muted">کلید واژه برای موتور جست و جوی گوگل.</span>
                     </div>
                     <div class="form-group">
                         <label>توضیحات سئو</label>
-                        <input id="SEO_description_p1" class="form-control" placeholder="" />
+                        <input id="SEO_description_p1" class="form-control" placeholder="" onchange="return ChangeAllInput('1')"/>
                         <span class="form-text text-muted">توضیحات برای موتور جست و جوی گوگل.</span>
                     </div>
                     <div class="form-group">
                         <label>ارزش جست و جو</label>
-                        <input id="SearchGravity_p1" class="form-control" placeholder="" type="number" />
+                        <input id="SearchGravity_p1" class="form-control" placeholder="" type="number" onchange="return ChangeAllInput('1')"/>
                         <span class="form-text text-muted">نتایج جست و جوی کاربران براین اساس نمایش داده خواهند شد.</span>
                     </div>
                     <label class="kt-checkbox kt-checkbox--brand">
-                        <input id="IsAd_p1" class="form-control" type="checkbox" />تبلیغ شود؟
+                        <input id="IsAd_p1" class="form-control" type="checkbox" onchange="return ChangeAllInput('1')"/>تبلیغ شود؟
                         <span></span>
                     </label>
 
@@ -46,7 +46,7 @@
                     <div class="form-group">
                         <label>عکس ها</label>
                         <button id="picss" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_6" onclick="modalloader()"><i class="fa fa-upload"><span style="font-family: IRANSansWeb;">آپلود عکس</span></i></button>
-                        <input type="hidden" id="Pics_p1" class="form-control" placeholder="" />
+                        <input type="hidden" id="Pics_p1" class="form-control" placeholder="" onchange="return ChangeAllInput('1')"/>
                         <input class="form-text text-muted" id="Pics_p2" readonly="readonly"></input>
                     </div>
 
@@ -178,10 +178,12 @@
                     $("#ERRAlertEdit1").hide(300);
                     $("#SuccesAlertEdit1").show(300);
                     //alert(response);
-                    $('#step2').load("https://localhost:44336/Product/Add_Page2?Id=" + response);
-
+                    var url = "@Url.Action("Add_Page2","Product",null,Request.Url.Scheme)?Id=" + response ;
+                    $('#step2').load(url);
+                    FreezItmsP1();
                     $("#Sub_btn1").hide(200);
                     $("#btn_next").show(200);
+                    ChangeAllInput('2');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus);

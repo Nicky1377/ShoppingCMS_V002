@@ -102,23 +102,23 @@
                                             }
                                         </select>
                                         <div class="input-group-prepend"><span class="input-group-text">میزان تخفیف</span></div>
-                                        <input id="inpOffPrice-0" type="text" class="form-control" placeholder="قیمت هر واحد" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice('0')">
+                                        <input id="inpOffPrice-0" type="text" class="form-control" placeholder="قیمت هر واحد" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice('0')" onchange="return ChangeAllInput('4')">
                                     </div>
                                     <span id="PlzSelectVaheds-0" class="form-text text-danger">پرکردن تمامی قسمت های بالا اجباریست</span>
 
                                     <div class="input-group" style="padding-top: 10px;">
                                         <div class="input-group-prepend"><span class="input-group-text">قیمت هر واحد</span></div>
-                                        <input id="inpPrice-0" name="inpPriceTSHPSTATIC" type="text" class="form-control" placeholder="قیمت هر واحد" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice('0')">
+                                        <input id="inpPrice-0" name="inpPriceTSHPSTATIC" type="text" class="form-control" placeholder="قیمت هر واحد" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice('0')" onchange="return ChangeAllInput('4')">
                                         <div class="input-group-prepend"><span class="input-group-text">تعداد در هر واحد</span></div>
-                                        <input id="VahedID-0" name="VahedIDTSHPSTATICS" type="text" class="form-control" placeholder="تعداد در هر واحد" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice('0')">
+                                        <input id="VahedID-0" name="VahedIDTSHPSTATICS" type="text" class="form-control" placeholder="تعداد در هر واحد" aria-describedby="basic-addon1" disabled="disabled" onkeyup="return CalculateAllPrice('0')" onchange="return ChangeAllInput('4')">
                                     </div>
                                     <span class="form-text text-muted">تعداد در هر واحد : بطور مثال فروش آن کالا بر اساس کارتن میباشد و در هر کارتن 12 عدد موجود میباشد اگر قیمت هر عدد کالا 10 تومان باشد و در هر کارتن 12 عدد موجود باشد و فروش بصورت کارتنی باشد مشتری رقم 120 تومان را خواهد پرداخت</span>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">قیمت پرداختی مشتری</span>
-                                        <input id="totalPrice-0" name="totalPriceHideTSHPSTATICS" type="text" class="form-control" placeholder="قیمت پرداختی مشتری" aria-describedby="basic-addon1" readonly="readonly">
-                                        <input id="totalPriceHide-0" style="display: none" type="text" class="form-control" placeholder="قیمت پرداختی مشتری" aria-describedby="basic-addon1" readonly="readonly">
+                                        <input id="totalPrice-0" name="totalPriceHideTSHPSTATICS" type="text" class="form-control" placeholder="قیمت پرداختی مشتری" aria-describedby="basic-addon1" readonly="readonly" onchange="return ChangeAllInput('4')">
+                                        <input id="totalPriceHide-0" style="display: none" type="text" class="form-control" placeholder="قیمت پرداختی مشتری" aria-describedby="basic-addon1" readonly="readonly" onchange="return ChangeAllInput('4')">
                                     </div>
                                     <span id="PlzPriceMAnfi-0" class="form-text text-danger" style="display: none">قیمت پرداختی منفی است !</span>
 
@@ -254,6 +254,7 @@
         //console.log("age khasti text e Ckeditor ro begiri ine ==> " + CKEDITOR.instances.CkeditorMein.getData());
     });
     function LockUnlockPriceInputs(IDsSelects) {
+        return ChangeAllInput('4');
         var lock = false;
         if ($("#SelectVahedQuntID-" + IDsSelects).val() == "-1") {
             lock = true;
@@ -434,6 +435,8 @@
                         var sub = $("#Select2_C option:selected").val();
                         var url = "@Url.Action("Add_Page5","Product",null,Request.Url.Scheme)?Id="+$("#Mpro_").text()+"&SubId="+sub;
                         $('#step5').load(url);
+
+                        deleteCookie("AddProCookie");
                         $('#KTPortletSection_BodyLoad_TSHPanda-' + param).hide(200);
                         SectionPosition('3', param);
                         $('#KTPortletSection_Body_TSHPanda-' + param).show(200);
