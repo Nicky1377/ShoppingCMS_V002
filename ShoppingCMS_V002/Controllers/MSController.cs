@@ -33,19 +33,28 @@ namespace ShoppingCMS_V002.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            CheckAccess check = new CheckAccess();
+
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
+            ViewBag.cke = check.exs;
             if (check.HasAccess)
             {
+                ViewBag.hassLogin = false;
                 return View();
             }
             else
-                return RedirectToAction("NotAccess");
+            {
+                ViewBag.hassLogin = true;
+                return View();
+
+            }
+            //else
+            //    return RedirectToAction("NotAccess");
         }
         /////////////////////////////////////////////////////////// New_type : get
 
         public ActionResult Add_Type()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -57,7 +66,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpGet]
         public ActionResult New_type()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 model = new TypeASPX();
@@ -80,7 +89,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult TypePage(string action, string value, string id)
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -145,7 +154,7 @@ namespace ShoppingCMS_V002.Controllers
         //////////////////////////////////////////////////// list type : get
         public ActionResult table_Type()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -183,7 +192,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult Type_Switch(string action, string id)
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -289,7 +298,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpGet]
         public ActionResult maincat()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -302,7 +311,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpGet]
         public ActionResult New_Cat()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -349,7 +358,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult CatPage(string action, string value, string id, string data_typa)
         {
 
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -422,7 +431,7 @@ namespace ShoppingCMS_V002.Controllers
         //////////////////////////////////////////////////// list cat : get
         public ActionResult table_Cat()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -460,7 +469,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult Cat_Switch(string action, string id)
         {
 
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -566,7 +575,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpGet]
         public ActionResult SubCat()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -579,7 +588,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpGet]
         public ActionResult New_Sub()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -625,7 +634,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult SubPage(string action, string value, string id, string data_Sub)
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -698,7 +707,7 @@ namespace ShoppingCMS_V002.Controllers
         //////////////////////////////////////////////////// list sub : get
         public ActionResult table_Sub()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -734,7 +743,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult Sub_Switch(string action, string id)
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -834,7 +843,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpGet]
         public ActionResult SubCatKey()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -847,7 +856,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpGet]
         public ActionResult New_SCK()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 model = new TypeASPX();
@@ -891,7 +900,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult SCKPage(string action, string value, string id, string data_SCK)
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 string query_new, query_edit;
@@ -964,7 +973,7 @@ namespace ShoppingCMS_V002.Controllers
         //////////////////////////////////////////////////// list SCK : get
         public ActionResult table_SCK()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 string query_type;
@@ -1000,7 +1009,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult SCK_Switch(string action, string id)
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 string str = " ", query;
@@ -1090,7 +1099,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult Opinion()
         {
 
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -1102,7 +1111,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult Opinion_show()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -1140,7 +1149,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult get_Opinion(string id, string value)
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -1206,7 +1215,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult Product()
         {
 
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -1220,7 +1229,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult get_Product(string id, string value)
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -1232,7 +1241,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult NEWSHOPS_Customers()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -1254,7 +1263,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult About()
         {
 
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 return View();
@@ -1267,7 +1276,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpGet]
         public ActionResult tab_About()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 PDBC db = new PDBC("PandaMarketCMS", true);
@@ -1318,7 +1327,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult get_About(string image, string title_one, string one, string title_two, string two)
         {
 
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 string res = " ", query;
@@ -1382,7 +1391,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult up_loder()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 string str1 = " ";
@@ -1441,7 +1450,7 @@ namespace ShoppingCMS_V002.Controllers
         [HttpPost]
         public ActionResult data_switch(string _A, string _B, string _C, string data, string value, string id)
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
 
@@ -1552,7 +1561,7 @@ namespace ShoppingCMS_V002.Controllers
         ///////////////////////SCV
         public ActionResult New_SCV()
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
@@ -1570,7 +1579,7 @@ namespace ShoppingCMS_V002.Controllers
 
         public ActionResult SCV_Add_Update(string ActTodo,int SCK,string SCV,int id=0)
         {
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 PDBC db = new PDBC("PandaMarketCMS", true);
@@ -1597,7 +1606,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult SCV_table(int id)
         {
 
-            CheckAccess check = new CheckAccess();
+            string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();

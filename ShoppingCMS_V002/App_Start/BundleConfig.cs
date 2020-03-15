@@ -8,24 +8,24 @@ namespace ShoppingCMS_V002
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            bundles.Add(new ScriptBundle("~/bundles/jqueryCore.js").Include(
                 "~/assets/plugins/global/plugins.bundle.js",
                 "~/assets/js/scripts.bundle.js",
                 "~/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js",
                 "~/assets/js/pages/dashboard.js"
             ));
-            bundles.Add(new ScriptBundle("~/bundles/Ckeditor").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Ckeditor.js").Include(
                 "~/assets/js/pages/custom/Plugins/ckeditor/ckeditor.js"
             ));
             bundles.Add(new ScriptBundle("~/bundles/Select2").Include(
                 "~/assets/js/pages/crud/forms/widgets/select2.js"
             ));
-            bundles.Add(new ScriptBundle("~/bundles/AddProduct").Include(
+            bundles.Add(new ScriptBundle("~/bundles/AddProduct.js").Include(
                  "~/assets/js/pages/custom/wizard/wizard-3.js",
                 "~/assets/js/pages/crud/file-upload/dropzonejs.js",
                 "~/assets/js/pages/crud/forms/widgets/select2.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/assets/CoreAdmin.css").Include(
 
                 "~/assets/css/pages/wizard/wizard-3.rtl.css",
                 "~/assets/plugins/custom/fullcalendar/fullcalendar.bundle.rtl.css",
@@ -37,12 +37,12 @@ namespace ShoppingCMS_V002
                 "~/assets/css/skins/aside/dark.rtl.css",
                 "~/assets/css/Custome.css"
             ));
-            bundles.Add(new StyleBundle("~/Content/UploaderCss").Include(
+            bundles.Add(new StyleBundle("~/assets/Uploader.css").Include(
                 "~/assets/plugins/custom/Uploader/UploaderCustome.css"
             ));
 
 
-
+          
 
         }
     }

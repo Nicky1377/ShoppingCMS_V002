@@ -170,6 +170,9 @@
   <ItemGroup>
     <Content Include="assets\app\custom\pages\faq\faq-1.rtl.html" />
     <Content Include="assets\css\Custome.css" />
+    <Content Include="assets\css\Custome.min.css">
+      <DependentUpon>Custome.css</DependentUpon>
+    </Content>
     <Content Include="assets\css\pages\error\error-1.rtl.css" />
     <Content Include="assets\css\pages\error\error-2.rtl.css" />
     <Content Include="assets\css\pages\error\error-3.rtl.css" />
@@ -605,6 +608,9 @@
     <Content Include="assets\plugins\global\plugins.bundle.js" />
     <Content Include="assets\plugins\global\plugins.bundle.rtl.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Site.min.css">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
     <Content Include="CustomScript\MasterClicks.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -617,6 +623,7 @@
     <Content Include="assets\js\pages\custom\Plugins\ckeditor\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="assets\js\pages\custom\Plugins\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="assets\js\pages\custom\Plugins\ckeditor\skins\moono-lisa\readme.md" />
+    <None Include="bundleconfig.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

@@ -7,46 +7,71 @@
 <div id="LoadAll"></div>
 
 <div id="MAinDiv" class="col-lg-10">
-    <div class="form-group">
-        <label>نام کاربری</label>
-        <input id="username" class="form-control" placeholder="" />
-        <span class="form-text text-muted">نام کاربری خود را وارد کنید.</span>
-    </div>
-    <div class="form-group">
-        <label>رمز عبور</label>
-        <input id="Pass" class="form-control" placeholder="" type="text" />
-        <span class="form-text text-muted">رمز عبور خود را وارد کنید.</span>
-    </div>
+    <span>@ViewBag.hassLogin</span>
+    <br/>
+    <span>@ViewBag.cke</span>
+    @if (ViewBag.hassLogin)
+    {
 
-    <div class="kt-form__actions">
-        <div class="col-6 offset-3" style="padding-top: 10px;">
-
-            <button id="Sub_btn1" onclick="submit()" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
-                Submit
-            </button>
+        <div class="form-group">
+            <label>نام کاربری</label>
+            <input id="username" class="form-control" placeholder="" />
+            <span class="form-text text-muted">نام کاربری خود را وارد کنید.</span>
         </div>
-    </div>
+        <div class="form-group">
+            <label>رمز عبور</label>
+            <input id="Pass" class="form-control" placeholder="" type="text" />
+            <span class="form-text text-muted">رمز عبور خود را وارد کنید.</span>
+        </div>
+
+        <div class="kt-form__actions">
+            <div class="col-6 offset-3" style="padding-top: 10px;">
+
+                <button id="Sub_btn1" onclick="submit()" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
+                    Submit
+                </button>
+            </div>
+        </div>
+    }
+
 </div>
-<div  class="kt-form__actions">
+<div class="kt-form__actions">
     <div class="col-6 offset-3" style="padding-top: 10px;">
 
-        <button style="display:none" id="DB_Btn" Onclick="return doneEE()" class="btn btn-warning btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
+        <button style="display: none;width: 100%" id="DB_Btn" Onclick="return doneEE()" class="btn btn-warning btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">
             اعمال تغییرات دیتابیس
         </button>
     </div>
 </div>
 
-@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryCore.js")
 <script>
     function submit() {
-        if ($('#username').val() == 'PandaTe@m' && $('#Pass').val() == 'P@nd@s1377') {
-            $('#MAinDiv').hide();
-            $('#DB_Btn').show();
-        } else {
-            alert("نام کاربری یا رمز عبور اشتباه است.")
-        }
+        Login();
     }
-
+    function Login() {
+        //alert("hello");
+        $.ajax({
+            url: '/Product/Login?un=' + $('#username').val() + '&pw=' + $('#Pass').val(),
+            type: "get",
+            success: function (response) {
+                console.log("res" + response);
+                if (response == "1") {
+                    $('#MAinDiv').hide();
+                    alert("ورود موفق");
+                    return 1;
+                } else {
+                    alert("نام کاربری یا رمز عبور اشتباه است.");
+                    return 0;
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+                alert("عدم توانایی در انجام خواسته");
+                return 0;
+            }
+        });
+    }
     function doneEE() {
         //alert("hello");
         $.ajax({

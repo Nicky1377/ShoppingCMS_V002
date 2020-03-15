@@ -14,61 +14,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--begin::Fonts -->
     @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">*@
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/assets/CoreAdmin.css")
     <title>
 
     </title>
 </head>
 <body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
-    <div class="kt-grid kt-grid--ver kt-grid--root">
-        <div class="kt-grid__item kt-grid__item--fluid kt-grid  kt-error-v5" style="background-image: url(../../../../../../themes/metronic/theme/default/demo1/dist/assets/media/error/bg5.jpg);">
-            <div class="kt-error_container">
-                <span class="kt-error_title">
-                    <h1>Oops!</h1>
-                </span>
-                <p class="kt-error_subtitle">
-                    Something went wrong here.
-                </p>
-                <p class="kt-error_description">
-                    We're working on it and we'll get it fixed<br>
-                    as soon possible.<br>
-                    You can back or use our Help Center.
-                </p>
-            </div>
+<div class="kt-grid kt-grid--ver kt-grid--root">
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid  kt-error-v5" style="background-image: url(../../../../../../themes/metronic/theme/default/demo1/dist/assets/media/error/bg5.jpg);">
+        <div class="kt-error_container">
+            <span class="kt-error_title">
+                <h1>Oops!</h1>
+            </span>
+            <p class="kt-error_subtitle">
+                Something went wrong here.
+            </p>
+            <p class="kt-error_description">
+                We're working on it and we'll get it fixed<br>
+                as soon possible.<br>
+                You can back or use our Help Center.
+            </p>
         </div>
     </div>
+</div>
 
-    <script>
-        var KTAppOptions = {
-            "colors": {
-                "state": {
-                    "brand": "#5d78ff",
-                    "dark": "#282a3c",
-                    "light": "#ffffff",
-                    "primary": "#5867dd",
-                    "success": "#34bfa3",
-                    "info": "#36a3f7",
-                    "warning": "#ffb822",
-                    "danger": "#fd3995"
-                },
-                "base": {
-                    "label": [
-                        "#c5cbe3",
-                        "#a1a8c3",
-                        "#3d4465",
-                        "#3e4466"
-                    ],
-                    "shape": [
-                        "#f0f3ff",
-                        "#d9dffa",
-                        "#afb4d4",
-                        "#646c9a"
-                    ]
-                }
+<script>
+    var KTAppOptions = {
+        "colors": {
+            "state": {
+                "brand": "#5d78ff",
+                "dark": "#282a3c",
+                "light": "#ffffff",
+                "primary": "#5867dd",
+                "success": "#34bfa3",
+                "info": "#36a3f7",
+                "warning": "#ffb822",
+                "danger": "#fd3995"
+            },
+            "base": {
+                "label": [
+                    "#c5cbe3",
+                    "#a1a8c3",
+                    "#3d4465",
+                    "#3e4466"
+                ],
+                "shape": [
+                    "#f0f3ff",
+                    "#d9dffa",
+                    "#afb4d4",
+                    "#646c9a"
+                ]
             }
-        };
-    </script>
+        }
+    };
+</script>
 
-    @Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryCore.js")
 
 </body>
+</html>

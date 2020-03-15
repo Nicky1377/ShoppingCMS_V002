@@ -16,6 +16,7 @@ namespace ShoppingCMS_V002
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            System.Web.Optimization.BundleTable.EnableOptimizations = false;
         }
     }
 }
