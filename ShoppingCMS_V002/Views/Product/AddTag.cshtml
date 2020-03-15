@@ -347,7 +347,7 @@
     function Select_Sub(ItemS) {
         console.log("Sub Selected value is: " + $(ItemS).val());
 
-        $('#show_tabSCV').load("https://localhost:44336/Product/TagsTable?id=" + $(ItemS).val());
+        $('#show_tabSCV').load("@Url.Action("TagsTable","Product",null,Request.Url.Scheme)?id=" + $(ItemS).val());
     }
 
 
