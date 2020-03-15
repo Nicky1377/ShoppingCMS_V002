@@ -273,7 +273,7 @@
                     $("#SuccesAlertEdit2").show(300);
 
                     if (action == 'Edit') {
-                        var url = unescape('@Url.Action("TagsTable","Product",new { id="{0}"},Request.Url.Scheme)'.format($("#Select2_D option:selected").val());
+                        var url = unescape('@Url.Action("TagsTable","Product",new { id="{0}"},Request.Url.Scheme)'.format($("#Select2_D option:selected").val()));
                         //alert(url);
                         $('#show_tabTag').load(url);
 
@@ -397,7 +397,7 @@
                     $("#SuccesAlertEdit2").show(300);
 
                     if (action == 'Edit') {
-                       var url = unescape('@Url.Action("TagsTable","Product",new { id="{0}"},Request.Url.Scheme)'.format($("#Select2_D option:selected").val());
+                       var url = unescape('@Url.Action("TagsTable","Product",new { id="{0}"},Request.Url.Scheme)'.format($("#Select2_D option:selected").val()));
                         //alert(url);
                         $('#show_tabTag').load(url);
                         setTimeout(function () { $('#SuccesAlertEdit2').hide(500); }, 2000);
