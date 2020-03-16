@@ -178,9 +178,7 @@
                     $("#ERRAlertEdit1").hide(300);
                     $("#SuccesAlertEdit1").show(300);
                     //alert(response);
-                    var url = "@Url.Action("Add_Page2","Product",null,Request.Url.Scheme)?Id="+response;
-                        $('#step2').load(url);
-                   // $('#step2').load("https://localhost:44336/Product/Add_Page2?Id=" + response);
+                    $('#step2').load("https://localhost:44336/Product/Add_Page2?Id=" + response);
 
                     $("#Sub_btn1").hide(200);
                     $("#btn_next").show(200);
