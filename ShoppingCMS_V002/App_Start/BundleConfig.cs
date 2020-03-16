@@ -41,8 +41,18 @@ namespace ShoppingCMS_V002
                 "~/assets/plugins/custom/Uploader/UploaderCustome.css"
             ));
 
-
-          
+            bundles.Add(new StyleBundle("~/assets/Auth.css").Include(
+                "~/assets/Auth/fontawesome-free/css/all.min.css",
+                "~/assets/Auth/css/MainLoginCss.css",
+                "~/assets/Auth/css/panda.css",
+                "~/assets/Auth/css/LoginAuthCustomCss.css"
+            ));
+            bundles.Add(new ScriptBundle("~/bundles/Auth/mainlogin.js").Include(
+                "~/assets/Auth/js/mainlogin.js"
+            ));
+            bundles.Add(new ScriptBundle("~/bundles/Auth/panda.js").Include(
+                "~/assets/Auth/js/panda.js"
+            ));
 
         }
     }

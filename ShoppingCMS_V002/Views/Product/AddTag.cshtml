@@ -347,7 +347,7 @@
     function Select_Sub(ItemS) {
         console.log("Sub Selected value is: " + $(ItemS).val());
 
-        $('#show_tabSCV').load("https://localhost:44336/Product/TagsTable?id=" + $(ItemS).val());
+        $('#show_tabSCV').load("@Url.Action("TagsTable","Product",null,Request.Url.Scheme)?id=" + $(ItemS).val());
     }
 
 
@@ -397,7 +397,7 @@
                     $("#SuccesAlertEdit2").show(300);
 
                     if (action == 'Edit') {
-                       var url = unescape('@Url.Action("TagsTable","Product",new { id="{0}"},Request.Url.Scheme)'.format($("#Select2_D option:selected").val());
+                       var url = unescape('@Url.Action("TagsTable","Product",new { id="{0}"},Request.Url.Scheme)'.format($("#Select2_D option:selected").val()));
                         //alert(url);
                         $('#show_tabTag').load(url);
                         setTimeout(function () { $('#SuccesAlertEdit2').hide(500); }, 2000);

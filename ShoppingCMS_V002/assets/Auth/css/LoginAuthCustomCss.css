@@ -1,0 +1,34 @@
+﻿@media screen and (max-width:1200px) {
+    .logoPandaTop {
+        left: 10px;
+        top: 10px;
+        position: fixed;
+        display: none;
+    }
+}
+
+@media screen and (max-width:567px) {
+    .login, #LoginContent {
+        width: 100% !important;
+    }
+}
+.login_title{
+    margin-left:40px;
+}
+.key{
+    padding-right:0!important;
+}
+.logoPandaTopDispBlock {
+    left: 10px;
+    top: 10px;
+    position: fixed;
+}
+.PandaInputsLogin input{
+    background-color:red;
+    width:81.5%!important;
+}
+
+.padbot {
+    /*padding-bottom: 10px;*/
+    height: 55px;
+}

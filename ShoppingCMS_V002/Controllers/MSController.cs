@@ -24,6 +24,11 @@ namespace ShoppingCMS_V002.Controllers
         // GET: MS
 
 
+        public ActionResult LoginAuth()
+        {
+            return View();
+        }
+
         public ActionResult NotAccess()
         {
             return View();
