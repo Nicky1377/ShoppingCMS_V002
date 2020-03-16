@@ -143,7 +143,18 @@
 
 <script>
     $(document).ready(function () {
+
         $('#step1').load("@Url.Action("Add_Page1","Product",null,Request.Url.Scheme)");
+        var cookie = getCookie("AddProCookie");
+        if (cookie == "") {
+            alert("Its empty");
+
+        } else
+        {
+            Des(cookie);
+        }
+
+        
         //$('#step2').load("https://localhost:44336/Product/Add_Page2?Id=1");
         //$('#step3').load("https://localhost:44336/Product/Add_Page3?Ids=1,2&id=1");
         //$('#step4').load("https://localhost:44336/Product/Add_Page4?SubId=1");

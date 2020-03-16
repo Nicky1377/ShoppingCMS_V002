@@ -73,7 +73,7 @@ namespace ShoppingCMS_V002.OtherClasses
                     aes.BlockSize = 128;
                     var key = new Rfc2898DeriveBytes(passwordBytes, saltBytes, 1000);
                     aes.Key = key.GetBytes(aes.KeySize / 8);
-                    //aes.IV = key.GetBytes(aes.BlockSize / 8);
+                    aes.IV = key.GetBytes(aes.BlockSize / 8);
 
                     aes.Mode = CipherMode.CBC;
                     aes.Padding = PaddingMode.ANSIX923;
@@ -131,46 +131,6 @@ namespace ShoppingCMS_V002.OtherClasses
             return result;
         }
 
-
-
-        public void EncryptFile(string filePath, string password)
-        {
-            // بررسی آرگومان ها
-            if (string.IsNullOrEmpty(filePath))
-                throw new ArgumentNullException(nameof(filePath));
-            if (string.IsNullOrEmpty(password))
-                throw new ArgumentNullException(nameof(password));
-            // گرفتن کل بایت های فایل
-            var bytesToEncrypted = File.ReadAllBytes(filePath);
-            // تبدیل پسورد به آرایه ای از بایت ها
-            var passwordBytes = Encoding.UTF8.GetBytes(password);
-            // تبدیل بایت های پسورد به Hash
-            passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
-            // رمزگذاری بایت های فایل با استفاده از متد AesEncrypt
-            var bytesEncrypted = AesEncrypt(bytesToEncrypted, passwordBytes);
-            // نوشتن بایت ها رمزگذاری شده درون فایل
-            File.WriteAllBytes(filePath, bytesEncrypted);
-        }
-
-
-        public void DecryptFile(string filePath, string password)
-        {
-            // بررسی آرگومان ها
-            if (string.IsNullOrEmpty(filePath))
-                throw new ArgumentNullException(nameof(filePath));
-            if (string.IsNullOrEmpty(password))
-                throw new ArgumentNullException(nameof(password));
-            // گرفتن کل بایت های فایل
-            var bytesToDecrypted = File.ReadAllBytes(filePath);
-            // تبدیل پسورد به آرایه ای از بایت ها
-            var passwordBytes = Encoding.UTF8.GetBytes(password);
-            // تبدیل بایت های پسورد به Hash
-            passwordBytes = SHA256.Create().ComputeHash(passwordBytes);
-            // رمزگشایی بایت های فایل با استفاده از متد AesDecrypt
-            var bytesDecrypted = AesDecrypt(bytesToDecrypted, passwordBytes);
-            // نوشتن بایت ها رمزگشایی شده درون فایل
-            File.WriteAllBytes(filePath, bytesDecrypted);
-        }
 
 
     }

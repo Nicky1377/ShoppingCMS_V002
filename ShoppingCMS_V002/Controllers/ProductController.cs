@@ -831,7 +831,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult EncJson(string json)
         {
             Encryption enc = new Encryption();
-            string result = json;
+            string result = enc.EncryptText(json, "P@nd@Te@m");
 
             return Content(result);
         }
@@ -839,7 +839,7 @@ namespace ShoppingCMS_V002.Controllers
         public ActionResult DecJson(string json)
         {
             Encryption enc = new Encryption();
-            string result = json;
+            string result =enc.DecryptText(json,"P@nd@Te@m");
 
             return Content(result);
         }

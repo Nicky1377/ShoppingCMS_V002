@@ -3,7 +3,9 @@
     //$(itm).attr("id")
 
     // alert("id : " + );
+    alert("onChange"+pg);
     var ee = fillJson(pg);
+    alert(ee);
     Enc(ee);
     
 }
@@ -62,6 +64,7 @@ function Enc(str)
 }
 
 function Des(str) {
+     
     PostJson = {
         'json': str
     };
@@ -74,7 +77,8 @@ function Des(str) {
         success: function (response) {
             var res = response;
             alert(res);
-            return res;
+           // alert(res.Page);
+            fillItms(res);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus);
@@ -85,118 +89,173 @@ function Des(str) {
 
 function fillJson(pg)
 {
-    var Title = $('#Title_p1').val();
-    var Description = $('#Description_p1').val();
-    var SEO_keyword = $('#SEO_keyword_p1').val();
-    var SEO_description = $('#SEO_description_p1').val();
-    var SearchGravity = $('#SearchGravity_p1').val();
-    var IsAd = $('#IsAd_p1').val();
-    var pics = $('#Pics_p1').val();
-    //------------
-    var Type = $("#Select2_A option:selected").val();
-    var Main = $("#Select2_B option:selected").val();
-    var id = $("#Mpro_").text();
-    var Sub = $("#Select2_C option:selected").val();
-    var SubKey = $("#kt_select2_multiple").val();
-    //--------------------
-    var json = "";
-    var otArr = [];
-    $('.tshpSelect23').each(function (e, obj) {
-        var idSelected = obj.id.replace("tshpSelect2-", "");
-        var ids = $('#tshpSelect2-' + idSelected).val();
-
-        otArr.push('"Mainid_' + idSelected + '":"' + ids );
-    });
-
-    json += otArr.join(",");
-    //------------------------
-    var param = '0';
-    var id_MProduct = $("#Mpro_").text();
-    var Quantity = $("#VahedID-" + param).val().split("_")[0].replace(/,/g, "");
-    var QuantityModule = $("#SelectVahedQuntID-" + param + " option:selected").val();
-    var PricePerquantity = $("#inpPrice-" + param).val().split("_")[0].replace(/,/g, "");
-    var PriceOff = $("#totalPrice-" + param).val();
-    var offTypeValue = $("#inpOffPrice-" + param).val().split("_")[0].replace(/,/g, "");
-    var OffType = $("#SelectOffID-" + param + " option:selected").val();
-    var id_MainStarTag = $("#MainTagID-" + param + " option:selected").val();
-    var PriceModule = $("#SelectVahedPriceID-" + param + " option:selected").val();
-    var PriceShow = $("#SelectShowPriceID-" + param + " option:selected").val();
-    var tgs = $("#SelectTagsID-" + param).val();
-    //--------------------------
-
+    
+  //  alert(pg);
     var CookieString ="" ;
 
     if (pg == '1') {
+        var Title = $('#Title_p1').val();
+        var Description = $('#Description_p1').val();
+        var SEO_keyword = $('#SEO_keyword_p1').val();
+        var SEO_description = $('#SEO_description_p1').val();
+        var SearchGravity = $('#SearchGravity_p1').val();
+        var IsAd = $('#IsAd_p1').val();
+        var pics = $('#Pics_p1').val();
+
+        alert(pg);
         CookieString =
-            '{"Page":' + pg +
-            ',"Title":' + Title +
-            ',"Description":' + Description +
-            ',"SEO_keyword":' + SEO_keyword +
-            ',"SEO_description":' + SEO_description +
-            ',"SearchGravity":' + SearchGravity +
-            ',"IsAd":' + IsAd +
-            ',"pics":' + pics + '}';
+            '{"Page":"' + pg +
+            '","Title":"' + Title +
+            '","Description":"' + Description +
+            '","SEO_keyword":"' + SEO_keyword +
+            '","SEO_description":"' + SEO_description +
+            '","SearchGravity":"' + SearchGravity +
+            '","IsAd":"' + IsAd +
+            '","pics":"' + pics + '"}';
+        alert(CookieString);
     }
     else if (pg == '2') {
+        var Title = $('#Title_p1').val();
+        var Description = $('#Description_p1').val();
+        var SEO_keyword = $('#SEO_keyword_p1').val();
+        var SEO_description = $('#SEO_description_p1').val();
+        var SearchGravity = $('#SearchGravity_p1').val();
+        var IsAd = $('#IsAd_p1').val();
+        var pics = $('#Pics_p1').val();
+        //------------
+        var Type = $("#Select2_A option:selected").val();
+        var Main = $("#Select2_B option:selected").val();
+        var id = $("#Mpro_").text();
+        var Sub = $("#Select2_C option:selected").val();
+        var SubKey = $("#kt_select2_multiple").val();
+        var url2 = $('#Url_2').text();
         CookieString =
-            '{"Page":' + pg +
-            ',"Title":' + Title +
-            ',"Description":' + Description +
-            ',"SEO_keyword":' + SEO_keyword +
-            ',"SEO_description":' + SEO_description +
-            ',"SearchGravity":' + SearchGravity +
-            ',"IsAd":' + IsAd +
-            ',"pics":' + pics +
-            ',"Type":' + Type +
-            ',"Main":' + Main +
-            ',"id":' + id +
-            ',"Sub":' + Sub +
-            ',"SubKey":' + SubKey + '}';
+            '{"Page":"' + pg +
+            '","Title":"' + Title +
+            '","Description":"' + Description +
+            '","SEO_keyword":"' + SEO_keyword +
+            '","SEO_description":"' + SEO_description +
+            '","SearchGravity":"' + SearchGravity +
+            '","IsAd":"' + IsAd +
+            '","pics":"' + pics +
+            '","url2":"' + url2 +
+            '","Type":"' + Type +
+            '","Main":"' + Main +
+            '","id":"' + id +
+            '","Sub":"' + Sub +
+            '","SubKey":"' + SubKey + '"}';
     }
     else if (pg == '3') {
+
+        var Title = $('#Title_p1').val();
+        var Description = $('#Description_p1').val();
+        var SEO_keyword = $('#SEO_keyword_p1').val();
+        var SEO_description = $('#SEO_description_p1').val();
+        var SearchGravity = $('#SearchGravity_p1').val();
+        var IsAd = $('#IsAd_p1').val();
+        var pics = $('#Pics_p1').val();
+        //------------
+        var Type = $("#Select2_A option:selected").val();
+        var Main = $("#Select2_B option:selected").val();
+        var id = $("#Mpro_").text();
+        var Sub = $("#Select2_C option:selected").val();
+        var SubKey = $("#kt_select2_multiple").val();
+        //--------------------
+        var json = "";
+        var otArr = [];
+        $('.tshpSelect23').each(function (e, obj) {
+            var idSelected = obj.id.replace("tshpSelect2-", "");
+            var ids = $('#tshpSelect2-' + idSelected).val();
+
+            otArr.push('"Mainid_' + idSelected + '":"' + ids+'"');
+        });
+
+        json += otArr.join(",");
+    //------------------------
+
         CookieString =
-            '{"Page":' + pg +
-            ',"Title":' + Title +
-            ',"Description":' + Description +
-            ',"SEO_keyword":' + SEO_keyword +
-            ',"SEO_description":' + SEO_description +
-            ',"SearchGravity":' + SearchGravity +
-            ',"IsAd":' + IsAd +
-            ',"pics":' + pics +
-            ',"Type":' + Type +
-            ',"Main":' + Main +
-            ',"id":' + id +
-            ',"Sub":' + Sub +
-            ',"SubKey":' + SubKey +
+            '{"Page":"' + pg +
+            '","Title":"' + Title +
+            '","Description":"' + Description +
+            '","SEO_keyword":"' + SEO_keyword +
+            '","SEO_description":"' + SEO_description +
+            '","SearchGravity":"' + SearchGravity +
+            '","IsAd":"' + IsAd +
+            '","pics":"' + pics +
+            '","Type":"' + Type +
+            '","Main":"' + Main +
+            '","id":"' + id +
+            '","Sub":"' + Sub +
+            '","SubKey":"' + SubKey +
             json + '}';
     }
     else if (pg == '4') {
+
+        var Title = $('#Title_p1').val();
+        var Description = $('#Description_p1').val();
+        var SEO_keyword = $('#SEO_keyword_p1').val();
+        var SEO_description = $('#SEO_description_p1').val();
+        var SearchGravity = $('#SearchGravity_p1').val();
+        var IsAd = $('#IsAd_p1').val();
+        var pics = $('#Pics_p1').val();
+        //------------
+        var Type = $("#Select2_A option:selected").val();
+        var Main = $("#Select2_B option:selected").val();
+        var id = $("#Mpro_").text();
+        var Sub = $("#Select2_C option:selected").val();
+        var SubKey = $("#kt_select2_multiple").val();
+        //--------------------
+        var json = "";
+        var otArr = [];
+        $('.tshpSelect23').each(function (e, obj) {
+            var idSelected = obj.id.replace("tshpSelect2-", "");
+            var ids = $('#tshpSelect2-' + idSelected).val();
+
+            otArr.push('"Mainid_' + idSelected + '":"' + ids + '"');
+        });
+
+        json += otArr.join(",");
+        //------------------------
+        var param = '0';
+        var id_MProduct = $("#Mpro_").text();
+        var Quantity = $("#VahedID-" + param).val().split("_")[0].replace(/,/g, "");
+        var QuantityModule = $("#SelectVahedQuntID-" + param + " option:selected").val();
+        var PricePerquantity = $("#inpPrice-" + param).val().split("_")[0].replace(/,/g, "");
+        var PriceOff = $("#totalPrice-" + param).val();
+        var offTypeValue = $("#inpOffPrice-" + param).val().split("_")[0].replace(/,/g, "");
+        var OffType = $("#SelectOffID-" + param + " option:selected").val();
+        var id_MainStarTag = $("#MainTagID-" + param + " option:selected").val();
+        var PriceModule = $("#SelectVahedPriceID-" + param + " option:selected").val();
+        var PriceShow = $("#SelectShowPriceID-" + param + " option:selected").val();
+        var tgs = $("#SelectTagsID-" + param).val();
+    //--------------------------
+
         CookieString =
-            '{"Page":' + pg +
-            ',"Title":' + Title +
-            ',"Description":' + Description +
-            ',"SEO_keyword":' + SEO_keyword +
-            ',"SEO_description":' + SEO_description +
-            ',"SearchGravity":' + SearchGravity +
-            ',"IsAd":' + IsAd +
-            ',"pics":' + pics +
-            ',"id":' + id +
-            ',"Type":' + Type +
-            ',"Main":' + Main +
-            ',"Sub":' + Sub +
-            ',"SubKey":' + SubKey +
+            '{"Page":"' + pg +
+            '","Title":"' + Title +
+            '","Description":"' + Description +
+            '","SEO_keyword":"' + SEO_keyword +
+            '","SEO_description":"' + SEO_description +
+            '","SearchGravity":"' + SearchGravity +
+            '","IsAd":"' + IsAd +
+            '","pics":"' + pics +
+            '","id":"' + id +
+            '","Type":"' + Type +
+            '","Main":"' + Main +
+            '","Sub":"' + Sub +
+            '","SubKey":"' + SubKey +
             json +
-            ',"id_MProduct":' + id_MProduct +
-            ',"Quantity":' + Quantity +
-            ',"QuantityModule":' + QuantityModule +
-            ',"PricePerquantity":' + PricePerquantity +
-            ',"PriceOff":' + PriceOff +
-            ',"offTypeValue":' + offTypeValue +
-            ',"OffType":' + OffType +
-            ',"id_MainStarTag":' + id_MainStarTag +
-            ',"PriceModule":' + PriceModule +
-            ',"PriceShow":' + PriceShow +
-            ',"tgs":' + tgs + '}';
+            '","id_MProduct":"' + id_MProduct +
+            '","Quantity":"' + Quantity +
+            '","QuantityModule":"' + QuantityModule +
+            '","PricePerquantity":"' + PricePerquantity +
+            '","PriceOff":"' + PriceOff +
+            '","offTypeValue":"' + offTypeValue +
+            '","OffType":"' + OffType +
+            '","id_MainStarTag":"' + id_MainStarTag +
+            '","PriceModule":"' + PriceModule +
+            '","PriceShow":"' + PriceShow +
+            '","tgs":' + tgs + '"}';
     }
     return CookieString;
 }
@@ -223,5 +282,78 @@ function FreezItmsP3() {
         var idSelected = obj.id.replace("tshpSelect2-", "");
         $('#tshpSelect2-' + idSelected).prop("disabled", true);
     });
+}
+
+function fillItms(json)
+{
+    var mod = JSON.parse(json);
+    if (mod.Page == '1') {
+        alert("1");
+        $('#Title_p1').val(mod.Title);
+        $('#Description_p1').val(mod.Description);
+        $('#SEO_keyword_p1').val(mod.SEO_keyword);
+        $('#SEO_description_p1').val(mod.SEO_description);
+        $('#SearchGravity_p1').val(mod.SearchGravity);
+        var ad = mod.IsAd;
+        if (ad == "on") {
+            $('#IsAd_p1').prop("checked", true);
+        } else {
+            $('#IsAd_p1').prop("checked", false);
+        }
+        $('#Pics_p1').val(mod.pics);
+
+    } else if (mod.Page == '2') {
+        alert("2");
+        $('#Title_p1').val(mod.Title);
+        $('#Description_p1').val(mod.Description);
+        $('#SEO_keyword_p1').val(mod.SEO_keyword);
+        $('#SEO_description_p1').val(mod.SEO_description);
+        $('#SearchGravity_p1').val(mod.SearchGravity);
+        var ad = mod.IsAd;
+        if (ad == "on") {
+            $('#IsAd_p1').prop("checked", true);
+        } else {
+            $('#IsAd_p1').prop("checked", false);
+        }
+        $('#Pics_p1').val(mod.pics);
+        $('#Pics_p2').val(mod.pics);
+        FreezItmsP1();
+        alert(mod.url2)
+        $('#step2').load(mod.url2);
+        $("#Select2_A option:selected").val(mod.Type);
+        $("#Select2_B option:selected").val(mod.Main);
+        $("#Mpro_").text(mod.id);
+        $("#Select2_C option:selected").val(mod.Sub);
+        $("#kt_select2_multiple").val(mod.SubKey);
+
+    } else if (mod.Page == '3') {
+        alert("3");
+        $('#Title_p1').val(mod.Title);
+        $('#Description_p1').val(mod.Description);
+        $('#SEO_keyword_p1').val(mod.SEO_keyword);
+        $('#SEO_description_p1').val(mod.SEO_description);
+        $('#SearchGravity_p1').val(mod.SearchGravity);
+        var ad = mod.IsAd;
+        if (ad == "on") {
+            $('#IsAd_p1').prop("checked", true);
+        } else {
+            $('#IsAd_p1').prop("checked", false);
+        }
+        $('#Pics_p1').val(mod.pics);
+        $('#Pics_p2').val(mod.pics);
+        FreezItmsP1();
+        $('#step2').load(mod.url2);
+        $("#Select2_A option:selected").val(mod.Type);
+        $("#Select2_B option:selected").val(mod.Main);
+        $("#Mpro_").text(mod.id);
+        $("#Select2_C option:selected").val(mod.Sub);
+        $("#kt_select2_multiple").val(mod.SubKey);
+        FreezItmsP2();
+    }
+    else if (mod.Page == '4') {
+
+    }
+
+    
 }
 

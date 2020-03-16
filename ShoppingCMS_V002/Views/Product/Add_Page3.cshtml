@@ -6,82 +6,83 @@
     
 }
 
-<div class="kt-portlet">
-    <div style="display:none" id="abcd">@Model.Id</div>
-    <div class="kt-portlet__body">
-        <!--begin::Section-->
-        <div class="kt-section">
+    <div class="kt-portlet">
+        <div style="display:none" id="abcd">@Model.Id</div>
+        <div style="display:none" id="Url_3" onchange="return ChangeAllInput('3')"></div>
+        <div class="kt-portlet__body">
+            <!--begin::Section-->
+            <div class="kt-section">
 
-            @foreach (var item in Model.Item_List)
-            {
-                @Html.Partial("_OptionValue", item);
-            }
+                @foreach (var item in Model.Item_List)
+                {
+                    @Html.Partial("_OptionValue", item);
+                }
 
 
-            <div style="margin-top:1%" id="Add_option" class="form-group ">
-                <label>ثبت جزئیات</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Key :</span>
-                    </div>
-                    <input id="Add_Key" type="text" class="form-control" aria-label="Text input with checkbox">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Value : </span>
-                    </div>
-                    <input id="Add_Value" type="text" class="form-control" aria-label="Text input with checkbox">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-success" type="button" onclick="return NewClick(@Model.Id)">ثبت!</button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="editOption" class="form-group " style="display:none; margin-top:1%">
-                <label>ویرایش جزئیات</label>
-                <div style="display:none" id="edit_id"></div>
-                <div class="input-group">
-                    <div  class="input-group-prepend">
-                        <span class="input-group-text">Key :</span>
-                    </div>
-                    <input id="edit_key" type="text" class="form-control">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Value : </span>
-                    </div>
-                    <input id="edit_value" type="text" class="form-control">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-warning" type="button" onclick="return EditClick(@Model.Id)">اعمال تغییرات!</button>
+                <div style="margin-top:1%" id="Add_option" class="form-group ">
+                    <label>ثبت جزئیات</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Key :</span>
+                        </div>
+                        <input id="Add_Key" type="text" class="form-control" aria-label="Text input with checkbox">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Value : </span>
+                        </div>
+                        <input id="Add_Value" type="text" class="form-control" aria-label="Text input with checkbox">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-success" type="button" onclick="return NewClick(@Model.Id)">ثبت!</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!--begin::Alerts-->
-            <div id="SuccesAlertEdit3" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
-                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                <div class="alert-text">با موفقیت ثبت شد!</div>
-            </div>
-            <div id="ERRAlertEdit3" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
-                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
-            </div>
-            <!--End::Alerts-->
-         <div id="optiontable">
 
-         </div>
+                <div id="editOption" class="form-group " style="display:none; margin-top:1%">
+                    <label>ویرایش جزئیات</label>
+                    <div style="display:none" id="edit_id"></div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Key :</span>
+                        </div>
+                        <input id="edit_key" type="text" class="form-control">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Value : </span>
+                        </div>
+                        <input id="edit_value" type="text" class="form-control">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-warning" type="button" onclick="return EditClick(@Model.Id)">اعمال تغییرات!</button>
+                        </div>
+                    </div>
+                </div>
+                <!--begin::Alerts-->
+                <div id="SuccesAlertEdit3" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                    <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                    <div class="alert-text">با موفقیت ثبت شد!</div>
+                </div>
+                <div id="ERRAlertEdit3" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                    <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                    <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+                </div>
+                <!--End::Alerts-->
+                <div id="optiontable">
+
+                </div>
 
 
+            </div>
         </div>
-    </div>
-    <div class="kt-portlet__foot">
-        <div class="kt-form__actions">
-            <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
-                <button id="Sub_btn3" style="width: 100%;" class="btn btn-success" onclick="return SubmitedType3()">ثبت</button>
+        <div class="kt-portlet__foot">
+            <div class="kt-form__actions">
+                <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
+                    <button id="Sub_btn3" style="width: 100%;" class="btn btn-success" onclick="return SubmitedType3()">ثبت</button>
+                </div>
+
             </div>
-
         </div>
-    </div>
-    <!--end::Form-->
-    <!--begin::Page Scripts(used by this page) -->
+        <!--end::Form-->
+        <!--begin::Page Scripts(used by this page) -->
 
 
-    <script>
+        <script>
         $(document).ready(function () {
             //========================================Begin :: init
 
@@ -97,7 +98,7 @@
 
             //=========================================End :: init
 
-            
+
             $('.tshpSelect23').on('select2:select', function (e) {
                 //inja oon itemi ke select shode bara ADD ro migire
                 var data = e.params.data;
@@ -143,14 +144,14 @@
             });
 
         });
-      
+
 
         function EditClick(pId) {
             //alert("EditClick");
             var id = $('#edit_id').text();
             var key = $('#edit_key').val();
             //alert(key);
-            
+
             var Value = $('#edit_value').val();
            // alert(Value);
             if (key != "" && Value != "") {
@@ -168,7 +169,7 @@
 
                         var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id='+pId;
                         $('#optiontable').load(url);
-                        
+
                         alert("success");
                         $('#SuccesAlertEdit3').show();
                         setTimeout(function () { $('#SuccesAlertEdit3').hide(500); }, 2000);
@@ -238,7 +239,7 @@
                 var ids = $('#tshpSelect2-' + idSelected).val();
                 if (ids == "") {
                     flag = true;
-                } 
+                }
 
                     otArr.push('{' + "Mainid:" + idSelected + ',Ids:"' + ids + '"}');
             });
@@ -269,9 +270,9 @@
                     }
                 });
             }
-            
-        }
-    </script>
-    <!--end::Page Scripts -->
 
-</div>
+        }
+        </script>
+        <!--end::Page Scripts -->
+
+    </div>

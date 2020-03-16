@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col">
         <div style="display:none" id="Mpro_" onchange="return ChangeAllInput('2')">@Model.Id</div>
-        
+        <div style="display:none" id="Url_3" onchange="return ChangeAllInput('2')"></div>
     </div>
 </div>
 <!-- end:: Tozihat Optional -->
@@ -112,6 +112,9 @@
             $("#Select2_B").select2();
             $("#Select2_C").select2();
             $("#kt_select2_multiple").select2();
+
+            
+
         });
         function MultSelectorSelect() {
             console.log("SubKey Selected value is: " + $("#kt_select2_multiple").val());
@@ -235,9 +238,11 @@
                         //alert(response);
                         var url = "@Url.Action("Add_Page3","Product",null,Request.Url.Scheme)?Ids="+$("#kt_select2_multiple").val()+"&id=@Model.Id";
                         $('#step3').load(url);
-                        FreezItmsP2()
+                        FreezItmsP2();
+                        $('#Url_3').text(url);
                         $("#Sub_btn2").hide(200);
-                         $("#btn_next").show(200);
+                        $("#btn_next").show(200);
+                        ChangeAllInput('3');
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus);
