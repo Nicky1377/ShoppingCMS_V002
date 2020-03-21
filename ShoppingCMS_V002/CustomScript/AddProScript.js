@@ -1,16 +1,15 @@
-﻿function ChangeAllInput(pg)
-{
+﻿function ChangeAllInput(pg) {
     //$(itm).attr("id")
 
     // alert("id : " + );
-    alert("onChange"+pg);
+    //alert("onChange"+pg);
     var ee = fillJson(pg);
-    alert(ee);
+    //alert(ee);
     Enc(ee);
-    
+
 }
 
-
+//////cookie actions begin
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -38,12 +37,11 @@ function getCookie(cname) {
 function deleteCookie(cname) {
     document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
-
-function Enc(str)
-{
+//////cookie actions end
+function Enc(str) {
     PostJson = {
         'json': str
-         };
+    };
     var res = "";
     $.ajax({
         url: '/Product/EncJson',
@@ -52,19 +50,19 @@ function Enc(str)
         contentType: "application/json; charset=utf-8",
         success: function (response) {
             res = response;
-            
+
             setCookie("AddProCookie", res, 30);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert(textStatus);
-            
+
         }
     });
     return res;
 }
 
 function Des(str) {
-     
+
     PostJson = {
         'json': str
     };
@@ -77,7 +75,7 @@ function Des(str) {
         success: function (response) {
             var res = response;
             alert(res);
-           // alert(res.Page);
+            // alert(res.Page);
             fillItms(res);
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -87,11 +85,10 @@ function Des(str) {
     });
 }
 
-function fillJson(pg)
-{
-    
-  //  alert(pg);
-    var CookieString ="" ;
+function fillJson(pg) {
+
+    //  alert(pg);
+    var CookieString = "";
 
     if (pg == '1') {
         var Title = $('#Title_p1').val();
@@ -102,7 +99,7 @@ function fillJson(pg)
         var IsAd = $('#IsAd_p1').val();
         var pics = $('#Pics_p1').val();
 
-        alert(pg);
+        //alert(pg);
         CookieString =
             '{"Page":"' + pg +
             '","Title":"' + Title +
@@ -112,7 +109,7 @@ function fillJson(pg)
             '","SearchGravity":"' + SearchGravity +
             '","IsAd":"' + IsAd +
             '","pics":"' + pics + '"}';
-        alert(CookieString);
+        //alert(CookieString);
     }
     else if (pg == '2') {
         var Title = $('#Title_p1').val();
@@ -160,6 +157,7 @@ function fillJson(pg)
         var id = $("#Mpro_").text();
         var Sub = $("#Select2_C option:selected").val();
         var SubKey = $("#kt_select2_multiple").val();
+        var url2 = $('#Url_2').text();
         //--------------------
         var json = "";
         var otArr = [];
@@ -167,11 +165,13 @@ function fillJson(pg)
             var idSelected = obj.id.replace("tshpSelect2-", "");
             var ids = $('#tshpSelect2-' + idSelected).val();
 
-            otArr.push('"Mainid_' + idSelected + '":"' + ids+'"');
+            otArr.push('"Mainid_' + idSelected + '":"' + ids + '"');
         });
 
         json += otArr.join(",");
-    //------------------------
+        var url3 = $('#Url_3').text();
+        var OptionTbl_3 = $('#OptionTbl_3').text();
+        //------------------------
 
         CookieString =
             '{"Page":"' + pg +
@@ -183,11 +183,14 @@ function fillJson(pg)
             '","IsAd":"' + IsAd +
             '","pics":"' + pics +
             '","Type":"' + Type +
+            '","url2":"' + url2 +
             '","Main":"' + Main +
             '","id":"' + id +
             '","Sub":"' + Sub +
             '","SubKey":"' + SubKey +
-            json + '}';
+            '","url3":"' + url3 +
+            '","OptionTbl_3":"' + OptionTbl_3 +
+            '",' + json + '}';
     }
     else if (pg == '4') {
 
@@ -204,6 +207,7 @@ function fillJson(pg)
         var id = $("#Mpro_").text();
         var Sub = $("#Select2_C option:selected").val();
         var SubKey = $("#kt_select2_multiple").val();
+        var url2 = $('#Url_2').text();
         //--------------------
         var json = "";
         var otArr = [];
@@ -215,6 +219,8 @@ function fillJson(pg)
         });
 
         json += otArr.join(",");
+        var url3 = $('#Url_3').text();
+        var OptionTbl_3 = $('#OptionTbl_3').text();
         //------------------------
         var param = '0';
         var id_MProduct = $("#Mpro_").text();
@@ -228,7 +234,8 @@ function fillJson(pg)
         var PriceModule = $("#SelectVahedPriceID-" + param + " option:selected").val();
         var PriceShow = $("#SelectShowPriceID-" + param + " option:selected").val();
         var tgs = $("#SelectTagsID-" + param).val();
-    //--------------------------
+        var url4 = $('#Url_4').text();
+        //--------------------------
 
         CookieString =
             '{"Page":"' + pg +
@@ -239,12 +246,15 @@ function fillJson(pg)
             '","SearchGravity":"' + SearchGravity +
             '","IsAd":"' + IsAd +
             '","pics":"' + pics +
-            '","id":"' + id +
             '","Type":"' + Type +
+            '","url2":"' + url2 +
             '","Main":"' + Main +
+            '","id":"' + id +
             '","Sub":"' + Sub +
             '","SubKey":"' + SubKey +
-            json +
+            '","url3":"' + url3 +
+            '","OptionTbl_3":"' + OptionTbl_3 +
+            '",' + json + ',' +
             '","id_MProduct":"' + id_MProduct +
             '","Quantity":"' + Quantity +
             '","QuantityModule":"' + QuantityModule +
@@ -255,6 +265,7 @@ function fillJson(pg)
             '","id_MainStarTag":"' + id_MainStarTag +
             '","PriceModule":"' + PriceModule +
             '","PriceShow":"' + PriceShow +
+            '","url4":"' + url4 +
             '","tgs":' + tgs + '"}';
     }
     return CookieString;
@@ -284,76 +295,180 @@ function FreezItmsP3() {
     });
 }
 
-function fillItms(json)
-{
+function fillItms(json) {
     var mod = JSON.parse(json);
     if (mod.Page == '1') {
-        alert("1");
-        $('#Title_p1').val(mod.Title);
-        $('#Description_p1').val(mod.Description);
-        $('#SEO_keyword_p1').val(mod.SEO_keyword);
-        $('#SEO_description_p1').val(mod.SEO_description);
-        $('#SearchGravity_p1').val(mod.SearchGravity);
-        var ad = mod.IsAd;
-        if (ad == "on") {
-            $('#IsAd_p1').prop("checked", true);
-        } else {
-            $('#IsAd_p1').prop("checked", false);
-        }
-        $('#Pics_p1').val(mod.pics);
+        Page1Filler(json);
+
 
     } else if (mod.Page == '2') {
-        alert("2");
-        $('#Title_p1').val(mod.Title);
-        $('#Description_p1').val(mod.Description);
-        $('#SEO_keyword_p1').val(mod.SEO_keyword);
-        $('#SEO_description_p1').val(mod.SEO_description);
-        $('#SearchGravity_p1').val(mod.SearchGravity);
-        var ad = mod.IsAd;
-        if (ad == "on") {
-            $('#IsAd_p1').prop("checked", true);
-        } else {
-            $('#IsAd_p1').prop("checked", false);
-        }
-        $('#Pics_p1').val(mod.pics);
-        $('#Pics_p2').val(mod.pics);
+
+        $('#Url_2').text(mod.url2);
+        $('#step2').load(mod.url2, function (response, status, xhr) {
+            console.log("status = " + status);
+            Page2Filler(json);
+        });
+        Page1Filler(json);
         FreezItmsP1();
-        alert(mod.url2)
-        $('#step2').load(mod.url2);
-        $("#Select2_A option:selected").val(mod.Type);
-        $("#Select2_B option:selected").val(mod.Main);
-        $("#Mpro_").text(mod.id);
-        $("#Select2_C option:selected").val(mod.Sub);
-        $("#kt_select2_multiple").val(mod.SubKey);
+        //-----------p1
+
+        
 
     } else if (mod.Page == '3') {
-        alert("3");
-        $('#Title_p1').val(mod.Title);
-        $('#Description_p1').val(mod.Description);
-        $('#SEO_keyword_p1').val(mod.SEO_keyword);
-        $('#SEO_description_p1').val(mod.SEO_description);
-        $('#SearchGravity_p1').val(mod.SearchGravity);
-        var ad = mod.IsAd;
-        if (ad == "on") {
-            $('#IsAd_p1').prop("checked", true);
-        } else {
-            $('#IsAd_p1').prop("checked", false);
-        }
-        $('#Pics_p1').val(mod.pics);
-        $('#Pics_p2').val(mod.pics);
-        FreezItmsP1();
+        $('#Url_2').text(mod.url2);
         $('#step2').load(mod.url2);
-        $("#Select2_A option:selected").val(mod.Type);
-        $("#Select2_B option:selected").val(mod.Main);
-        $("#Mpro_").text(mod.id);
-        $("#Select2_C option:selected").val(mod.Sub);
-        $("#kt_select2_multiple").val(mod.SubKey);
+        Page1Filler(json);
+        FreezItmsP1();
+        //-----------p1
+        $('#Url_3').text(mod.url3);
+        $('#step3').load(mod.url3);
+        Page2Filler(json);
         FreezItmsP2();
+        //-----------p2
+        Page3Filler(json);
     }
     else if (mod.Page == '4') {
 
     }
 
-    
+
 }
 
+function Page1Filler(json) {
+    var mod = JSON.parse(json);
+
+    $('#Title_p1').val(mod.Title);
+    $('#Description_p1').val(mod.Description);
+    $('#SEO_keyword_p1').val(mod.SEO_keyword);
+    $('#SEO_description_p1').val(mod.SEO_description);
+    $('#SearchGravity_p1').val(mod.SearchGravity);
+    var ad = mod.IsAd;
+    if (ad == "on") {
+        $('#IsAd_p1').prop("checked", true);
+    } else {
+        $('#IsAd_p1').prop("checked", false);
+    }
+    $('#Pics_p1').val(mod.pics);
+}
+
+function Page2Filler(json) {
+    var mod = JSON.parse(json);
+    $("#Mpro_").text(mod.id);
+    if (mod.Type != '0') {
+        //alert("1");
+        $('#Select2_A').val(mod.Type);
+        console.log(mod.Type);
+        $.when($('#Select2_A option[value=' + mod.Type + ']').prop("selected", true)).then(function () {
+            $('#Select2_B').prop("disabled", false);
+            $.ajax({
+                url: "/Product/DropListFiller",
+                type: "post",
+                data: { "drop": "MainCat", "id": mod.Type },
+                success: function (response) {
+                    //alert("S1");
+                    console.log("s1 : " + response);
+                    var token = response;
+                    var s = "<option value=0 selected >انتخاب کنید</option>";
+                    for (var i = 0; i < token.length; i++) {
+                        s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
+                    }
+
+                    $('#Select2_B').html(s);
+
+                    if (mod.Main != '0') {
+                        //  alert("3" + mod.Main);
+                        $('#Select2_B option[value=' + mod.Main + ']').prop("selected", true);
+
+                        //////////fill Sub
+                        $('#Select2_C').prop("disabled", false);
+                        $.ajax({
+                            url: "/Product/DropListFiller",
+                            type: "post",
+                            data: { "drop": "SubCat", "id": $("#Select2_B option:selected").val() },
+                            success: function (response) {
+                                console.log("res1 = " + response);
+                                var token = response;
+                                var s = "<option value=0 selected>انتخاب کنید</option>";
+                                for (var i = 0; i < token.length; i++) {
+                                    s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
+                                }
+
+                                $('#Select2_C').html(s);
+
+                                if (mod.Sub != '0') {
+                                    $('#Select2_C option[value=' + mod.Sub + ']').prop("selected", true);
+                                    console.log("res 2 req id =" + $("#Select2_C option:selected").val());
+                                    //////////fill subkey
+                                    $('#kt_select2_multiple').prop("disabled", false);
+                                    $.ajax({
+                                        url: "/Product/DropListFiller",
+                                        type: "post",
+                                        data: { "drop": "SubCat_Key", "id": $("#Select2_C option:selected").val() },
+                                        success: function (response) {
+                                            console.log("res2 = " + response);
+                                            var token = response;
+                                            var s = '<option value=0 selected disabled hidden style="display: none"></option>';
+                                            s += "<optgroup label=" + $("#Select2_C option:selected").text() + ">";
+
+                                            var m_m = mod.SubKey.split(',');
+
+                                            for (var i = 0; i < token.length; i++) {
+
+                                                if (m_m.indexOf(token[i].Id.toString()) != -1) {
+
+                                                    s += "<option value=" + token[i].Id + " selected>" + token[i].Value + "</option>";
+                                                } else {
+                                                    s += "<option value=" + token[i].Id + ">" + token[i].Value + "</option>";
+                                                }
+                                            }
+                                            s += "</optgroup>"
+                                            //document.getElementById('kt_select2_multiple').innerHTML = s;
+                                            $('#kt_select2_multiple').html(s);
+
+
+                                            // $("#kt_select2_multiple").val(mod.SubKey);
+
+                                        },
+                                        error: function (jqXHR, textStatus, errorThrown) {
+                                            console.log(textStatus, errorThrown);
+                                        }
+                                    });
+
+                                    /////////////
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus, errorThrown);
+                            }
+                        });
+                        /////////////
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+        /////////////fill Main
+
+    }
+
+
+}
+
+function Page3Filler(json) {
+    var mod = JSON.parse(json);
+    alert("hello");
+
+    //alert(mod.Type);
+    //$('.tshpSelect23').each(function (e, obj) {
+    //    var idSelected = obj.id.replace("tshpSelect2-", "");
+    //    alert(idSelected);
+    //    var ids = mod['Mainid_' + idSelected];
+    //    for (var i = 0; i < ids.; i++) {
+
+    //    }
+    //    $('#Select2_A option[value=' + mod.Type + ']').prop("selected", true);
+
+    //});
+}

@@ -177,15 +177,16 @@
                 success: function (response) {
                     $("#ERRAlertEdit1").hide(300);
                     $("#SuccesAlertEdit1").show(300);
-                    //alert(response);
+                    
                     var url = "@Url.Action("Add_Page2","Product",null,Request.Url.Scheme)?Id=" + response ;
                     $('#step2').load(url);
                     FreezItmsP1();
                     $('#Url_2').text(url);
-                    alert(url);
+                    
                     $("#Sub_btn1").hide(200);
                     $("#btn_next").show(200);
-                     ChangeAllInput('2');
+                    ChangeAllInput('2');
+                    
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus);

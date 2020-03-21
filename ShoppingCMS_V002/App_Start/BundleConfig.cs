@@ -58,6 +58,10 @@ namespace ShoppingCMS_V002
               "~/CustomScript/AddProScript.js"
           ));
 
+            bundles.Add(new ScriptBundle("~/bundles/JsTree.js").Include(
+             "~/assets/plugins/custom/jstree/jstree.bundle.js",
+             "~/assets/js/pages/components/extended/treeview.js"
+         ));
         }
     }
 }

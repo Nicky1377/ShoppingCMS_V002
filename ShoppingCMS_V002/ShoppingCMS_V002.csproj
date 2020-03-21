@@ -2319,6 +2319,7 @@
     <Content Include="Views\Product\UploaderIFRAME.cshtml" />
     <Content Include="Views\Product\loadGallery.cshtml" />
     <Content Include="Views\MS\LoginAuth.cshtml" />
+    <Content Include="Views\Product\ShowCatTree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

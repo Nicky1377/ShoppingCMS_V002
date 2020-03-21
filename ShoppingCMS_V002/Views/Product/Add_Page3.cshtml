@@ -8,7 +8,8 @@
 
     <div class="kt-portlet">
         <div style="display:none" id="abcd">@Model.Id</div>
-        <div style="display:none" id="Url_3" onchange="return ChangeAllInput('3')"></div>
+        <div style="display:none" id="Url_4" onchange="return ChangeAllInput('3')"></div>
+        
         <div class="kt-portlet__body">
             <!--begin::Section-->
             <div class="kt-section">
@@ -262,6 +263,7 @@
                         var url = "@Url.Action("Add_Page4","Product",null,Request.Url.Scheme)?SubId="+sub;
                         $('#step4').load(url);
                         FreezItmsP3();
+                         $('#Url_4').text(url);
                         $("#Sub_btn3").hide(200);
                         $("#btn_next").show(200);
                     },

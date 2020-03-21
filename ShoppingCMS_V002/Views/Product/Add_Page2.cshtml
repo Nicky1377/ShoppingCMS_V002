@@ -11,8 +11,9 @@
 <!-- begin:: Tozihat Optional -->
 <div class="row">
     <div class="col">
-        <div style="display:none" id="Mpro_" onchange="return ChangeAllInput('2')">@Model.Id</div>
+        <div style="display:none" id="Mpro_">@Model.Id</div>
         <div style="display:none" id="Url_3" onchange="return ChangeAllInput('2')"></div>
+        <div style="display:none" id="OptionTbl_3" onchange="return ChangeAllInput('2')"></div>
     </div>
 </div>
 <!-- end:: Tozihat Optional -->
@@ -57,9 +58,6 @@
                 <label class="col-form-label col-lg-3 col-sm-12">ویژگی های محصولات</label>
                 <div class=" col-lg-9 col-md-9 col-sm-12">
                     <select disabled class="form-control kt-select2" id="kt_select2_multiple" name="param" multiple="multiple" onchange=" MultSelectorSelect()" style="width: 100%;">
-                        <option value=0 disabled selected hidden>انتخاب کنید</option>
-                       
-
                     </select>
                     @*<div style="display: block;" class="invalid-feedback">Shucks, check the formatting of that and try again.</div>*@
                    </div>
@@ -240,6 +238,8 @@
                         $('#step3').load(url);
                         FreezItmsP2();
                         $('#Url_3').text(url);
+                        var url_tbl= '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id=@Model.Id';
+                        $('#OptionTbl_3').text(url_tbl);
                         $("#Sub_btn2").hide(200);
                         $("#btn_next").show(200);
                         ChangeAllInput('3');
