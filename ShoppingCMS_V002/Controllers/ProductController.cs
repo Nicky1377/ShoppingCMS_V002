@@ -828,162 +828,187 @@ namespace ShoppingCMS_V002.Controllers
             }
         }
 
-        [HttpGet]
+        public ActionResult EncJson(string json)
+        {
+            Encryption enc = new Encryption();
+            string result = enc.EncryptText(json, "P@nd@Te@m");
+
+            return Content(result);
+        }
+
+        public ActionResult DecJson(string json)
+        {
+            Encryption enc = new Encryption();
+            string result =enc.DecryptText(json,"P@nd@Te@m");
+
+            return Content(result);
+        }
+
+        [HttpPost]
         public ActionResult test()
         {
-            PDBC db = new PDBC("PandaMarketCMS", true);
-            db.Connect();
+            //PDBC db = new PDBC("PandaMarketCMS", true);
+            //db.Connect();
 
-            db.Script("DELETE FROM [tbl_Product_SubCategoryOptionKey]");
+            //db.Script("DELETE FROM [tbl_Product_SubCategoryOptionKey]");
 
-            DataTable dt = db.Select("SELECT [id_SC] FROM [tbl_Product_SubCategory]");
-            for (int i = 0; i < dt.Rows.Count; i++)
+            //DataTable dt = db.Select("SELECT [id_SC] FROM [tbl_Product_SubCategory]");
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            //{
+
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'تولید کننده',0,0,null,null)");
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'جنسیت',0,0,null,null)");
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'سایز',0,0,null,null)");
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'رنگ',0,0,null,null)");
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'نوع',0,0,null,null)");
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'جنس رویه',0,0,null,null)");
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'لایه داخلی',0,0,null,null)");
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'جنس زیره',0,0,null,null)");
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'حداقل میزان خرید',0,0,null,null)");
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'تعداد در کارتن',0,0,null,null)");
+
+            //}
+
+            //string[] s1 = { "آبی ", " بژ ", " پسته ای ", " پلنگی ", " تکاوری ", " خاکی ", " زرشکی ", " زیتونی ", " سبز ", " سرخابی ", " سرمه ای ", " سفید ", " طلایی ", " فیروزه ای ", " فیلی ", " قرمز ", " قهوه ای- عسلی ", " کالباسی ", " کرم ", " کرم- سفید ", " کرم- قهوه ای ", " کویری ", " گردویی ", " گلبهی ", " لیمویی ", " مشکی- کلار ", " مشکی- آبی ", " مشکی- سبز ", " مشکی- طوسی ", " مشکی- طوسی- قرمز ", " مشکی- قرمز ", " نارنجی ", " نباتی ", " نسکافه ای ", " نوک مدادی ", " یاسی ", " الوان ", " طوسی ", " عسلی ", " قهوه ای ", " کاراملی ", " مشکی" };
+
+            //DataTable dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'رنگ'");
+            //for (int i = 0; i < dt2.Rows.Count; i++)
+            //{
+
+
+            //    for (int j = 0; j < s1.Length; j++)
+            //    {
+            //        db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s1[j] + "')");
+            //    }
+
+            //}
+
+            //string[] s2 = { "مردانه ", " زنانه ", " پسرانه ", " دخترانه ", " اسپورت" };
+            //dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'جنسیت'");
+            //for (int i = 0; i < dt2.Rows.Count; i++)
+            //{
+
+
+
+            //    for (int j = 0; j < s2.Length; j++)
+            //    {
+            //        db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s2[j] + "')");
+            //    }
+
+            //}
+
+            //string[] s3 = { "26 تا 31", "32 تا 36", "36 تا 40", "36 تا 41", "37 تا 40", "37 تا 41", "37 تا 42", "38", "38 تا 48", "39", "40", "40 تا 42", "40 تا 44", "40 تا 45", "40 تا 46", "41", "41 تا 45", "42", "42 تا 45", "43", "44", "45", "45 تا 47", "48 تا 48", "46", "47", "48" };
+
+            //dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'سایز'");
+            //for (int i = 0; i < dt2.Rows.Count; i++)
+            //{
+
+
+            //    for (int j = 0; j < s3.Length; j++)
+            //    {
+            //        db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s3[j] + "')");
+            //    }
+
+            //}
+
+
+            //string[] s4 = { "بدون بند ", " بندی ", " بدون پد سیلیکونی ", " با پد سیلیکونی" };
+            //dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'نوع'");
+            //for (int i = 0; i < dt2.Rows.Count; i++)
+            //{
+
+            //    for (int j = 0; j < s4.Length; j++)
+            //    {
+            //        db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s4[j] + "')");
+            //    }
+
+            //}
+
+            //string[] s5 = { "پارچه ای ", " چرم صنعتی ", " چرم طبیعی گاوی ", " فوم ", " کنف ", " نبوک طبیعی ", " فوم طرح چرم" };
+            //dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'جنس رویه'");
+            //for (int i = 0; i < dt2.Rows.Count; i++)
+            //{
+
+            //    for (int j = 0; j < s5.Length; j++)
+            //    {
+            //        db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s5[j] + "')");
+            //    }
+
+            //}
+
+            //string[] s6 = { "فوم ", "چرم طبیعی بزی" };
+            //dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'لایه داخلی'");
+            //for (int i = 0; i < dt2.Rows.Count; i++)
+            //{
+
+            //    for (int j = 0; j < s6.Length; j++)
+            //    {
+            //        db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s6[j] + "')");
+            //    }
+
+            //}
+
+
+            //string[] s7 = { "شهپر ", " شیما ", " پازین" };
+            //dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'تولید کننده'");
+            //for (int i = 0; i < dt2.Rows.Count; i++)
+            //{
+
+            //    for (int j = 0; j < s7.Length; j++)
+            //    {
+            //        db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s7[j] + "')");
+            //    }
+
+            //}
+
+
+            //dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'جنس زیره'");
+            //string[] s8 = { "PU", "PU دو دانسیته", "TPU" };
+            //for (int i = 0; i < dt2.Rows.Count; i++)
+            //{
+
+            //    for (int j = 0; j < s8.Length; j++)
+            //    {
+            //        db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s8[j] + "')");
+            //    }
+
+            //}
+
+            //dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'حداقل میزان خرید'");
+            //for (int i = 0; i < dt2.Rows.Count; i++)
+            //{
+
+            //    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'یک کارتن')");
+
+            //}
+
+            //dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'تعداد در کارتن'");
+            //string[] s9 = { " 8 ", " 9 ", " 10 ", " 12 ", " 16 ", " 18 ", " 24 " };
+            //for (int i = 0; i < dt2.Rows.Count; i++)
+            //{
+
+            //    for (int j = 0; j < s9.Length; j++)
+            //    {
+            //        db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s9[j] + "')");
+            //    }
+
+            //}
+
+            var model = new Id_ValueModel()
             {
-
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'تولید کننده',0,0,null,null)");
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'جنسیت',0,0,null,null)");
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'سایز',0,0,null,null)");
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'رنگ',0,0,null,null)");
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'نوع',0,0,null,null)");
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'جنس رویه',0,0,null,null)");
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'لایه داخلی',0,0,null,null)");
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'جنس زیره',0,0,null,null)");
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'حداقل میزان خرید',0,0,null,null)");
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionKey] VALUES(" + dt.Rows[i]["id_SC"] + ",N'تعداد در کارتن',0,0,null,null)");
-
-            }
-
-            string[] s1 = { "آبی ", " بژ ", " پسته ای ", " پلنگی ", " تکاوری ", " خاکی ", " زرشکی ", " زیتونی ", " سبز ", " سرخابی ", " سرمه ای ", " سفید ", " طلایی ", " فیروزه ای ", " فیلی ", " قرمز ", " قهوه ای- عسلی ", " کالباسی ", " کرم ", " کرم- سفید ", " کرم- قهوه ای ", " کویری ", " گردویی ", " گلبهی ", " لیمویی ", " مشکی- کلار ", " مشکی- آبی ", " مشکی- سبز ", " مشکی- طوسی ", " مشکی- طوسی- قرمز ", " مشکی- قرمز ", " نارنجی ", " نباتی ", " نسکافه ای ", " نوک مدادی ", " یاسی ", " الوان ", " طوسی ", " عسلی ", " قهوه ای ", " کاراملی ", " مشکی" };
-
-            DataTable dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'رنگ'");
-            for (int i = 0; i < dt2.Rows.Count; i++)
-            {
+                Id=1,
+                Value="hello"
+            };
 
 
-                for (int j = 0; j < s1.Length; j++)
-                {
-                    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s1[j] + "')");
-                }
-
-            }
-
-            string[] s2 = { "مردانه ", " زنانه ", " پسرانه ", " دخترانه ", " اسپورت" };
-            dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'جنسیت'");
-            for (int i = 0; i < dt2.Rows.Count; i++)
-            {
+            return Json(model);
 
 
-
-                for (int j = 0; j < s2.Length; j++)
-                {
-                    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s2[j] + "')");
-                }
-
-            }
-
-            string[] s3 = { "26 تا 31", "32 تا 36", "36 تا 40", "36 تا 41", "37 تا 40", "37 تا 41", "37 تا 42", "38", "38 تا 48", "39", "40", "40 تا 42", "40 تا 44", "40 تا 45", "40 تا 46", "41", "41 تا 45", "42", "42 تا 45", "43", "44", "45", "45 تا 47", "48 تا 48", "46", "47", "48" };
-
-            dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'سایز'");
-            for (int i = 0; i < dt2.Rows.Count; i++)
-            {
-
-
-                for (int j = 0; j < s3.Length; j++)
-                {
-                    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s3[j] + "')");
-                }
-
-            }
-
-
-            string[] s4 = { "بدون بند ", " بندی ", " بدون پد سیلیکونی ", " با پد سیلیکونی" };
-            dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'نوع'");
-            for (int i = 0; i < dt2.Rows.Count; i++)
-            {
-
-                for (int j = 0; j < s4.Length; j++)
-                {
-                    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s4[j] + "')");
-                }
-
-            }
-
-            string[] s5 = { "پارچه ای ", " چرم صنعتی ", " چرم طبیعی گاوی ", " فوم ", " کنف ", " نبوک طبیعی ", " فوم طرح چرم" };
-            dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'جنس رویه'");
-            for (int i = 0; i < dt2.Rows.Count; i++)
-            {
-
-                for (int j = 0; j < s5.Length; j++)
-                {
-                    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s5[j] + "')");
-                }
-
-            }
-
-            string[] s6 = { "فوم ", "چرم طبیعی بزی" };
-            dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'لایه داخلی'");
-            for (int i = 0; i < dt2.Rows.Count; i++)
-            {
-
-                for (int j = 0; j < s6.Length; j++)
-                {
-                    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s6[j] + "')");
-                }
-
-            }
-
-
-            string[] s7 = { "شهپر ", " شیما ", " پازین" };
-            dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'تولید کننده'");
-            for (int i = 0; i < dt2.Rows.Count; i++)
-            {
-
-                for (int j = 0; j < s7.Length; j++)
-                {
-                    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s7[j] + "')");
-                }
-
-            }
-
-
-            dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'جنس زیره'");
-            string[] s8 = { "PU", "PU دو دانسیته", "TPU" };
-            for (int i = 0; i < dt2.Rows.Count; i++)
-            {
-
-                for (int j = 0; j < s8.Length; j++)
-                {
-                    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s8[j] + "')");
-                }
-
-            }
-
-            dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'حداقل میزان خرید'");
-            for (int i = 0; i < dt2.Rows.Count; i++)
-            {
-
-                db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'یک کارتن')");
-
-            }
-
-            dt2 = db.Select("SELECT id_SCOK FROM [tbl_Product_SubCategoryOptionKey] where SCOKName LIKE N'تعداد در کارتن'");
-            string[] s9 = { " 8 ", " 9 ", " 10 ", " 12 ", " 16 ", " 18 ", " 24 " };
-            for (int i = 0; i < dt2.Rows.Count; i++)
-            {
-
-                for (int j = 0; j < s9.Length; j++)
-                {
-                    db.Script("INSERT INTO [tbl_Product_SubCategoryOptionValue] VALUES (" + dt2.Rows[i]["id_SCOK"] + ",N'" + s9[j] + "')");
-                }
-
-            }
-
-            return Content("Success");
 
 
         }
 
-
+        
 
 
     }

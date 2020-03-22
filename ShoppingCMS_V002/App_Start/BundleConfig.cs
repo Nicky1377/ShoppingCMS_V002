@@ -54,6 +54,14 @@ namespace ShoppingCMS_V002
                 "~/assets/Auth/js/panda.js"
             ));
 
+            bundles.Add(new ScriptBundle("~/bundles/AddProScript.js").Include(
+              "~/CustomScript/AddProScript.js"
+          ));
+
+            bundles.Add(new ScriptBundle("~/bundles/JsTree.js").Include(
+             "~/assets/plugins/custom/jstree/jstree.bundle.js",
+             "~/assets/js/pages/components/extended/treeview.js"
+         ));
         }
     }
 }
