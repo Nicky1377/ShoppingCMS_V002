@@ -1,54 +1,137 @@
-﻿
+﻿@using ShoppingCMS_V002.Models
+@model List<TreeModel>
 @{
     ViewBag.Title = "ShowCatTree";
     Layout = "~/Views/Master/Master.cshtml";
 }
+@Styles.Render("~/assets/jstree.css")
 
-    <div class="col-lg-6">
-        <!--begin::Portlet-->
-        <div class="kt-portlet">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-label">
-                    <h3 class="kt-portlet__head-title">
-                        Contextual Menu
-                    </h3>
-                </div>
-            </div>
-            <div class="kt-portlet__body">
-                <div id="kt_tree_4" class="tree-demo jstree jstree-4 jstree-rtl jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j4_1" aria-busy="false"><ul class="jstree-container-ul jstree-children jstree-contextmenu" role="group"><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j4_1_anchor" aria-expanded="true" id="j4_1" class="jstree-node  jstree-open"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_1_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder kt-font-brand jstree-themeicon-custom" role="presentation"></i>Parent Node</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_2_anchor" id="j4_2" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_2_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder kt-font-brand jstree-themeicon-custom" role="presentation"></i>Initially selected</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_3_anchor" id="j4_3" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_3_anchor"><i class="jstree-icon jstree-themeicon fa fa-warning kt-font-danger jstree-themeicon-custom" role="presentation"></i>Custom Icon</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_4_anchor" aria-expanded="true" id="j4_4" class="jstree-node  jstree-open"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_4_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder kt-font-success jstree-themeicon-custom" role="presentation"></i>Initially open</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j4_5_anchor" id="j4_5" class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_5_anchor"><i class="jstree-icon jstree-themeicon fa fa-file kt-font-waring jstree-themeicon-custom" role="presentation"></i>Another node</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_6_anchor" id="j4_6" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_6_anchor"><i class="jstree-icon jstree-themeicon fa fa-warning kt-font-waring jstree-themeicon-custom" role="presentation"></i>Another Custom Icon</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_7_anchor" aria-disabled="true" id="j4_7" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor jstree-disabled" href="#" tabindex="-1" id="j4_7_anchor"><i class="jstree-icon jstree-themeicon fa fa-check kt-font-success jstree-themeicon-custom" role="presentation"></i>Disabled Node</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j4_8_anchor" aria-expanded="false" id="j4_8" class="jstree-node  jstree-closed jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_8_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder kt-font-danger jstree-themeicon-custom" role="presentation"></i>Sub Nodes</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j4_14_anchor" id="j4_14" class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j4_14_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder kt-font-brand jstree-themeicon-custom" role="presentation"></i>Another Node</a></li></ul></div>
-            </div>
-        </div>
-        <!--end::Portlet-->
-        <!--begin::Portlet-->
-        <div class="kt-portlet">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-label">
-                    <h3 class="kt-portlet__head-title">
-                        Drag &amp; Drop
-                    </h3>
-                </div>
-            </div>
-            <div class="kt-portlet__body">
-                <div id="kt_tree_5" class="tree-demo jstree jstree-5 jstree-rtl jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="j5_8" aria-busy="false"><ul class="jstree-container-ul jstree-children" role="group"><li role="treeitem" aria-selected="true" aria-level="1" aria-labelledby="j5_1_anchor" aria-expanded="true" id="j5_1" class="jstree-node  jstree-open"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor jstree-clicked" href="#" tabindex="-1" id="j5_1_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder kt-font-success jstree-themeicon-custom" role="presentation"></i>Parent Node</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j5_2_anchor" id="j5_2" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j5_2_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder kt-font-success jstree-themeicon-custom" role="presentation"></i>Initially selected</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j5_3_anchor" id="j5_3" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j5_3_anchor"><i class="jstree-icon jstree-themeicon fa fa-warning kt-font-danger jstree-themeicon-custom" role="presentation"></i>Custom Icon</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j5_4_anchor" aria-expanded="true" id="j5_4" class="jstree-node  jstree-open"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j5_4_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder kt-font-success jstree-themeicon-custom" role="presentation"></i>Initially open</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="3" aria-labelledby="j5_5_anchor" id="j5_5" class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j5_5_anchor"><i class="jstree-icon jstree-themeicon fa fa-file kt-font-waring jstree-themeicon-custom" role="presentation"></i>Another node</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j5_6_anchor" id="j5_6" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j5_6_anchor"><i class="jstree-icon jstree-themeicon fa fa-warning kt-font-waring jstree-themeicon-custom" role="presentation"></i>Another Custom Icon</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j5_7_anchor" aria-disabled="true" id="j5_7" class="jstree-node  jstree-leaf"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor  jstree-disabled" href="#" tabindex="-1" id="j5_7_anchor"><i class="jstree-icon jstree-themeicon fa fa-check kt-font-success jstree-themeicon-custom" role="presentation"></i>Disabled Node</a></li><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="j5_8_anchor" aria-expanded="false" id="j5_8" class="jstree-node  jstree-closed jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j5_8_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder kt-font-danger jstree-themeicon-custom" role="presentation"></i>Sub Nodes</a></li></ul></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="j5_14_anchor" id="j5_14" class="jstree-node  jstree-leaf jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="j5_14_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder kt-font-success jstree-themeicon-custom" role="presentation"></i>Another Node</a></li></ul></div>
+<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+    <div class="kt-container  kt-container--fluid ">
+        <div class="kt-subheader__main">
+            <div class="kt-subheader__breadcrumbs">
+                <a href="#" class="kt-subheader__breadcrumbs-home" style="display: inline-flex;">
+                    <h3 class="kt-subheader__title">داشبورد</h3>
+
+                    <span class="kt-subheader__separator kt-hidden"></span>
+
+
+                    <i class="flaticon2-shelter"></i>
+                </a>
+                <span class="kt-subheader__breadcrumbs-separator"></span>
+                <a href="#" id="PageName" class="kt-subheader__breadcrumbs-link"> نمایش تمامی دسته بندی ها </a>
+
             </div>
         </div>
-        <!--end::Portlet-->
-        <!--begin::Portlet-->
-        <div class="kt-portlet">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-label">
-                    <h3 class="kt-portlet__head-title">
-                        Ajax Data
-                    </h3>
-                </div>
-            </div>
-            <div class="kt-portlet__body">
-                <div id="kt_tree_6" class="tree-demo jstree jstree-6 jstree-rtl jstree-default" role="tree" aria-multiselectable="true" tabindex="0" aria-activedescendant="node_158427493141326" aria-busy="false"><ul class="jstree-container-ul jstree-children" role="group"><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="node_158427493152209_anchor" aria-expanded="false" id="node_158427493152209" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="node_158427493152209_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder icon-lg kt-font-info jstree-themeicon-custom" role="presentation"></i>Node #1</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="node_158427493136053_anchor" aria-expanded="true" id="node_158427493136053" class="jstree-node jstree-open" aria-busy="false"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="node_158427493136053_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder icon-lg kt-font-warning jstree-themeicon-custom" role="presentation"></i>Node #2</a><ul role="group" class="jstree-children"><li role="treeitem" aria-selected="false" aria-level="2" aria-labelledby="node_158427493915215_anchor" aria-expanded="false" id="node_158427493915215" class="jstree-node  jstree-closed jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="node_158427493915215_anchor"><i class="jstree-icon jstree-themeicon fa fa-file icon-lg kt-font-info jstree-themeicon-custom" role="presentation"></i>Node 1584274939</a></li></ul></li><li role="treeitem" aria-selected="true" aria-level="1" aria-labelledby="node_158427493141326_anchor" aria-expanded="false" id="node_158427493141326" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor jstree-clicked" href="#" tabindex="-1" id="node_158427493141326_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder icon-lg kt-font-info jstree-themeicon-custom" role="presentation"></i>Node #3</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="node_158427493184434_anchor" aria-expanded="false" id="node_158427493184434" class="jstree-node  jstree-closed"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="node_158427493184434_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder icon-lg kt-font-info jstree-themeicon-custom" role="presentation"></i>Node #4</a></li><li role="treeitem" aria-selected="false" aria-level="1" aria-labelledby="node_158427493183895_anchor" aria-expanded="false" id="node_158427493183895" class="jstree-node  jstree-closed jstree-last"><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor" href="#" tabindex="-1" id="node_158427493183895_anchor"><i class="jstree-icon jstree-themeicon fa fa-folder icon-lg kt-font-warning jstree-themeicon-custom" role="presentation"></i>Node #5</a></li></ul></div>
-                <div class="alert alert-outline-primary kt-margin-t-10">
-                    Note! The tree nodes are loaded from server side demo script via ajax.
-                </div>
+        <div class="kt-subheader__toolbar">
+            <div class="kt-subheader__wrapper">
             </div>
         </div>
-        <!--end::Portlet-->
     </div>
+</div>
 
+
+<div class="col-lg-11" style="margin:auto">
+    <!--begin::Portlet-->
+    <div class="kt-portlet">
+        <div class="kt-portlet__head">
+            <div class="kt-portlet__head-label">
+                <h3 class="kt-portlet__head-title">
+                    نمایش دسته بندی ها
+                </h3>
+            </div>
+        </div>
+        <div class="kt-portlet__body">
+            <div id="kt_tree_1" class="tree-demo">
+                <ul>
+                    @foreach (var Typeitem in @Model)
+                    {
+                        if (Typeitem.IsActive)
+                        {
+                            <li data-jstree='{ "icon" : "fa fa-folder kt-font-success jstree-themeicon-custom" }'>
+                                @Typeitem.NameSub
+                                <ul>
+                                    @foreach (var Mainitem in Typeitem.Subs)
+                                    {
+                                        if (Mainitem.IsActive)
+                                        {
+                                            <li data-jstree='{ "icon" : "fa fa-folder kt-font-danger jstree-themeicon-custom" }'>
+                                                @Mainitem.NameSub
+                                                <ul>
+                                                    @foreach (var Subitem in Mainitem.Subs)
+                                                    {
+                                                        if (Subitem.IsActive)
+                                                        {
+                                                            <li data-jstree='{ "icon" : "fa fa-folder kt-font-warning jstree-themeicon-custom" }'>
+                                                                @Subitem.NameSub
+                                                                <ul>
+                                                                    @foreach (var SubKitem in Subitem.Subs)
+                                                                    {
+                                                                        if (SubKitem.IsActive)
+                                                                        {
+                                                                            <li data-jstree='{ "icon" : "fa fa-folder kt-font-primary jstree-themeicon-custom","type" : "file" }'>
+                                                                                @SubKitem.NameSub
+                                                                                <ul>
+                                                                                    @foreach (var SubKVitem in SubKitem.Subs)
+                                                                                    {
+                                                                                        <li data-jstree='{ "type" : "file" }'>
+                                                                                            @SubKVitem.NameSub
+                                                                                        </li>
+                                                                                    }
+                                                                                </ul>
+                                                                            </li>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <li data-jstree='{ "icon" : "fa fa-folder kt-font-primary jstree-themeicon-custom","disabled" : true ,"type" : "file"}'>
+                                                                                @SubKitem.NameSub
+
+                                                                            </li>
+                                                                        }
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li data-jstree='{ "icon" : "fa fa-folder kt-font-warning jstree-themeicon-custom","disabled" : true }'>
+                                                                @Subitem.NameSub
+
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li data-jstree='{ "icon" : "fa fa-folder kt-font-danger jstree-themeicon-custom","disabled" : true }'>
+                                                @Mainitem.NameSub
+
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li data-jstree='{ "icon" : "fa fa-folder kt-font-success jstree-themeicon-custom","disabled" : true }'>
+                                @Typeitem.NameSub
+
+                            </li>
+                        }
+
+                    }
+
+                </ul>
+            </div>
+            @*<div class="alert alert-outline-primary kt-margin-t-10">
+                    Note! Opened and selected nodes will be saved in the user's browser, so when returning to the same tree the previous state will be restored.
+                </div>*@
+        </div>
+    </div>
+    <!--end::Portlet-->
+
+</div>
+@Scripts.Render("~/bundles/JsTree.js")

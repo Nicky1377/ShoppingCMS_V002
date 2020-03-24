@@ -721,6 +721,108 @@ namespace ShoppingCMS_V002.OtherClasses
             return result;
         }
 
+        public List<TreeModel> CatTreeModelFiller()
+        {
+            var result = new List<TreeModel>();
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
 
+            DataTable Type = db.Select("SELECT [id_PT],[PTname],[ISDESABLED]FROM[tbl_Product_Type] where ISDelete=0");
+
+            for (int i = 0; i < Type.Rows.Count ; i++)
+            {
+                var MainCat = new List<TreeModel>();
+                DataTable Mains = db.Select("SELECT [id_MC],[MCName],[ISDESABLED]FROM [tbl_Product_MainCategory] WHERE ISDelete=0 AND id_PT=" + Type.Rows[i]["id_PT"]);
+                for (int j = 0; j < Mains.Rows.Count ; j++)
+                {
+                    var SubCat = new List<TreeModel>();
+                    DataTable Subs = db.Select("SELECT [id_SC],[SCName],[ISDESABLED] FROM [tbl_Product_SubCategory] WHERE ISDelete=0 AND id_MC=" + Mains.Rows[j]["id_MC"]);
+                    for (int k= 0; k < Subs.Rows.Count; k++)
+                    {
+                        var SubCatKey = new List<TreeModel>();
+                        DataTable SubsK = db.Select("SELECT [id_SCOK],[SCOKName],[ISDESABLED] FROM [tbl_Product_SubCategoryOptionKey] where ISDelete=0 AND id_SC=" + Subs.Rows[k]["id_SC"]);
+                        for (int k1 = 0; k1 < SubsK.Rows.Count; k1++)
+                        {
+                            var SubCatKeyVal = new List<TreeModel>();
+                            DataTable SubsKV = db.Select("SELECT [id_SCOV],[SCOVValueName] FROM [tbl_Product_SubCategoryOptionValue] where id_SCOK=" + SubsK.Rows[k1]["id_SCOK"]);
+                            for (int k2 = 0; k2 < SubsKV.Rows.Count; k2++)
+                            { 
+                                var M5 = new TreeModel()
+                                {
+                                    Id = Convert.ToInt32(SubsKV.Rows[k2]["id_SCOV"]),
+                                    NameSub = SubsKV.Rows[k2]["SCOVValueName"].ToString(),
+                                   IsActive=true
+                                };
+                                SubCatKeyVal.Add(M5);
+                            }
+                            var M4 = new TreeModel()
+                            {
+                                Id = Convert.ToInt32(SubsK.Rows[k1]["id_SCOK"]),
+                                NameSub = SubsK.Rows[k1]["SCOKName"].ToString(),
+                                Subs=SubCatKeyVal
+                            };
+                            if (SubsK.Rows[k1]["ISDESABLED"].ToString() == "1")
+                            {
+                                M4.IsActive = false;
+                            }
+                            else
+                            {
+                                M4.IsActive = true;
+                            }
+                            SubCatKey.Add(M4);
+                        }
+                        var M3 = new TreeModel()
+                        {
+                            Id = Convert.ToInt32(Subs.Rows[k]["id_SC"]),
+                            NameSub = Subs.Rows[k]["SCName"].ToString(),
+                            Subs= SubCatKey
+                        };
+                        if (Subs.Rows[k]["ISDESABLED"].ToString() == "1")
+                        {
+                            M3.IsActive = false;
+                        }
+                        else
+                        {
+                            M3.IsActive = true;
+                        }
+                        SubCat.Add(M3);
+
+                    }
+                    var M2 = new TreeModel()
+                    {
+                        Id = Convert.ToInt32(Mains.Rows[j]["id_MC"]),
+                        NameSub = Mains.Rows[j]["MCName"].ToString(),
+                        Subs = SubCat
+                    };
+                    if (Mains.Rows[j]["ISDESABLED"].ToString() == "1")
+                    {
+                        M2.IsActive = false;
+                    }
+                    else
+                    {
+                        M2.IsActive = true;
+                    }
+                    MainCat.Add(M2);
+
+                }
+                var M1 = new TreeModel()
+                {
+                    Id=Convert.ToInt32(Type.Rows[i]["id_PT"]),
+                    NameSub= Type.Rows[i]["PTname"].ToString(),
+                    Subs=MainCat
+                };
+                if (Type.Rows[i]["ISDESABLED"].ToString() == "1")
+                {
+                    M1.IsActive = false;
+                }
+                else
+                {
+                    M1.IsActive = true;
+                }
+                result.Add(M1);
+            }
+
+            return result;
+        }
     }
 }

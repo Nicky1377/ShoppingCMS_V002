@@ -1008,8 +1008,19 @@ namespace ShoppingCMS_V002.Controllers
 
         }
 
-        
 
+        public ActionResult ShowCatTree()
+        {
+            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            if (check.HasAccess)
+            {
+                ModelFiller MF = new ModelFiller();
+
+                return View(MF.CatTreeModelFiller());
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
 
     }
 }

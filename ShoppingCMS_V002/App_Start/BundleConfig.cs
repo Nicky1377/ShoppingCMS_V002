@@ -22,7 +22,6 @@ namespace ShoppingCMS_V002
             ));
             bundles.Add(new ScriptBundle("~/bundles/AddProduct.js").Include(
                  "~/assets/js/pages/custom/wizard/wizard-3.js",
-                "~/assets/js/pages/crud/file-upload/dropzonejs.js",
                 "~/assets/js/pages/crud/forms/widgets/select2.js"));
 
             bundles.Add(new StyleBundle("~/assets/CoreAdmin.css").Include(
@@ -62,6 +61,10 @@ namespace ShoppingCMS_V002
              "~/assets/plugins/custom/jstree/jstree.bundle.js",
              "~/assets/js/pages/components/extended/treeview.js"
          ));
+
+            bundles.Add(new StyleBundle("~/assets/jstree.css").Include(
+               "~/assets/plugins/custom/jstree/jstree.bundle.rtl.css"
+           ));
         }
     }
 }

@@ -152,6 +152,7 @@
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\SubCategoryOptionKey.cs" />
     <Compile Include="Models\TableModel.cs" />
+    <Compile Include="Models\TreeModel.cs" />
     <Compile Include="Models\type.cs" />
     <Compile Include="Models\TypeASPX.cs" />
     <Compile Include="ModelViews\AddProductModelV_2.cs" />

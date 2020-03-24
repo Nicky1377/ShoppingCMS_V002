@@ -3,7 +3,8 @@
     <div id="Item_Id-@Model.Id" style="display:none">@Model.Id</div>
     <label>@Model.Title</label>
     <div class="input-group" style="width: 100%">
-        <select class="form-control kt-select2 tshpSelect23" style="width: 90%" id="tshpSelect2-@Model.Id" name="tshpSelect2" multiple="multiple" onchange="return ChangeAllInput('3')">
+        <select class="form-control kt-select2 tshpSelect23" style="width: 90%" id="tshpSelect2-@Model.Id" name="tshpSelect2" multiple="multiple" >
+            <option value=0 selected disabled hidden style="display: none"></option>
             @foreach (var item in Model.Item_List)
             {
                 <option value="@item.Id">@item.Value</option>

@@ -8,7 +8,7 @@
 
     <div class="kt-portlet">
         <div style="display:none" id="abcd">@Model.Id</div>
-        <div style="display:none" id="Url_4" onchange="return ChangeAllInput('3')"></div>
+        <div style="display:none" id="Url_4"></div>
         
         <div class="kt-portlet__body">
             <!--begin::Section-->
@@ -32,7 +32,7 @@
                         </div>
                         <input id="Add_Value" type="text" class="form-control" aria-label="Text input with checkbox">
                         <div class="input-group-prepend">
-                            <button class="btn btn-success" type="button" onclick="return NewClick(@Model.Id)">ثبت!</button>
+                            <button id="NewClkSub" class="btn btn-success" type="button" onclick="return NewClick(@Model.Id)">ثبت!</button>
                         </div>
                     </div>
                 </div>
@@ -143,6 +143,15 @@
 
 
             });
+
+            setTimeout(function () {
+                $('.tshpSelect23').each(function (e, obj) {
+                    var idSelected = obj.id.replace("tshpSelect2-", "");
+
+                    $('#tshpSelect2-' + idSelected + ' option[value = 0 ]').prop("selected", false);
+
+                });
+            }, 1000);
 
         });
 
@@ -266,6 +275,8 @@
                          $('#Url_4').text(url);
                         $("#Sub_btn3").hide(200);
                         $("#btn_next").show(200);
+                         ChangeAllInput('4');
+                        
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(textStatus, errorThrown);

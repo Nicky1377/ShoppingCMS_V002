@@ -11,34 +11,34 @@
         <form>
             <div class="row">
                 <div class="col-xl-6">
-                    <div style="display:none" id="Url_2" onchange="return ChangeAllInput('1')"></div>
+                    <div style="display:none" id="Url_2"></div>
                     <div class="form-group">
                         <label>نام محصول</label>
-                        <input id="Title_p1" class="form-control" placeholder="" onchange="return ChangeAllInput('1')" />
+                        <input id="Title_p1" class="form-control" placeholder="" />
                         <span class="form-text text-muted">نام و موضوع محصول خود را وارد کنید.</span>
                     </div>
                     <div class="form-group">
                         <label>توضیحات محصول</label>
-                        <input id="Description_p1" class="form-control" placeholder="" type="text" onchange="return ChangeAllInput('1')" />
+                        <input id="Description_p1" class="form-control" placeholder="" type="text" />
                         <span class="form-text text-muted">توضیحات محصول خود را وارد کنید.</span>
                     </div>
                     <div class="form-group">
                         <label>کلید واژه ی سئو</label>
-                        <input id="SEO_keyword_p1" class="form-control" placeholder="" onchange="return ChangeAllInput('1')" />
+                        <input id="SEO_keyword_p1" class="form-control" placeholder="" />
                         <span class="form-text text-muted">کلید واژه برای موتور جست و جوی گوگل.</span>
                     </div>
                     <div class="form-group">
                         <label>توضیحات سئو</label>
-                        <input id="SEO_description_p1" class="form-control" placeholder="" onchange="return ChangeAllInput('1')" />
+                        <input id="SEO_description_p1" class="form-control" placeholder="" />
                         <span class="form-text text-muted">توضیحات برای موتور جست و جوی گوگل.</span>
                     </div>
                     <div class="form-group">
                         <label>ارزش جست و جو</label>
-                        <input id="SearchGravity_p1" class="form-control" placeholder="" type="number" onchange="return ChangeAllInput('1')" />
+                        <input id="SearchGravity_p1" class="form-control" placeholder="" type="number" />
                         <span class="form-text text-muted">نتایج جست و جوی کاربران براین اساس نمایش داده خواهند شد.</span>
                     </div>
                     <label class="kt-checkbox kt-checkbox--brand">
-                        <input id="IsAd_p1" class="form-control" type="checkbox" onchange="return ChangeAllInput('1')" />تبلیغ شود؟
+                        <input id="IsAd_p1" class="form-control" type="checkbox" />تبلیغ شود؟
                         <span></span>
                     </label>
 
@@ -46,7 +46,7 @@
                     <div class="form-group">
                         <label>عکس ها</label>
                         <button id="picss" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_6" onclick="modalloader()"><i class="fa fa-upload"><span style="font-family: IRANSansWeb;">آپلود عکس</span></i></button>
-                        <input type="hidden" id="Pics_p1" class="form-control" placeholder="" onchange="return ChangeAllInput('1')" />
+                        <input type="hidden" id="Pics_p1" class="form-control" placeholder="" />
                         <input class="form-text text-muted" id="Pics_p2" readonly="readonly"></input>
                     </div>
 
@@ -56,7 +56,7 @@
         </form>
 
     </div>
-
+    
     <!--begin::Alerts-->
     <div id="SuccesAlertEdit1" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
         <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
@@ -71,9 +71,12 @@
     <div class="kt-form__actions">
         <div class="col-6 offset-3" style="padding-top: 10px;">
 
-            <button id="Sub_btn1" onclick="submitNextPage(this)" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
-                Submit
+            <button id="Sub_btn1" onclick="submitNextPage('New')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
+                ثبت
             </button>
+            @*<button id="Sub_btn2" onclick="submitNextPage('Edit')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; display:none">
+                ثبت
+            </button>*@
         </div>
     </div>
 

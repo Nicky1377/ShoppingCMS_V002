@@ -1,10 +1,12 @@
-﻿function ChangeAllInput(pg) {
+﻿
+
+function ChangeAllInput(pg) {
     //$(itm).attr("id")
 
     // alert("id : " + );
     //alert("onChange"+pg);
     var ee = fillJson(pg);
-    //alert(ee);
+    //alert(pg);
     Enc(ee);
 
 }
@@ -74,7 +76,7 @@ function Des(str) {
         contentType: "application/json; charset=utf-8",
         success: function (response) {
             var res = response;
-            alert(res);
+           //alert(res);
             // alert(res.Page);
             fillItms(res);
         },
@@ -169,6 +171,7 @@ function fillJson(pg) {
         });
 
         json += otArr.join(",");
+       // alert(json);
         var url3 = $('#Url_3').text();
         var OptionTbl_3 = $('#OptionTbl_3').text();
         //------------------------
@@ -190,7 +193,8 @@ function fillJson(pg) {
             '","SubKey":"' + SubKey +
             '","url3":"' + url3 +
             '","OptionTbl_3":"' + OptionTbl_3 +
-            '",' + json + '}';
+            //'",' + json +
+            '"}';
     }
     else if (pg == '4') {
 
@@ -223,17 +227,17 @@ function fillJson(pg) {
         var OptionTbl_3 = $('#OptionTbl_3').text();
         //------------------------
         var param = '0';
-        var id_MProduct = $("#Mpro_").text();
-        var Quantity = $("#VahedID-" + param).val().split("_")[0].replace(/,/g, "");
-        var QuantityModule = $("#SelectVahedQuntID-" + param + " option:selected").val();
-        var PricePerquantity = $("#inpPrice-" + param).val().split("_")[0].replace(/,/g, "");
-        var PriceOff = $("#totalPrice-" + param).val();
-        var offTypeValue = $("#inpOffPrice-" + param).val().split("_")[0].replace(/,/g, "");
-        var OffType = $("#SelectOffID-" + param + " option:selected").val();
-        var id_MainStarTag = $("#MainTagID-" + param + " option:selected").val();
-        var PriceModule = $("#SelectVahedPriceID-" + param + " option:selected").val();
-        var PriceShow = $("#SelectShowPriceID-" + param + " option:selected").val();
-        var tgs = $("#SelectTagsID-" + param).val();
+        //var id_MProduct = $("#Mpro_").text();
+        //var Quantity = $("#VahedID-" + param).val().split("_")[0].replace(/,/g, "");
+        //var QuantityModule = $("#SelectVahedQuntID-" + param + " option:selected").val();
+        //var PricePerquantity = $("#inpPrice-" + param).val().split("_")[0].replace(/,/g, "");
+        //var PriceOff = $("#totalPrice-" + param).val();
+        //var offTypeValue = $("#inpOffPrice-" + param).val().split("_")[0].replace(/,/g, "");
+        //var OffType = $("#SelectOffID-" + param + " option:selected").val();
+        //var id_MainStarTag = $("#MainTagID-" + param + " option:selected").val();
+        //var PriceModule = $("#SelectVahedPriceID-" + param + " option:selected").val();
+        //var PriceShow = $("#SelectShowPriceID-" + param + " option:selected").val();
+        //var tgs = $("#SelectTagsID-" + param).val();
         var url4 = $('#Url_4').text();
         //--------------------------
 
@@ -255,18 +259,19 @@ function fillJson(pg) {
             '","url3":"' + url3 +
             '","OptionTbl_3":"' + OptionTbl_3 +
             '",' + json + ',' +
-            '","id_MProduct":"' + id_MProduct +
-            '","Quantity":"' + Quantity +
-            '","QuantityModule":"' + QuantityModule +
-            '","PricePerquantity":"' + PricePerquantity +
-            '","PriceOff":"' + PriceOff +
-            '","offTypeValue":"' + offTypeValue +
-            '","OffType":"' + OffType +
-            '","id_MainStarTag":"' + id_MainStarTag +
-            '","PriceModule":"' + PriceModule +
-            '","PriceShow":"' + PriceShow +
-            '","url4":"' + url4 +
-            '","tgs":' + tgs + '"}';
+            //'","id_MProduct":"' + id_MProduct +
+            //'","Quantity":"' + Quantity +
+            //'","QuantityModule":"' + QuantityModule +
+            //'","PricePerquantity":"' + PricePerquantity +
+            //'","PriceOff":"' + PriceOff +
+            //'","offTypeValue":"' + offTypeValue +
+            //'","OffType":"' + OffType +
+            //'","id_MainStarTag":"' + id_MainStarTag +
+            //'","PriceModule":"' + PriceModule +
+            //'","PriceShow":"' + PriceShow +
+            '"url4":"' + url4 +
+            //'","tgs":' + tgs +
+            '"}';
     }
     return CookieString;
 }
@@ -279,6 +284,8 @@ function FreezItmsP1() {
     $('#SearchGravity_p1').prop("disabled", true);
     $('#IsAd_p1').prop("disabled", true);
     $('#picss').prop("disabled", true);
+    $("#Sub_btn1").hide(200);
+    $("#btn_next").show(200);
 }
 
 function FreezItmsP2() {
@@ -286,6 +293,7 @@ function FreezItmsP2() {
     $("#Select2_B").prop("disabled", true);
     $("#Select2_C").prop("disabled", true);
     $("#kt_select2_multiple").prop("disabled", true);
+    $("#Sub_btn2").hide(200);
 }
 
 function FreezItmsP3() {
@@ -293,6 +301,11 @@ function FreezItmsP3() {
         var idSelected = obj.id.replace("tshpSelect2-", "");
         $('#tshpSelect2-' + idSelected).prop("disabled", true);
     });
+
+    $('#NewClkSub').prop("disabled", true);
+    $('#Add_Key').prop("disabled", true);
+    $('#Add_Value').prop("disabled", true);
+    $("#Sub_btn3").hide(200);
 }
 
 function fillItms(json) {
@@ -306,7 +319,7 @@ function fillItms(json) {
         $('#Url_2').text(mod.url2);
         $('#step2').load(mod.url2, function (response, status, xhr) {
             console.log("status = " + status);
-            Page2Filler(json);
+            //Page2Filler(json);
         });
         Page1Filler(json);
         FreezItmsP1();
@@ -315,20 +328,49 @@ function fillItms(json) {
         
 
     } else if (mod.Page == '3') {
-        $('#Url_2').text(mod.url2);
-        $('#step2').load(mod.url2);
+        
         Page1Filler(json);
         FreezItmsP1();
         //-----------p1
-        $('#Url_3').text(mod.url3);
-        $('#step3').load(mod.url3);
-        Page2Filler(json);
-        FreezItmsP2();
-        //-----------p2
-        Page3Filler(json);
+        $('#Url_2').text(mod.url2);
+        $('#step2').load(mod.url2, function (response, status, xhr) {
+            console.log("status2 = " + status);
+            Page2Filler(json);
+            setTimeout(function () { FreezItmsP2(); }, 2000);
+            $('#Url_3').text(mod.url3);
+        });
+        ////-----------p2
+        
+       
+        //alert(mod.url3);
+        $('#step3').load(mod.url3, function (response, status, xhr) {
+            console.log("status3 = " + status);
+            Page3Filler(json);
+        });
     }
     else if (mod.Page == '4') {
+        Page1Filler(json);
+        FreezItmsP1();
+        //-----------p1
+        $('#Url_2').text(mod.url2);
+        $('#step2').load(mod.url2, function (response, status, xhr) {
+            console.log("status2 = " + status);
+            Page2Filler(json);
+            setTimeout(function () { FreezItmsP2(); }, 1000);
+            $('#Url_3').text(mod.url3);
 
+        });
+        //-----------p2
+        $('#step3').load(mod.url3, function (response, status, xhr) {
+            console.log("status3 = " + status);
+            Page3Filler(json);
+            $('#Url_4').text(mod.url4);
+            FreezItmsP3();
+        });
+        //------------p3
+        $('#step4').load(mod.url4, function (response, status, xhr) {
+            console.log("status4 = " + status);
+        });
     }
 
 
@@ -355,17 +397,17 @@ function Page2Filler(json) {
     var mod = JSON.parse(json);
     $("#Mpro_").text(mod.id);
     if (mod.Type != '0') {
-        //alert("1");
+        
         $('#Select2_A').val(mod.Type);
         console.log(mod.Type);
-        $.when($('#Select2_A option[value=' + mod.Type + ']').prop("selected", true)).then(function () {
+        $('#Select2_A option[value=' + mod.Type + ']').prop("selected", true);
             $('#Select2_B').prop("disabled", false);
             $.ajax({
                 url: "/Product/DropListFiller",
                 type: "post",
                 data: { "drop": "MainCat", "id": mod.Type },
                 success: function (response) {
-                    //alert("S1");
+                    
                     console.log("s1 : " + response);
                     var token = response;
                     var s = "<option value=0 selected >انتخاب کنید</option>";
@@ -376,7 +418,7 @@ function Page2Filler(json) {
                     $('#Select2_B').html(s);
 
                     if (mod.Main != '0') {
-                        //  alert("3" + mod.Main);
+                       
                         $('#Select2_B option[value=' + mod.Main + ']').prop("selected", true);
 
                         //////////fill Sub
@@ -422,11 +464,11 @@ function Page2Filler(json) {
                                                 }
                                             }
                                             s += "</optgroup>"
-                                            //document.getElementById('kt_select2_multiple').innerHTML = s;
+                                            
                                             $('#kt_select2_multiple').html(s);
+                                            $('#kt_select2_multiple option[value = 0 ]').prop("selected", false);
 
-
-                                            // $("#kt_select2_multiple").val(mod.SubKey);
+                                            
 
                                         },
                                         error: function (jqXHR, textStatus, errorThrown) {
@@ -448,7 +490,7 @@ function Page2Filler(json) {
                     console.log(textStatus, errorThrown);
                 }
             });
-        });
+        
         /////////////fill Main
 
     }
@@ -458,17 +500,14 @@ function Page2Filler(json) {
 
 function Page3Filler(json) {
     var mod = JSON.parse(json);
-    alert("hello");
+   
+    $('.tshpSelect23').each(function (e, obj) {
+        var idSelected = obj.id.replace("tshpSelect2-", "");
+        var ids = mod['Mainid_' + idSelected].split(',');
+        for (var i = 0; i < ids.length; i++) {
+            $('#tshpSelect2-' + idSelected + ' option[value = ' + ids[i] + ']').prop("selected", true);
+        }
+        $('#tshpSelect2-' + idSelected + ' option[value = 0 ]').prop("selected", false);
 
-    //alert(mod.Type);
-    //$('.tshpSelect23').each(function (e, obj) {
-    //    var idSelected = obj.id.replace("tshpSelect2-", "");
-    //    alert(idSelected);
-    //    var ids = mod['Mainid_' + idSelected];
-    //    for (var i = 0; i < ids.; i++) {
-
-    //    }
-    //    $('#Select2_A option[value=' + mod.Type + ']').prop("selected", true);
-
-    //});
+    });
 }

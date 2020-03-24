@@ -265,7 +265,7 @@
                                                 </i>
                                                 <span class="kt-menu__link-text">افزودن محصول جدید</span>
                                                 <span class="kt-menu__link-badge">
-                                                    <span class="kt-badge kt-badge--success kt-badge--inline">افزودن</span>
+                                                    <span style="display:none" id="NewProBTN" onclick="return new_Product()" class="kt-badge kt-badge--success kt-badge--inline">افزودن</span>
                                                 </span>
                                             </a>
                                         </li>
@@ -275,6 +275,16 @@
                                                     <span></span>
                                                 </i>
                                                 <span class="kt-menu__link-text">لیست تمامی محصولات</span>
+
+                                            </a>
+                                        </li>
+
+                                        <li class="kt-menu__item " aria-haspopup="true">
+                                            <a href="@Url.Action("ShowCatTree","Product")" class="kt-menu__link ">
+                                                <i class="kt-menu__link-bullet flaticon2-pen">
+                                                    <span></span>
+                                                </i>
+                                                <span class="kt-menu__link-text">نمایش تمامی دسته بندی ها</span>
 
                                             </a>
                                         </li>
@@ -360,7 +370,7 @@
                                                 <span class="kt-menu__arrow"></span>
                                                 <ul class="kt-menu__subnav">
                                                     <li class="kt-menu__item " aria-haspopup="true">
-                                                        <a href="@Url.Action("Add_Type","MS")"  class="kt-menu__link ">
+                                                        <a href="@Url.Action("Add_Type","MS")" class="kt-menu__link ">
                                                             <i class="kt-menu__link-bullet kt-menu__link-bullet--dot">
                                                                 <span></span>
                                                             </i>
@@ -1045,6 +1055,7 @@
     </div>
     <!--ENd:: Chat-->
     <!-- begin::Global Config(global config for global JS sciprts) -->
+    @Scripts.Render("~/bundles/AddProScript.js");
     <script>
         var KTAppOptions = {
             "colors": {
@@ -1078,27 +1089,27 @@
 
     <script>
         $(document).ready(function () {
-            ////////type////////
-            //$('#show_newtype').load("https://localhost:44336/ms/new_type");
-            //$('#show_tab').load("https://localhost:44336/ms/table_type");
-            //////maincat////////
-            //$('#show_newcat').load("https://localhost:44336/ms/new_cat");
-            //$('#show_tabcat').load("https://localhost:44336/ms/table_cat");
-            //////subcat////////
-            //$('#show_newsub').load("https://localhost:44336/ms/new_sub");
-            //$('#show_tabsub').load("https://localhost:44336/ms/table_sub");
-            //////subcatkey////////
-            //$('#show_newsck').load("https://localhost:44336/ms/new_sck");
-            //$('#show_tabsck').load("https://localhost:44336/ms/table_sck");
-            //////opinion_show////////
-            //$('#opinion_show').load("https://localhost:44336/ms/opinion_show");
-             //////Product////////
-           // openCity(event, 'London');
 
+             var cookie = getCookie("AddProCookie");
+        if (cookie == "") {
+            
+
+        } else
+        {
+            $('#NewProBTN').show();
+        }
 
         });
 
 
+        function new_Product() {
+
+            $.when(deleteCookie("AddProCookie")).then(function () {
+                
+                window.location.replace("@Url.Action("Add_Product","Product",null,Request.Url.Scheme)");
+            });
+
+        }
 
     </script>
 

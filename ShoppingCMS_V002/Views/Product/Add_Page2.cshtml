@@ -12,8 +12,8 @@
 <div class="row">
     <div class="col">
         <div style="display:none" id="Mpro_">@Model.Id</div>
-        <div style="display:none" id="Url_3" onchange="return ChangeAllInput('2')"></div>
-        <div style="display:none" id="OptionTbl_3" onchange="return ChangeAllInput('2')"></div>
+        <div style="display:none" id="Url_3" ></div>
+        <div style="display:none" id="OptionTbl_3" ></div>
     </div>
 </div>
 <!-- end:: Tozihat Optional -->
@@ -116,7 +116,7 @@
         });
         function MultSelectorSelect() {
             console.log("SubKey Selected value is: " + $("#kt_select2_multiple").val());
-            ChangeAllInput('2');
+           // ChangeAllInput('2');
         }
         function Select_Type(ItemS) {
             console.log("Type Selected value is: " + $("#"+ItemS).val());
@@ -134,7 +134,7 @@
                     }
 
                     document.getElementById('Select2_B').innerHTML = s;
-                    ChangeAllInput('2');
+                   // ChangeAllInput('2');
                     //alert(token[0].Value);
 
                 },
@@ -161,7 +161,7 @@
                     }
 
                     document.getElementById('Select2_C').innerHTML = s;
-                    ChangeAllInput('2');
+                    //ChangeAllInput('2');
                     //alert(token[0].Value);
 
                 },
@@ -182,7 +182,7 @@
                 success: function (response) {
 
                     var token = response;
-                    var s = "<option value=0 selected disabled hidden>انتخاب کنید</option>";
+                    var s = "";
                     s += "<optgroup label=" + $("#Select2_C option:selected").text() + ">";
                   //  alert($("#Select2_C option:selected").text());
                     for (var i = 0; i < token.length; i++) {
@@ -193,7 +193,7 @@
                     document.getElementById('kt_select2_multiple').innerHTML = s;
 
                     //alert(token[0].Value);
-                    ChangeAllInput('2');
+                    //ChangeAllInput('2');
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
