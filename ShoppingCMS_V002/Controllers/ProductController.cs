@@ -314,7 +314,7 @@ namespace ShoppingCMS_V002.Controllers
                 db.Connect();
                 using (DataTable dt =
                     db.Select(
-                        "SELECT [PicID] ,[PicAddress] ,[alt] ,[uploadPicName]  ,[Descriptions],[id_MProduct] FROM [v_Images] WHERE [ISDELETE]=0 AND [id_MProduct] is NULL")
+                        "SELECT [PicID] ,[PicAddress] ,[alt] ,[uploadPicName]  ,[Descriptions] FROM [v_Images] WHERE [ISDELETE]=0")
                 )
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
