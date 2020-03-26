@@ -76,7 +76,7 @@ function Des(str) {
         contentType: "application/json; charset=utf-8",
         success: function (response) {
             var res = response;
-           //alert(res);
+           alert(res);
             // alert(res.Page);
             fillItms(res);
         },
@@ -111,6 +111,7 @@ function fillJson(pg) {
             '","SearchGravity":"' + SearchGravity +
             '","IsAd":"' + IsAd +
             '","pics":"' + pics + '"}';
+
         //alert(CookieString);
     }
     else if (pg == '2') {
@@ -285,7 +286,9 @@ function FreezItmsP1() {
     $('#IsAd_p1').prop("disabled", true);
     $('#picss').prop("disabled", true);
     $("#Sub_btn1").hide(200);
+    $("#Sub_btn12").hide(200);
     $("#btn_next").show(200);
+    $("#EditBtnP1").show(200);
 }
 
 function FreezItmsP2() {
@@ -294,6 +297,8 @@ function FreezItmsP2() {
     $("#Select2_C").prop("disabled", true);
     $("#kt_select2_multiple").prop("disabled", true);
     $("#Sub_btn2").hide(200);
+    $("#EditBtnP1").show(200);
+    
 }
 
 function FreezItmsP3() {
@@ -391,6 +396,7 @@ function Page1Filler(json) {
         $('#IsAd_p1').prop("checked", false);
     }
     $('#Pics_p1').val(mod.pics);
+    $("#Mpro_").text(mod.id);
 }
 
 function Page2Filler(json) {

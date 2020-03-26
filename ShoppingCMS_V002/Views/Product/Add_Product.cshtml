@@ -144,14 +144,17 @@
 <script>
     $(document).ready(function () {
 
-        $('#step1').load("@Url.Action("Add_Page1","Product",null,Request.Url.Scheme)");
+        
         var cookie = getCookie("AddProCookie");
         if (cookie == "") {
-            alert("Its empty");
+        $('#step1').load("@Url.Action("Add_Page1","Product",null,Request.Url.Scheme)");
 
         } else
         {
-            Des(cookie);
+            $('#step1').load("@Url.Action("Add_Page1","Product",null,Request.Url.Scheme)", function () {
+                Des(cookie);
+            });
+            
         }
 
         

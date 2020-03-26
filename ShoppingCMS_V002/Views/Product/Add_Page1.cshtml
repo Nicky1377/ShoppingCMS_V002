@@ -5,6 +5,8 @@
 }
 
 <div style="display:none" id="page">1</div>
+<div style="display:none" id="Mpro_"></div>
+<button style="display:none" type="button" id="EditBtnP1" onclick="return EditBtnP1Clk()" class="btn btn-warning"><i class="fa fa-edit"></i> ویرایش</button>
 <div class="kt-form__section kt-form__section--first">
     <div class="kt-wizard-v3__form">
 
@@ -47,7 +49,7 @@
                         <label>عکس ها</label>
                         <button id="picss" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_6" onclick="modalloader()"><i class="fa fa-upload"><span style="font-family: IRANSansWeb;">آپلود عکس</span></i></button>
                         <input type="hidden" id="Pics_p1" class="form-control" placeholder="" />
-                        <input class="form-text text-muted" id="Pics_p2" readonly="readonly"></input>
+                        <input class="form-text text-muted" id="Pics_p2" readonly="readonly" />
                     </div>
 
                     <!----------------------------------------------------------------------------------------------->
@@ -74,9 +76,9 @@
             <button id="Sub_btn1" onclick="submitNextPage('New')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%">
                 ثبت
             </button>
-            @*<button id="Sub_btn2" onclick="submitNextPage('Edit')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; display:none">
+            <button id="Sub_btn12" onclick="submitNextPage('Edit')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; display:none">
                 ثبت
-            </button>*@
+            </button>
         </div>
     </div>
 
@@ -139,39 +141,29 @@
                 IsAd = 0;
             }
             //alert(IsAd);
-
-            var act = $('#ActDiv').text();
-            var PostJson;
-            if (act == 'insert') {
-                PostJson = {
-                    'Act_ToDo': 'insert',
-                    'Title': Title,
-                    'Description': Description,
-                    'SEO_keyword': SEO_keyword,
-                    'SEO_description': SEO_description,
-                    'SearchGravity': SearchGravity,
-                    'IsAd': IsAd,
-                    'id_CreatedByAdmin': 1,
-                    'pics': pics
-                };
-            } else if (act == 'edit') {
-                var id = $('#IdtDiv').text();
-                PostJson = {
-                    'Act_ToDo': 'update',
-                    'id': id,
-                    'Title': Title,
-                    'Description': Description,
-                    'SEO_keyword': SEO_keyword,
-                    'SEO_description': SEO_description,
-                    'SearchGravity': SearchGravity,
-                    'IsAd': IsAd,
-                    'id_CreatedByAdmin': 1,
-                    'pics': pics
-                };
+            var action__ = "";
+            var Id__ = '';
+            if (parameters == "New") {
+                action__ = "insert";
+            } else if (parameters == "Edit") {
+                action__ = "update";
+                Id__ = $('#Mpro_').text();
             }
+            
+            var PostJson = {
+                'Act_ToDo': action__,
+                'Title': Title,
+                'Description': Description,
+                'SEO_keyword': SEO_keyword,
+                'SEO_description': SEO_description,
+                'SearchGravity': SearchGravity,
+                'IsAd': IsAd,
+                'id_CreatedByAdmin': 1,
+                'pics': pics,
+                'Mpro_id': Id__
+            };
 
-
-
+            alert(Id__);
             $.ajax({
                 url: '/Product/Save_Step1',
                 type: "post",
@@ -180,11 +172,20 @@
                 success: function (response) {
                     $("#ERRAlertEdit1").hide(300);
                     $("#SuccesAlertEdit1").show(300);
-                    
-                    var url = "@Url.Action("Add_Page2","Product",null,Request.Url.Scheme)?Id=" + response ;
-                    $('#step2').load(url);
+
+                    var url = "";
+                    if (parameters == "New") {
+                        Id__ = response;
+                        url = "@Url.Action("Add_Page2","Product",null,Request.Url.Scheme)?Id=" + Id__;
+                        $('#step2').load(url);
+                    } else if (parameters == "Edit") {
+                        Id__ = $('#Mpro_').text();
+                        url = "@Url.Action("Add_Page2","Product",null,Request.Url.Scheme)?Id=" + Id__;
+                    }
+                    $('#Mpro_').text(Id__);
                     FreezItmsP1();
                     $('#Url_2').text(url);
+                    
                     
                     $("#Sub_btn1").hide(200);
                     $("#btn_next").show(200);
@@ -249,6 +250,20 @@
 
 
     //============================================END::UploaderJs
+
+    function EditBtnP1Clk()
+    {
+        $('#EditBtnP1').hide();
+        $('#Sub_btn12').show();
+        $('#Title_p1').prop("disabled", false);
+        $('#Description_p1').prop("disabled", false);
+        $('#SEO_keyword_p1').prop("disabled", false);
+        $('#SEO_description_p1').prop("disabled", false);
+        $('#SearchGravity_p1').prop("disabled", false);
+        $('#IsAd_p1').prop("disabled", false);
+        $('#picss').prop("disabled", false);
+  
+    }
 
 </script>
 

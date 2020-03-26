@@ -401,8 +401,6 @@ namespace ShoppingCMS_V002.Controllers
                 return Content("{\"Res\":\"-1\"}");
         }
 
-
-
         [HttpPost]
         public ActionResult UploadImageResult(string Whattodo)
         {
@@ -541,13 +539,13 @@ namespace ShoppingCMS_V002.Controllers
         //============================================================END::UploadController
 
         [HttpPost]
-        public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity, int IsAd, string pics, int id = 0)
+        public ActionResult Save_Step1(string Act_ToDo, int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity, int IsAd, string pics, int Mpro_id = 0)
         {
             string SSSession = "";   CheckAccess check = new CheckAccess(SSSession);
             if (check.HasAccess)
             {
                 ModelFiller MF = new ModelFiller();
-                string itmId = MF.Product_Action_Step1(Act_ToDo, id_CreatedByAdmin, Title, Description, SEO_keyword, SEO_description, SearchGravity, IsAd);
+                string itmId = MF.Product_Action_Step1(Act_ToDo, id_CreatedByAdmin, Title, Description, SEO_keyword, SEO_description, SearchGravity, IsAd, Mpro_id);
 
                 PDBC db = new PDBC("PandaMarketCMS", true);
                 db.Connect();

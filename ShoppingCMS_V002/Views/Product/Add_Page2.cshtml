@@ -9,13 +9,14 @@
 <!-- begin:: div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content" -->
 <!-- begin:: div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" -->
 <!-- begin:: Tozihat Optional -->
-<div class="row">
-    <div class="col">
-        <div style="display:none" id="Mpro_">@Model.Id</div>
-        <div style="display:none" id="Url_3" ></div>
-        <div style="display:none" id="OptionTbl_3" ></div>
+    <div class="row">
+        <button style="display:none" type="button" id="EditBtnP2" onclick="return EditBtnP2Clk()" class="btn btn-warning"><i class="fa fa-edit"></i> ویرایش</button>
+        <div class="col">
+
+            <div style="display:none" id="Url_3"></div>
+            <div style="display:none" id="OptionTbl_3"></div>
+        </div>
     </div>
-</div>
 <!-- end:: Tozihat Optional -->
 <div class="kt-portlet">
     <div class="kt-portlet__body">
@@ -252,6 +253,15 @@
 
         }
 
+        function EditBtnP2Clk()
+        {
+            $("#Select2_A").prop("disabled", false);
+            $("#Select2_B").prop("disabled", false);
+            $("#Select2_C").prop("disabled", false);
+            $("#kt_select2_multiple").prop("disabled", false);
+            $("#Sub_btn2").show(200);
+            $("#EditBtnP2").hide(200);
+        }
 
 
     </script>

@@ -306,7 +306,7 @@ namespace ShoppingCMS_V002.OtherClasses
 
         }
 
-       public string Product_Action_Step1(string Action,int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity, int IsAd)
+       public string Product_Action_Step1(string Action,int id_CreatedByAdmin, string Title, string Description, string SEO_keyword, string SEO_description, string SearchGravity, int IsAd,int id_pr=0)
         {
             List<ExcParameters> paramss = new List<ExcParameters>();
             PDBC db = new PDBC("PandaMarketCMS", true);
@@ -370,7 +370,7 @@ namespace ShoppingCMS_V002.OtherClasses
             }
             else if (Action == "update")
             {
-
+                query = "UPDATE [tbl_Product] SET [Description] = @Description ,[Title] = @Title,[Seo_Description] = @SEO_description,[Seo_KeyWords] = @SEO_keyword ,[IS_AD] = @IsAd ,[Search_Gravity] = @SearchGravity WHERE id_MProduct=" + id_pr;
             }
             else if (Action == "delete")
             {
