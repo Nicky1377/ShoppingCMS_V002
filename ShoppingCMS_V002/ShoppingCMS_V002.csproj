@@ -2268,6 +2268,7 @@
     <Content Include="SQL\ESF98\15\edit database.txt" />
     <Content Include="SQL\ESF98\20\pandaScript.sql" />
     <Content Include="SQL\ESF98\22\ScriptDatatable.sql" />
+    <Content Include="SQL\FAR99\7\PandaScript.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
