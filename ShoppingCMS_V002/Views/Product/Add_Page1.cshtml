@@ -135,12 +135,12 @@
 
 
 
-            if ($('#IsAd_p1').val() == 'on') {
+            if ($('#IsAd_p1').prop("checked")) {
                 IsAd = 1;
             } else {
                 IsAd = 0;
             }
-            //alert(IsAd);
+            
             var action__ = "";
             var Id__ = '';
             if (parameters == "New") {
@@ -163,7 +163,7 @@
                 'Mpro_id': Id__
             };
 
-            alert(Id__);
+
             $.ajax({
                 url: '/Product/Save_Step1',
                 type: "post",

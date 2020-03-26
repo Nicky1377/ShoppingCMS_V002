@@ -1,0 +1,14 @@
+﻿@model ShoppingCMS_V002.Models.Id_ValueModel
+@{
+    ViewBag.Title = "ProductDetails";
+    Layout = "~/Views/Master/Master.cshtml";
+}
+
+<div id="details__"></div>
+
+<script>
+    $(document).ready(function () {
+        var url = "@Url.Action("Add_Page5","Product",null,Request.Url.Scheme)?Id=" +@Model.Id + "&SubId=" + @Model.Value;
+        $('#details__').load(url);
+    });
+</script>

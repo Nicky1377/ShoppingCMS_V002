@@ -59,6 +59,10 @@ namespace ShoppingCMS_V002.OtherClasses
                     Date = persianDateTime.ToString(),
                     PicPath = AppendServername(dt.Rows[i]["pic"].ToString())
                 };
+                DataTable dt2 = db.Select("SELECT [PicThumbnailAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner Join [tbl_Product_PicConnector] as B ON A.PicID=B.PicID where B.id_MProduct=" + model.Id);
+
+                model.PicPath = AppendServername(dt2.Rows[0]["PicThumbnailAddress"].ToString());
+
                 if (dt.Rows[i]["IS_AVAILABEL"].ToString() == "1")
                 {
                     model.disabled = false;
@@ -299,7 +303,17 @@ namespace ShoppingCMS_V002.OtherClasses
 
             if (query != "")
             {
-                return db.Script(query, paramss);
+                string res = db.Script(query, paramss);
+                if (action == "insert")
+                {
+                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(" + res + ",@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE())");
+                }
+                else if (action == "update")
+                {
+                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(@id_MProduct,@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE())");
+                }
+
+                    return res;
             }
             else
                 return "0";
@@ -823,6 +837,37 @@ namespace ShoppingCMS_V002.OtherClasses
             }
 
             return result;
+        }
+
+        public UpdateProModel UpdateProFiller(int id)
+        {
+            
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            DataTable dt = db.Select("SELECT [id_MProduct],[Description],[Title],[Seo_Description],[Seo_KeyWords],[IS_AD],[Search_Gravity] FROM [tbl_Product] where id_MProduct=" + id);
+
+            var res = new UpdateProModel() 
+            {
+                Id=Convert.ToInt32(dt.Rows[0]["id_MProduct"]),
+                Title=dt.Rows[0]["Title"].ToString(),
+                Description=dt.Rows[0]["Description"].ToString(),
+                SEO_keyword= dt.Rows[0]["Seo_KeyWords"].ToString(),
+                SEO_Description= dt.Rows[0]["Seo_Description"].ToString(),
+                SearchGravity=Convert.ToInt32(dt.Rows[0]["Search_Gravity"]),
+                IsAd= dt.Rows[0]["IS_AD"].ToString()
+            };
+
+            
+
+            DataTable dt2 = db.Select("SELECT [PicID] FROM [tbl_Product_PicConnector] where id_MProduct="+id);
+            string s = "";
+            for (int i = 0; i < dt2.Rows.Count; i++)
+            {
+                s += dt2.Rows[i]["PicID"] + ",";
+            }
+
+            res.Pics = s;
+            return res;
         }
     }
 }

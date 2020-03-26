@@ -297,7 +297,7 @@ function FreezItmsP2() {
     $("#Select2_C").prop("disabled", true);
     $("#kt_select2_multiple").prop("disabled", true);
     $("#Sub_btn2").hide(200);
-    $("#EditBtnP1").show(200);
+    $("#EditBtnP2").show(200);
     
 }
 
@@ -311,6 +311,7 @@ function FreezItmsP3() {
     $('#Add_Key').prop("disabled", true);
     $('#Add_Value').prop("disabled", true);
     $("#Sub_btn3").hide(200);
+    $("#EditBtnP3").show(200);
 }
 
 function fillItms(json) {

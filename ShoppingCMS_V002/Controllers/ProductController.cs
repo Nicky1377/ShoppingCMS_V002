@@ -1020,5 +1020,35 @@ namespace ShoppingCMS_V002.Controllers
                 return RedirectToAction("NotAccess", "MS");
         }
 
+
+        public ActionResult Update_Product(int Id_Pro)
+        {
+            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            if (check.HasAccess)
+            {
+                 ModelFiller MF = new ModelFiller();
+                
+                return View(MF.UpdateProFiller(Id_Pro));
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
+        public ActionResult ProductDetails(int Id_Pro,int Sub)
+        {
+            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            if (check.HasAccess)
+            {
+                var model = new Id_ValueModel()
+                {
+                    Id = Id_Pro,
+                    Value = Sub.ToString()
+                };
+                return View(model);
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
     }
+
 }

@@ -155,6 +155,7 @@
     <Compile Include="Models\TreeModel.cs" />
     <Compile Include="Models\type.cs" />
     <Compile Include="Models\TypeASPX.cs" />
+    <Compile Include="Models\UpdateProModel.cs" />
     <Compile Include="ModelViews\AddProductModelV_2.cs" />
     <Compile Include="ModelViews\AddProductModelV_3.cs" />
     <Compile Include="ModelViews\AddProductModelV_4.cs" />
@@ -2322,6 +2323,8 @@
     <Content Include="Views\Product\loadGallery.cshtml" />
     <Content Include="Views\MS\LoginAuth.cshtml" />
     <Content Include="Views\Product\ShowCatTree.cshtml" />
+    <Content Include="Views\Product\Update_Product.cshtml" />
+    <Content Include="Views\Product\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

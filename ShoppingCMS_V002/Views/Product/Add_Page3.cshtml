@@ -3,87 +3,89 @@
 @{
     ViewBag.Title = "Add_Page3";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
 }
-
-    <div class="kt-portlet">
-        <div style="display:none" id="abcd">@Model.Id</div>
-        <div style="display:none" id="Url_4"></div>
-        
-        <div class="kt-portlet__body">
-            <!--begin::Section-->
-            <div class="kt-section">
-
-                @foreach (var item in Model.Item_List)
-                {
-                    @Html.Partial("_OptionValue", item);
-                }
+<button style="display:none; margin-bottom:1%" type="button" id="EditBtnP3" onclick="return EditBtnP3Clk()" class="btn btn-warning"><i class="fa fa-edit"></i> ویرایش</button>
+<div class="kt-portlet">
+    <div style="display:none" id="abcd">@Model.Id</div>
+    <div style="display:none" id="Url_4"></div>
 
 
-                <div style="margin-top:1%" id="Add_option" class="form-group ">
-                    <label>ثبت جزئیات</label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Key :</span>
-                        </div>
-                        <input id="Add_Key" type="text" class="form-control" aria-label="Text input with checkbox">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Value : </span>
-                        </div>
-                        <input id="Add_Value" type="text" class="form-control" aria-label="Text input with checkbox">
-                        <div class="input-group-prepend">
-                            <button id="NewClkSub" class="btn btn-success" type="button" onclick="return NewClick(@Model.Id)">ثبت!</button>
-                        </div>
+    <div class="kt-portlet__body">
+
+        <!--begin::Section-->
+        <div class="kt-section">
+
+            @foreach (var item in Model.Item_List)
+            {
+                @Html.Partial("_OptionValue", item);
+            }
+
+
+            <div style="margin-top:1%" id="Add_option" class="form-group ">
+                <label>ثبت جزئیات</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Key :</span>
+                    </div>
+                    <input id="Add_Key" type="text" class="form-control" aria-label="Text input with checkbox">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Value : </span>
+                    </div>
+                    <input id="Add_Value" type="text" class="form-control" aria-label="Text input with checkbox">
+                    <div class="input-group-prepend">
+                        <button id="NewClkSub" class="btn btn-success" type="button" onclick="return NewClick(@Model.Id)">ثبت!</button>
                     </div>
                 </div>
+            </div>
 
-                <div id="editOption" class="form-group " style="display:none; margin-top:1%">
-                    <label>ویرایش جزئیات</label>
-                    <div style="display:none" id="edit_id"></div>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Key :</span>
-                        </div>
-                        <input id="edit_key" type="text" class="form-control">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Value : </span>
-                        </div>
-                        <input id="edit_value" type="text" class="form-control">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-warning" type="button" onclick="return EditClick(@Model.Id)">اعمال تغییرات!</button>
-                        </div>
+            <div id="editOption" class="form-group " style="display:none; margin-top:1%">
+                <label>ویرایش جزئیات</label>
+                <div style="display:none" id="edit_id"></div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Key :</span>
+                    </div>
+                    <input id="edit_key" type="text" class="form-control">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Value : </span>
+                    </div>
+                    <input id="edit_value" type="text" class="form-control">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-warning" type="button" onclick="return EditClick(@Model.Id)">اعمال تغییرات!</button>
                     </div>
                 </div>
-                <!--begin::Alerts-->
-                <div id="SuccesAlertEdit3" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
-                    <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                    <div class="alert-text">با موفقیت ثبت شد!</div>
-                </div>
-                <div id="ERRAlertEdit3" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
-                    <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                    <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
-                </div>
-                <!--End::Alerts-->
-                <div id="optiontable">
-
-                </div>
-
+            </div>
+            <!--begin::Alerts-->
+            <div id="SuccesAlertEdit3" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="alert-text">با موفقیت ثبت شد!</div>
+            </div>
+            <div id="ERRAlertEdit3" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+            </div>
+            <!--End::Alerts-->
+            <div id="optiontable">
 
             </div>
-        </div>
-        <div class="kt-portlet__foot">
-            <div class="kt-form__actions">
-                <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
-                    <button id="Sub_btn3" style="width: 100%;" class="btn btn-success" onclick="return SubmitedType3()">ثبت</button>
-                </div>
 
+
+        </div>
+    </div>
+    <div class="kt-portlet__foot">
+        <div class="kt-form__actions">
+            <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
+                <button id="Sub_btn3" style="width: 100%;" class="btn btn-success" onclick="return SubmitedType3()">ثبت</button>
             </div>
+
         </div>
-        <!--end::Form-->
-        <!--begin::Page Scripts(used by this page) -->
+    </div>
+    <!--end::Form-->
+    <!--begin::Page Scripts(used by this page) -->
+</div>
 
-
-        <script>
+    <script>
         $(document).ready(function () {
             //========================================Begin :: init
 
@@ -180,7 +182,7 @@
                         var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id='+pId;
                         $('#optiontable').load(url);
 
-                        alert("success");
+                        
                         $('#SuccesAlertEdit3').show();
                         setTimeout(function () { $('#SuccesAlertEdit3').hide(500); }, 2000);
                         $('#ERRAlertEdit3').hide(200);
@@ -196,16 +198,16 @@
                     }
                 });
             } else {
-                //alert("else");
+                
                 $('#ERRAlertEdit3').show(200);
             }
         }
 
         function NewClick(id) {
 
-            //alert("NewClick");
+            
             var key = $('#Add_Key').val();
-           // alert(key);
+           
             var Value = $('#Add_Value').val();
             if (key != "" && Value != "") {
                 var PostJson = {
@@ -225,7 +227,7 @@
                         $('#optiontable').load(url);
                         $('#Add_Key').val("");
                         $('#Add_Value').val("");
-                        alert("success");
+                        
                         $('#SuccesAlertEdit3').show(200);
                         $('#ERRAlertEdit3').hide(200);
                     },
@@ -234,7 +236,7 @@
                     }
                 });
             } else {
-               // alert("else");
+               
                 $('#ERRAlertEdit3').show(200);
             }
         }
@@ -276,7 +278,7 @@
                         $("#Sub_btn3").hide(200);
                         $("#btn_next").show(200);
                          ChangeAllInput('4');
-                        
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.log(textStatus, errorThrown);
@@ -284,8 +286,21 @@
                 });
             }
 
-        }
-        </script>
-        <!--end::Page Scripts -->
+            }
 
-    </div>
+             function EditBtnP3Clk()
+        {
+                 $('.tshpSelect23').each(function (e, obj) {
+                     var idSelected = obj.id.replace("tshpSelect2-", "");
+                     $('#tshpSelect2-' + idSelected).prop("disabled", false);
+                 });
+
+                 $('#NewClkSub').prop("disabled", false);
+                 $('#Add_Key').prop("disabled", false);
+                 $('#Add_Value').prop("disabled", false);
+                 $("#Sub_btn3").show(200);
+                 $("#EditBtnP3").hide(200);
+        }
+    </script>
+    <!--end::Page Scripts -->
+

@@ -1,0 +1,401 @@
+﻿@model ShoppingCMS_V002.Models.UpdateProModel
+@{
+    ViewBag.Title = "Update_Product";
+    Layout = "~/Views/Master/Master.cshtml";
+}
+
+@Scripts.Render("~/bundles/jqueryCore.js")
+@Scripts.Render("~/bundles/AddProduct.js")
+@Scripts.Render("~/bundles/Ckeditor.js")
+@Scripts.Render("~/bundles/AddProScript.js")
+
+<div class="kt-subheader   kt-grid__item" id="kt_subheader">
+    <div class="kt-container  kt-container--fluid ">
+        <div class="kt-subheader__main">
+            <div class="kt-subheader__breadcrumbs">
+                <a href="#" class="kt-subheader__breadcrumbs-home" style="display: inline-flex;">
+                    <h3 class="kt-subheader__title">داشبورد</h3>
+
+                    <span class="kt-subheader__separator kt-hidden"></span>
+
+
+                    <i class="flaticon2-shelter"></i>
+                </a>
+                <span class="kt-subheader__breadcrumbs-separator"></span>
+                <a href="#" id="PageName" class="kt-subheader__breadcrumbs-link">ویرایش محصول</a>
+
+            </div>
+        </div>
+        <div class="kt-subheader__toolbar">
+            <div class="kt-subheader__wrapper">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="kt-portlet">
+        <div class="kt-portlet__body kt-portlet__body--fit">
+            <div class="kt-grid kt-wizard-v3 kt-wizard-v3--white" id="kt_wizard_v3" data-ktwizard-state="step-first">
+                <div class="kt-grid__item">
+                    <!--begin: Form Wizard Nav -->
+                    <div class="kt-wizard-v3__nav">
+                        <!--doc: Remove "kt-wizard-v3__nav-items--clickable" class and also set 'clickableSteps: false' in the JS init to disable manually clicking step titles -->
+                        <div class="kt-wizard-v3__nav-items kt-wizard-v3__nav-items--clickable">
+                            <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
+                                <div class="kt-wizard-v3__nav-body">
+                                    <div class="kt-wizard-v3__nav-label">
+                                        <span>1</span> اطلاعات کلی محصول
+                                    </div>
+                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                </div>
+                            </div>
+                            <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
+                                <div class="kt-wizard-v3__nav-body">
+                                    <div class="kt-wizard-v3__nav-label">
+                                        <span>2</span> ویژگی های محصول
+                                    </div>
+                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end: Form Wizard Nav -->
+                </div>
+                <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
+
+                    <!--begin: Form Wizard Form-->
+                    <div class="kt-form" style="width:85%!important;" id="kt_form">
+                        <!--begin: Form Wizard Step 1-->
+                        <div id="step1" class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+                            <div class="kt-form__section kt-form__section--first">
+                                <div class="kt-wizard-v3__form">
+
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                
+                                                <div class="form-group">
+                                                    <label>نام محصول</label>
+                                                    <input id="Title_p1" class="form-control" placeholder="" value="@Model.Title"/>
+                                                    <span class="form-text text-muted">نام و موضوع محصول خود را وارد کنید.</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>توضیحات محصول</label>
+                                                    <input id="Description_p1" class="form-control" placeholder="" type="text" value="@Model.Description"/>
+                                                    <span class="form-text text-muted">توضیحات محصول خود را وارد کنید.</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>کلید واژه ی سئو</label>
+                                                    <input id="SEO_keyword_p1" class="form-control" placeholder="" value="@Model.SEO_keyword" />
+                                                    <span class="form-text text-muted">کلید واژه برای موتور جست و جوی گوگل.</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>توضیحات سئو</label>
+                                                    <input id="SEO_description_p1" class="form-control" placeholder="" value="@Model.SEO_Description"/>
+                                                    <span class="form-text text-muted">توضیحات برای موتور جست و جوی گوگل.</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>ارزش جست و جو</label>
+                                                    <input id="SearchGravity_p1" class="form-control" placeholder="" type="number" value="@Model.SearchGravity"/>
+                                                    <span class="form-text text-muted">نتایج جست و جوی کاربران براین اساس نمایش داده خواهند شد.</span>
+                                                </div>
+                                                <label class="kt-checkbox kt-checkbox--brand">
+                                                    <input id="IsAd_" class="form-control" type="checkbox"/>تبلیغ شود؟
+                                                    <span></span>
+                                                </label>
+
+                                                <!----------------------------------------------------------------------------------------------->
+                                                <div class="form-group">
+                                                    <label>عکس ها</label>
+                                                    <button id="picss" class="btn btn-bold btn-label-brand btn-sm" data-toggle="modal" data-target="#kt_modal_6" onclick="modalloader()"><i class="fa fa-upload"><span style="font-family: IRANSansWeb;">آپلود عکس</span></i></button>
+                                                    <input type="hidden" id="Pics_p1" class="form-control" placeholder="" value="@Model.Pics"/>
+                                                    <input class="form-text text-muted" id="Pics_p2" readonly="readonly" value="@Model.Pics"/>
+                                                </div>
+
+                                                <!----------------------------------------------------------------------------------------------->
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <!--begin::Alerts-->
+                                <div id="SuccesAlertEdit1" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                                    <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                                    <div class="alert-text">با موفقیت ثبت شد!</div>
+                                </div>
+                                <div id="ERRAlertEdit1" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                                    <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                                    <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+                                </div>
+                                <!--End::Alerts-->
+
+                            </div>
+
+                            <div class="modal fade" id="kt_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+
+                                <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="row w-100">
+                                                <div class="col-10">
+                                                    <button class="btn btn-success" id="btnpageUp-0" onclick="return UploadModalPage(this,0)">آپلود</button>
+                                                    <button class="btn btn-primary" id="btnpageUp-1" onclick="return UploadModalPage(this,1)">گالری</button>
+
+                                                </div>
+                                                <div class="col-2">
+
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <input style="width: 100%; height: 50px; display: none" type="text" value="" id="modalRep1">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                                            <button type="button" class="btn btn-primary" onclick="savePicss()" data-dismiss="modal">اتمام فرایند</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--end: Form Wizard Step 1-->
+                        <!--begin: Form Wizard Step 3-->
+                        <div id="step3" class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+                            <div class="kt-portlet">
+                                <div style="display:none" id="abcd">@Model.Id</div>
+                                <div style="display:none" id="Url_4"></div>
+
+
+                                <div class="kt-portlet__body">
+
+                                    <!--begin::Section-->
+                                    <div class="kt-section">
+                                        <div style="margin-top:1%" id="Add_option" class="form-group ">
+                                            <label>ثبت جزئیات</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Key :</span>
+                                                </div>
+                                                <input id="Add_Key" type="text" class="form-control" aria-label="Text input with checkbox">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Value : </span>
+                                                </div>
+                                                <input id="Add_Value" type="text" class="form-control" aria-label="Text input with checkbox">
+                                                <div class="input-group-prepend">
+                                                    <button id="NewClkSub" class="btn btn-success" type="button" onclick="return NewClick(@Model.Id)">ثبت!</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="editOption" class="form-group " style="display:none; margin-top:1%">
+                                            <label>ویرایش جزئیات</label>
+                                            <div style="display:none" id="edit_id"></div>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Key :</span>
+                                                </div>
+                                                <input id="edit_key" type="text" class="form-control">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Value : </span>
+                                                </div>
+                                                <input id="edit_value" type="text" class="form-control">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-warning" type="button" onclick="return EditClick(@Model.Id)">اعمال تغییرات!</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--begin::Alerts-->
+                                        <div id="SuccesAlertEdit3" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                                            <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                                            <div class="alert-text">با موفقیت ثبت شد!</div>
+                                        </div>
+                                        <div id="ERRAlertEdit3" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                                            <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                                            <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+                                        </div>
+                                        <!--End::Alerts-->
+                                        <div id="optiontable">
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <!--end::Form-->
+                                <!--begin::Page Scripts(used by this page) -->
+                            </div>
+                        </div>
+                        <!--end: Form Wizard Step 3-->
+                        <!--begin: Form Actions -->
+                        <div class="kt-form__actions">
+                            <button class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
+                                Previous
+                            </button>
+                            <button id="btn_Submit" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit" onclick="return submitNextPage()">
+                                ثبت نهایی
+                            </button>
+                            <button id="btn_next" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next" >
+                                Next Step
+                            </button>
+                        </div>
+                        <!--end: Form Actions -->
+
+                    </div>
+                    <!--end: Form Wizard Form-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end:: Content -->
+<script>
+        $(document).ready(function () {
+            //========================================Begin :: init
+
+           var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id=@Model.Id';
+            $('#optiontable').load(url);
+            alert($('#IsAd_').prop("checked"));
+            
+            if (@Model.IsAd=="1") {
+                $('#IsAd_').prop("checked", true);
+            } else {
+                $('#IsAd_').prop("checked", false);
+            }
+           //=========================================End :: init
+
+        });
+
+
+        function EditClick(pId) {
+            var id = $('#edit_id').text();
+            var key = $('#edit_key').val();
+
+            var Value = $('#edit_value').val();
+            if (key != "" && Value != "") {
+                var PostJson = {
+                    'action': 'edit',
+                    'id': id,
+                    'Key': key,
+                    'value': Value
+                };
+                $.ajax({
+                    url: "/Product/Op_delete_edit",
+                    type: "post",
+                    data: PostJson,
+                    success: function (response) {
+
+                        var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id='+pId;
+                        $('#optiontable').load(url);
+
+                        alert("success");
+                        $('#SuccesAlertEdit3').show();
+                        setTimeout(function () { $('#SuccesAlertEdit3').hide(500); }, 2000);
+                        $('#ERRAlertEdit3').hide(200);
+                        setTimeout(function ()
+                        {
+                            $('#editOption').hide();
+                            $('#Add_option').show();
+                        }
+                            , 3000);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            } else {
+                $('#ERRAlertEdit3').show(200);
+            }
+        }
+
+        function NewClick(id) {
+
+            var key = $('#Add_Key').val();
+            var Value = $('#Add_Value').val();
+            if (key != "" && Value != "") {
+                var PostJson = {
+                    'action': 'new',
+                    'id': id,
+                    'Key': key,
+                    'value': Value
+                };
+
+                $.ajax({
+                    url: "/Product/Op_delete_edit",
+                    type: "post",
+                    data: PostJson,
+                    success: function (response) {
+
+                        var url = '@Url.Action("Options_Table","Product",null,Request.Url.Scheme)?id='+id;
+                        $('#optiontable').load(url);
+                        $('#Add_Key').val("");
+                        $('#Add_Value').val("");
+                        alert("success");
+                        $('#SuccesAlertEdit3').show(200);
+                        $('#ERRAlertEdit3').hide(200);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+            } else {
+                $('#ERRAlertEdit3').show(200);
+            }
+        }
+
+    function submitNextPage() {
+        var Title = $('#Title_p1').val();
+        var Description = $('#Description_p1').val();
+        var SEO_keyword = $('#SEO_keyword_p1').val();
+        var SEO_description = $('#SEO_description_p1').val();
+        var SearchGravity = $('#SearchGravity_p1').val();
+        var IsAd;
+        var pics = $('#Pics_p1').val();
+
+        if (Title != "" && Description != "" && SEO_keyword != "" && SEO_description != "" && SearchGravity != "") {
+            if ($('#IsAd_').prop("checked")) {
+                IsAd = 1;
+            } else {
+                IsAd = 0;
+            }
+
+            var Id__ = @Model.Id;
+
+            var PostJson = {
+                'Act_ToDo': "update",
+                'Title': Title,
+                'Description': Description,
+                'SEO_keyword': SEO_keyword,
+                'SEO_description': SEO_description,
+                'SearchGravity': SearchGravity,
+                'IsAd': IsAd,
+                'id_CreatedByAdmin': 1,
+                'pics': pics,
+                'Mpro_id': Id__
+            };
+
+            $.ajax({
+                url: '/Product/Save_Step1',
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#ERRAlertEdit1").hide(300);
+                    $("#SuccesAlertEdit1").show(300);
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+        }
+    }
+      
+</script>
+<!--end::Page Scripts -->

@@ -9,20 +9,22 @@
 <!-- begin:: div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content" -->
 <!-- begin:: div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" -->
 <!-- begin:: Tozihat Optional -->
-    <div class="row">
-        <button style="display:none" type="button" id="EditBtnP2" onclick="return EditBtnP2Clk()" class="btn btn-warning"><i class="fa fa-edit"></i> ویرایش</button>
-        <div class="col">
+<button style="display:none; margin-bottom:1%" type="button" id="EditBtnP2" onclick="return EditBtnP2Clk()" class="btn btn-warning"><i class="fa fa-edit"></i> ویرایش</button>
 
-            <div style="display:none" id="Url_3"></div>
-            <div style="display:none" id="OptionTbl_3"></div>
-        </div>
+<div class="row">
+
+    <div class="col">
+
+        <div style="display:none" id="Url_3"></div>
+        <div style="display:none" id="OptionTbl_3"></div>
     </div>
+</div>
 <!-- end:: Tozihat Optional -->
 <div class="kt-portlet">
+
     <div class="kt-portlet__body">
         <!--begin::Section-->
         <div class="kt-section">
-
 
             <div class="form-group row">
                 <label class="col-form-label col-lg-3 col-sm-12">سر دسته ی محصولات</label>
@@ -61,58 +63,58 @@
                     <select disabled class="form-control kt-select2" id="kt_select2_multiple" name="param" multiple="multiple" onchange=" MultSelectorSelect()" style="width: 100%;">
                     </select>
                     @*<div style="display: block;" class="invalid-feedback">Shucks, check the formatting of that and try again.</div>*@
-                   </div>
-
-                </div>
-
-
-
-
-
-
-
-                <!--begin::Alerts-->
-                <div id="SuccesAlertEdit2" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
-                    <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                    <div class="alert-text">با موفقیت ثبت شد!</div>
-                </div>
-                <div id="ERRAlertEdit2" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
-                    <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
-                    <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
-                </div>
-                <!--End::Alerts-->
-
-
-            </div>
-        </div>
-        <div class="kt-portlet__foot">
-            <div class="kt-form__actions">
-                <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
-                    <button id="Sub_btn2" style="width: 100%;" class="btn btn-success" onclick="return SubmitedType2()">ثبت</button>
                 </div>
 
             </div>
+
+
+
+
+
+
+
+            <!--begin::Alerts-->
+            <div id="SuccesAlertEdit2" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="alert-text">با موفقیت ثبت شد!</div>
+            </div>
+            <div id="ERRAlertEdit2" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+                <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+            </div>
+            <!--End::Alerts-->
+
+
         </div>
-        <!--end::Form-->
     </div>
+    <div class="kt-portlet__foot">
+        <div class="kt-form__actions">
+            <div class="col-lg-6 offset-lg-3 col-md-6 offset-md-3 col-sm-12 col-xs-12">
+                <button id="Sub_btn2" style="width: 100%;" class="btn btn-success" onclick="return SubmitedType2()">ثبت</button>
+            </div>
+
+        </div>
+    </div>
+    <!--end::Form-->
+</div>
 
 
 
-<input disabled="disabled"style="display: none"id="addpage3" value="" />
+<input disabled="disabled" style="display: none" id="addpage3" value="" />
 
-    <!-- end:: div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" -->
-    <!-- end:: div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content" -->
-    <!--begin::Page Scripts(used by this page) -->
-    <script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
+<!-- end:: div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid" -->
+<!-- end:: div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content" -->
+<!--begin::Page Scripts(used by this page) -->
+<script src="assets/js/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
 
-    <script>
+<script>
         $(document).ready(function () {
             $("#Select2_A").select2();
             $("#Select2_B").select2();
             $("#Select2_C").select2();
             $("#kt_select2_multiple").select2();
 
-            
+
 
         });
         function MultSelectorSelect() {
@@ -207,7 +209,7 @@
 
 
         function SubmitedType2() {
-            
+
             if ($("#Select2_A option:selected").val() === '0') {
                 $("#ERRAlertEdit2").show(300);
             } else if ($("#Select2_B option:selected").val() === '0') {
@@ -264,5 +266,5 @@
         }
 
 
-    </script>
-    <!--end::Page Scripts -->
+</script>
+<!--end::Page Scripts -->
