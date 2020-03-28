@@ -2157,6 +2157,7 @@
     <Content Include="assets\media\users\user1.jpg" />
     <Content Include="assets\media\users\user4.jpg" />
     <Content Include="assets\media\users\user5.jpg" />
+    <Content Include="assets\NoImg.png" />
     <Content Include="assets\plugins\custom\ckeditor\ckeditor-balloon-block.bundle.js" />
     <Content Include="assets\plugins\custom\ckeditor\ckeditor-balloon.bundle.js" />
     <Content Include="assets\plugins\custom\ckeditor\ckeditor-classic.bundle.js" />

@@ -18,6 +18,7 @@ namespace ShoppingCMS_V002.Models
         public string AddBy { get; set; }
         public bool deleted { get; set; }
         public bool disabled { get; set; }
+        public int SubId { get; set; }
 
     }
 }

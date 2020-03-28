@@ -1049,6 +1049,31 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
+
+        public ActionResult Product_Actions(string ActToDo,int id)
+        {
+            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            if (check.HasAccess)
+            {
+                PDBC db = new PDBC("PandaMarketCMS", true);
+                db.Connect();
+                if (ActToDo=="Delete")
+                {
+                    db.Script("UPDATE [tbl_Product] SET [ISDELETE] = 1 WHERE id_MProduct=" + id);
+                }
+                else if (ActToDo == "Active")
+                {
+                    db.Script("UPDATE [tbl_Product] SET [IS_AVAILABEL] = 1 WHERE id_MProduct=" + id);
+                }
+                else if (ActToDo == "DeActive")
+                {
+                    db.Script("UPDATE [tbl_Product] SET [IS_AVAILABEL] = 0 WHERE id_MProduct=" + id);
+                }
+                return Content("Success");
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
     }
 
 }

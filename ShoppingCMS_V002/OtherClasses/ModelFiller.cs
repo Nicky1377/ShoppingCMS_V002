@@ -57,11 +57,19 @@ namespace ShoppingCMS_V002.OtherClasses
                     MainPrice = dt.Rows[i]["price"].ToString(),
                     Category = dt.Rows[i]["SubCat"].ToString() + "_" + dt.Rows[i]["MainCat"].ToString() + "_" + dt.Rows[i]["type"].ToString(),
                     Date = persianDateTime.ToString(),
-                    PicPath = AppendServername(dt.Rows[i]["pic"].ToString())
+                    PicPath = AppendServername(dt.Rows[i]["pic"].ToString()),
+                    SubId=Convert.ToInt32(dt.Rows[i]["id_SubCategory"])
                 };
                 DataTable dt2 = db.Select("SELECT [PicThumbnailAddress] FROM [tbl_ADMIN_UploadStructure_ImageAddress] as A inner Join [tbl_Product_PicConnector] as B ON A.PicID=B.PicID where B.id_MProduct=" + model.Id);
+                if(dt2.Rows.Count==0)
+                {
+                    model.PicPath = AppendServername("/assets/NoImg.png");
+                }
+                else {
+                    model.PicPath = AppendServername(dt2.Rows[0]["PicThumbnailAddress"].ToString());
+                }
 
-                model.PicPath = AppendServername(dt2.Rows[0]["PicThumbnailAddress"].ToString());
+                
 
                 if (dt.Rows[i]["IS_AVAILABEL"].ToString() == "1")
                 {
@@ -91,7 +99,7 @@ namespace ShoppingCMS_V002.OtherClasses
         {
             StringBuilder queryBuilder = new StringBuilder();
             queryBuilder.Append(
-                " SELECT[id_MProduct],[IS_AVAILABEL],[Description],[DateCreated],[Title],[ISDELETE],(SELECT top 1 [ThumbnailPicAddress]FROM[tbl_Product_Pic]where[tbl_Product_Pic].[id_MProduct]=[tbl_Product].[id_MProduct]) as [pic],(SELECT[PricePerquantity] FROM[tlb_Product_MainProductConnector]WHERE id_MPC=idMPC_WhichTomainPrice) AS price,(SELECT[AdminName]FROM[AdminTbl]where [AdminId]=[id_CreatedByAdmin])as AddBy,(SELECT [PTname]FROM [tbl_Product_Type]where[id_PT]=[id_Type])as [type],(SELECT[SCName]FROM [tbl_Product_SubCategory]where[id_SC]=[id_SubCategory])as SubCat,(SELECT[MCName]FROM [tbl_Product_MainCategory]where[id_MC]=[id_MainCategory])as MainCat FROM [tbl_Product]");
+                " SELECT[id_MProduct],[IS_AVAILABEL],[Description],[DateCreated],[Title],[id_SubCategory],[ISDELETE],(SELECT top 1 [ThumbnailPicAddress]FROM[tbl_Product_Pic]where[tbl_Product_Pic].[id_MProduct]=[tbl_Product].[id_MProduct]) as [pic],(SELECT[PricePerquantity] FROM[tlb_Product_MainProductConnector]WHERE id_MPC=idMPC_WhichTomainPrice) AS price,(SELECT[AdminName]FROM[AdminTbl]where [AdminId]=[id_CreatedByAdmin])as AddBy,(SELECT [PTname]FROM [tbl_Product_Type]where[id_PT]=[id_Type])as [type],(SELECT[SCName]FROM [tbl_Product_SubCategory]where[id_SC]=[id_SubCategory])as SubCat,(SELECT[MCName]FROM [tbl_Product_MainCategory]where[id_MC]=[id_MainCategory])as MainCat FROM [tbl_Product]");
 
             if (SearchBox)
             {
@@ -105,8 +113,6 @@ namespace ShoppingCMS_V002.OtherClasses
             queryBuilder.Append(" ORDER BY(DateCreated)DESC");
             return queryBuilder.ToString();
         }
-
-
 
         public List<Id_ValueModel> DropFiller(string drop , int id=0)
         {
@@ -306,11 +312,11 @@ namespace ShoppingCMS_V002.OtherClasses
                 string res = db.Script(query, paramss);
                 if (action == "insert")
                 {
-                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(" + res + ",@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE())");
+                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(" + res + ",@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE())",paramss);
                 }
                 else if (action == "update")
                 {
-                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(@id_MProduct,@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE())");
+                    db.Script("INSERT INTO [tbl_Product_PastProductHistory]VALUES(@id_MProduct,@PriceXquantity,@PricePerquantity,@PriceOff,@OffType,@id_MainStarTag,GETDATE())",paramss);
                 }
 
                     return res;

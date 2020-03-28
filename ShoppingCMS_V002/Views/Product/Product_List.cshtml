@@ -64,10 +64,75 @@
     </div>
 </div>
 <!-- end:: Content -->
+<!-- Modal -->
+<div class="modal fade" id="kt_modal_Del" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLongTitle">حذف کردن</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="Id_Modal_del" style="display:none"></div>
+                <p>آیا از حذف کردن این محصول مطمئن هستید ؟</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">منصرف شدم</button>
+                <button type="button" class="btn btn-danger" onclick="return Model_Click_Del()" data-dismiss="modal">بله حذف کن!</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="kt_modal_DeAct" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLongTitle">غیرفعال کردن </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="Id_Modal_deAct" style="display:none"></div>
+                <p>آیا از غیرفعال کردن این محصول مطمئن هستید ؟</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">منصرف شدم</button>
+                <button type="button" class="btn btn-warning" onclick="return Model_Click_DeAct()" data-dismiss="modal">بله غیرفعال کن!</button>
+            </div>
+        </div> 
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="kt_modal_Act" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="Id_Modal_act" style="display:none"></div>
+                <p>آیا از فعال کردن این محصول مطمئن هستید ؟</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">منصرف شدم</button>
+                <button type="button" class="btn btn-success" onclick="return Model_Click_Act()" data-dismiss="modal">بله فعال کن!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @Scripts.Render("~/bundles/jqueryCore.js")
 <script>
     $(document).ready(function () {
-        var url = unescape('@Url.Action("Product_table","Product",new { SearchBox="false"},Request.Url.Scheme)');
+        var url = '@Url.Action("Product_table","Product",null,Request.Url.Scheme)?SearchBox=false';
         $('#table').load(url);
     });
 
@@ -81,11 +146,109 @@
     function sClick() {
         var m = $('#search_box').val();
         //alert("hello");
-         var url = unescape('@Url.Action("Product_table","Product",new { SearchBox="true",text="{0}"},Request.Url.Scheme)'.format(m));
+         var url = '@Url.Action("Product_table","Product",null,Request.Url.Scheme)?SearchBox=true&text='+m;
         $('#table').load(url);
 
     }
 
+    function ModelLoader(Act_, Id_,Title_) {
+
+        if (Act_ == "del") {
+
+            $('#Id_Modal_del').text(Id_);
+        } else if (Act_ == "Act")
+        {
+
+            $('#Id_Modal_act').text(Id_);
+        } else if (Act_ == "DeAct")
+        {
+
+            $('#Id_Modal_deAct').text(Id_);
+        }
+
+
+    }
+
+    function Model_Click_Act()
+    {
+        var id_ = $('#Id_Modal_act').text();
+         var PostJson = {
+                    'ActToDo': 'Active',
+                    'id': id_
+                };
+
+                $.ajax({
+                    url: "/Product/Product_Actions",
+                    type: "post",
+                    data: PostJson,
+                    success: function (response) {
+                        if (response == "Success") {
+                            @*var url = '@Url.Action("Product_table","Product",null,Request.Url.Scheme)?SearchBox=false';
+                            $('#table').load(url);*@
+                             location.reload(true);
+                        } else {
+                            alert(" شما به این قسمت دسترسی ندارید!");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+    }
+
+    function Model_Click_DeAct()
+    {
+        var id_ = $('#Id_Modal_deAct').text();
+        var PostJson = {
+                    'ActToDo': 'DeActive',
+                    'id': id_
+                };
+
+                $.ajax({
+                    url: "/Product/Product_Actions",
+                    type: "post",
+                    data: PostJson,
+                    success: function (response) {
+                        if (response == "Success") {
+                            @*var url = '@Url.Action("Product_table","Product",null,Request.Url.Scheme)?SearchBox=false';
+                            $('#table').load(url);*@
+                             location.reload(true);
+                        } else {
+                            alert(" شما به این قسمت دسترسی ندارید!");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+    }
+
+    function Model_Click_Del()
+    {
+        var id_ = $('#Id_Modal_del').text();
+        var PostJson = {
+                    'ActToDo': 'Delete',
+                    'id': id_
+                };
+
+                $.ajax({
+                    url: "/Product/Product_Actions",
+                    type: "post",
+                    data: PostJson,
+                    success: function (response) {
+                        if (response == "Success") {
+                            @*var url = '@Url.Action("Product_table","Product",null,Request.Url.Scheme)?SearchBox=false';
+                            $('#table').load(url);*@
+                             location.reload(true);
+                        } else {
+                            alert(" شما به این قسمت دسترسی ندارید!");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                    }
+                });
+    }
 </script>
 
 

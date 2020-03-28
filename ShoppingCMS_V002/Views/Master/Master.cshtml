@@ -13,8 +13,6 @@
     <!--begin::Fonts -->
     @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">*@
     @Styles.Render("~/assets/CoreAdmin.css")
-
-
     @Scripts.Render("~/bundles/jqueryCore.js")
 
     <title>
@@ -1092,7 +1090,7 @@
 
              var cookie = getCookie("AddProCookie");
         if (cookie == "") {
-            
+
 
         } else
         {
@@ -1105,7 +1103,7 @@
         function new_Product() {
 
             $.when(deleteCookie("AddProCookie")).then(function () {
-                
+
                 window.location.replace("@Url.Action("Add_Product","Product",null,Request.Url.Scheme)");
             });
 
