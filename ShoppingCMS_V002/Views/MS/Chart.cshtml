@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Chart";
+    Layout = "~/Views/Master/Master.cshtml";
+}
+
+<div class="kt-portlet kt-portlet--height-fluid">
+    <div class="kt-widget14">
+        <div class="kt-widget14__header kt-margin-b-30">
+            <h3 class="kt-widget14__title">
+                نمودار 1
+            </h3>
+            <span class="kt-widget14__desc">
+                قسمت توضیحات
+            </span>
+        </div>
+        <div class="kt-widget14__chart" style="height:120px;">
+            <canvas id="kt_chart_daily_sales"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="kt-portlet kt-portlet--height-fluid">
+    <div class="kt-widget14">
+        <div class="kt-widget14__header kt-margin-b-30">
+            <h3 class="kt-widget14__title">
+                نمودار 2
+            </h3>
+            <span class="kt-widget14__desc">
+                قسمت توضیحات
+            </span>
+        </div>
+
+        <div class="kt-widget4__chart">
+            <canvas id="kt_chart_trends_stats" style="height: 240px;"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="kt-portlet kt-portlet--height-fluid">
+    <div class="kt-widget14">
+        <div class="kt-widget14__header kt-margin-b-30">
+            <h3 class="kt-widget14__title">
+                نمودار 3
+            </h3>
+            <span class="kt-widget14__desc">
+                قسمت توضیحات
+            </span>
+        </div>
+        <canvas id="kt_chart_sales_stats" style="height:160px;"></canvas>
+    </div>
+</div>
+

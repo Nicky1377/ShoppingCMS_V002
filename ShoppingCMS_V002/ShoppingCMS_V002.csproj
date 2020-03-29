@@ -124,6 +124,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\MSController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DBConnect\ExcParameters.cs" />
@@ -137,6 +138,8 @@
     <Compile Include="Models\AddProduct_P2.cs" />
     <Compile Include="Models\AddPro_Options.cs" />
     <Compile Include="Models\AddPro_SubValues.cs" />
+    <Compile Include="Models\AdminTypeRoutesModel.cs" />
+    <Compile Include="Models\ADMIN_types_ruleRoute_Connection.cs" />
     <Compile Include="Models\companies.cs" />
     <Compile Include="Models\Id_ValueModel.cs" />
     <Compile Include="Models\ImageGalleryModel.cs" />
@@ -148,6 +151,8 @@
     <Compile Include="Models\Pictures.cs" />
     <Compile Include="Models\PricingModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\profile.cs" />
+    <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\Statics.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\SubCategoryOptionKey.cs" />
@@ -2270,6 +2275,8 @@
     <Content Include="SQL\ESF98\15\edit database.txt" />
     <Content Include="SQL\ESF98\20\pandaScript.sql" />
     <Content Include="SQL\ESF98\22\ScriptDatatable.sql" />
+    <Content Include="SQL\FAR99\11\pandaAll_DB.sql" />
+    <Content Include="SQL\FAR99\11\PandaDB_Changes.sql" />
     <Content Include="SQL\FAR99\7\PandaScript.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -2326,6 +2333,12 @@
     <Content Include="Views\Product\ShowCatTree.cshtml" />
     <Content Include="Views\Product\Update_Product.cshtml" />
     <Content Include="Views\Product\ProductDetails.cshtml" />
+    <Content Include="Views\MS\Chart.cshtml" />
+    <Content Include="Views\MS\Profile.cshtml" />
+    <Content Include="Views\MS\Register.cshtml" />
+    <Content Include="Views\MS\Show_Profile.cshtml" />
+    <Content Include="Views\MS\show_user.cshtml" />
+    <Content Include="Views\Admin\AddAdminType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Web.UI.WebControls;
 using ShoppingCMS_V002.OtherClasses;
 using ShoppingCMS_V002.ModelViews;
+using Newtonsoft.Json;
 
 namespace ShoppingCMS_V002.Controllers
 {
@@ -1472,7 +1473,7 @@ namespace ShoppingCMS_V002.Controllers
                 {
                     if (value == "new")
                     {
-                        query = "INSERT INTO [dbo].[OpinionAbout]([Name_OpinionAbout],[OpinionAbout],[Is_delete]) VALUES (@Name_OpinionAbout,@OpinionAbout,0)";
+                        query = "INSERT INTO [OpinionAbout]([Name_OpinionAbout],[OpinionAbout],[Is_delete]) VALUES (@Name_OpinionAbout,@OpinionAbout,0)";
                         parameters = new ExcParameters()
                         {
                             _KEY = "@Name_OpinionAbout",
@@ -1494,7 +1495,7 @@ namespace ShoppingCMS_V002.Controllers
                     else if (value == "delete")
                     {
 
-                        query = "UPDATE [dbo].[OpinionAbout]SET [Is_delete] = 1 WHERE [Id_OpinionAbout] = @id";
+                        query = "UPDATE [OpinionAbout]SET [Is_delete] = 1 WHERE [Id_OpinionAbout] = @id";
 
 
                         parameters = new ExcParameters()
@@ -1513,7 +1514,7 @@ namespace ShoppingCMS_V002.Controllers
                 {
                     if (value == "new")
                     {
-                        query = "INSERT INTO [dbo].[companies]([Image],[Name_companies],[Url],[Is_delete])VALUES(@Image,@Name_companies,@Url,0)";
+                        query = "INSERT INTO [companies]([Image],[Name_companies],[Url],[Is_delete])VALUES(@Image,@Name_companies,@Url,0)";
                         parameters = new ExcParameters()
                         {
                             _KEY = "@Name_companies",
@@ -1623,6 +1624,482 @@ namespace ShoppingCMS_V002.Controllers
 
         }
 
+        ///////
+        /////////////////////////////{   START Profile   }//////////////////////////////
+        //// Session["id_Admin"] این حتما موقع درست کنید
+
+        [HttpGet]
+        public ActionResult Profile(int id)
+        {
+
+            Session["id_Admin"] = "10";
+
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Show_Profile()
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            var id_Admin = Session["id_Admin"];
+
+            using (DataTable dt = db.Select($"SELECT [id_Admin],[ad_type_name],[ad_password],[ad_firstname],[ad_lastname],[ad_avatarprofile],[ad_email],[ad_phone],[ad_mobile],[ad_NickName]FROM [dbo].[tbl_ADMIN_main] inner join [dbo].[tbl_ADMIN_types] on [dbo].[tbl_ADMIN_main].ad_typeID = [dbo].[tbl_ADMIN_types].ad_typeID where [id_Admin] ={id_Admin.ToString()}"))
+            {
+                Session["pass"] = dt.Rows[0]["ad_password"].ToString();
+                profile data_pro = new profile()
+                {
+
+                    ad_avatarprofile = dt.Rows[0]["ad_avatarprofile"].ToString(),
+                    ad_type_name = dt.Rows[0]["ad_type_name"].ToString(),
+                    ad_firstname = dt.Rows[0]["ad_firstname"].ToString(),
+                    ad_lastname = dt.Rows[0]["ad_lastname"].ToString(),
+                    ad_NickName = dt.Rows[0]["ad_NickName"].ToString(),
+                    ad_phone = dt.Rows[0]["ad_phone"].ToString(),
+                    ad_mobile = dt.Rows[0]["ad_mobile"].ToString(),
+                    ad_email = dt.Rows[0]["ad_email"].ToString()
+
+                };
+
+                ViewBag.Show_Pro = data_pro;
+            };
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult get_Profile(string A, string B, string C, string D, string E, string F, string G, string value)
+        {
+            string str = " ", query;
+
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            List<ExcParameters> paramss = new List<ExcParameters>();
+            ExcParameters parameters = new ExcParameters();
+
+            var id_Admin = Session["id_Admin"];
+            var pass = Session["pass"];
+
+            if (value == "information")
+            {
+                query = "UPDATE [dbo].[tbl_ADMIN_main]SET [ad_firstname] = @ad_firstname,[ad_lastname] = @ad_lastname,[ad_avatarprofile] = @ad_avatarprofile,[ad_email] = @ad_email,[ad_phone] = @ad_phone,[ad_mobile] = @ad_mobile,[ad_NickName] = @ad_NickName WHERE [id_Admin] = @id";
+
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_firstname",
+                    _VALUE = A
+                };
+
+                paramss.Add(parameters);
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_lastname",
+                    _VALUE = B
+                };
+
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_NickName",
+                    _VALUE = C
+                };
+
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_phone",
+                    _VALUE = D
+                };
+
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_mobile",
+                    _VALUE = E
+                };
+
+                paramss.Add(parameters);
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_email",
+                    _VALUE = F
+                };
+
+                paramss.Add(parameters);
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_avatarprofile",
+                    _VALUE = G
+                };
+
+                paramss.Add(parameters);
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@id",
+                    _VALUE = id_Admin
+                };
+
+                paramss.Add(parameters);
+
+                str = db.Script(query, paramss);
+
+            }
+            else if (value == "password")
+            {
+
+                if (A == pass.ToString())
+                {
+                    query = "UPDATE [dbo].[tbl_ADMIN_main] SET [ad_password] = @ad_password WHERE [id_Admin] = @id";
+
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@id",
+                        _VALUE = id_Admin
+                    };
+
+                    paramss.Add(parameters);
+
+
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@ad_password",
+                        _VALUE = B
+                    };
+
+                    paramss.Add(parameters);
+
+                    str = db.Script(query, paramss);
+                }
+                else
+                {
+                    str = "2";
+                }
+            }
+
+            return Content(str);
+        }
+
+        ///------///////////////////////{   End Profile   }//////////////////////////////
+
+
+
+        /////////////////////////////{   START Register   }//////////////////////////////
+        public ADMIN_types_ruleRoute_Connection data_ADMIN;
+        List<ADMIN_types_ruleRoute_Connection> list_ADMIN = new List<ADMIN_types_ruleRoute_Connection>();
+        [HttpGet]
+        public ActionResult Register(int id)
+        {
+            Session["id_Admin1"] = id;
+
+            return View();
+        }
+        [HttpGet]
+        public ActionResult show_user()
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            var id_Admin = Session["id_Admin1"];
+            string ad_typeID = " ";
+
+            using (DataTable dt = db.Select($"SELECT [id_Admin],[ad_typeID],(SELECT [ad_type_name]FROM [dbo].[tbl_ADMIN_types]where [ad_typeID] = [dbo].[tbl_ADMIN_main].ad_typeID)as ad_type_name,[ad_password],[ad_firstname],[ad_lastname],[ad_avatarprofile],[ad_email],[ad_phone],[ad_mobile],[ad_NickName],[ad_personalColorHexa] FROM [dbo].[tbl_ADMIN_main] where [id_Admin] ={id_Admin.ToString()}"))
+            {
+                Session["pass"] = dt.Rows[0]["ad_password"].ToString();
+                ad_typeID = dt.Rows[0]["ad_typeID"].ToString();
+                profile data_pro = new profile()
+                {
+                    ad_avatarprofile = dt.Rows[0]["ad_avatarprofile"].ToString(),
+                    ad_type_name = dt.Rows[0]["ad_type_name"].ToString(),
+                    ad_firstname = dt.Rows[0]["ad_firstname"].ToString(),
+                    ad_lastname = dt.Rows[0]["ad_lastname"].ToString(),
+                    ad_NickName = dt.Rows[0]["ad_NickName"].ToString(),
+                    ad_phone = dt.Rows[0]["ad_phone"].ToString(),
+                    ad_mobile = dt.Rows[0]["ad_mobile"].ToString(),
+                    ad_email = dt.Rows[0]["ad_email"].ToString(),
+                    ad_personalColorHexa = dt.Rows[0]["ad_personalColorHexa"].ToString()
+                };
+
+                ViewBag.Show_Pro = data_pro;
+            };
+            using (DataTable dt = db.Select($"SELECT [ad_typeID],[rulerouteID],(SELECT [ruleRouteURL]FROM [PandaMarketCMS].[dbo].[tbl_ADMIN_ruleRoutes_Main]where [rulerouteID]=[PandaMarketCMS].[dbo].[tbl_ADMIN_types_ruleRoute_Connection].[rulerouteID])as[ruleRouteURL],[HasAccess]FROM [PandaMarketCMS].[dbo].[tbl_ADMIN_types_ruleRoute_Connection] where [ad_typeID] ={ad_typeID}"))
+            {
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+                    data_ADMIN = new ADMIN_types_ruleRoute_Connection();
+
+                    data_ADMIN.ad_typeID = dt.Rows[i]["ad_typeID"].ToString();
+                    data_ADMIN.HasAccess = dt.Rows[i]["HasAccess"].ToString();
+                    data_ADMIN.rulerouteID = dt.Rows[i]["rulerouteID"].ToString();
+                    data_ADMIN.ruleRouteURL = dt.Rows[i]["ruleRouteURL"].ToString();
+
+                    list_ADMIN.Add(data_ADMIN);
+
+                }
+
+
+
+                ViewBag.Show_ADMIN = list_ADMIN;
+            };
+
+
+
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult get_user(string A, string B, string C, string D, string E, string F, string G, string value)
+        {
+            string str = " ", query;
+
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            List<ExcParameters> paramss = new List<ExcParameters>();
+            ExcParameters parameters = new ExcParameters();
+
+            var id_Admin = Session["id_Admin1"];
+            var pass = Session["pass"];
+
+
+            if (value == "information")
+            {
+                query = "UPDATE [dbo].[tbl_ADMIN_main]SET [ad_firstname] = @ad_firstname,[ad_lastname] = @ad_lastname,[ad_avatarprofile] = @ad_avatarprofile,[ad_email] = @ad_email,[ad_phone] = @ad_phone,[ad_mobile] = @ad_mobile,[ad_NickName] = @ad_NickName WHERE [id_Admin] = @id";
+
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_firstname",
+                    _VALUE = A
+                };
+
+                paramss.Add(parameters);
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_lastname",
+                    _VALUE = B
+                };
+
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_NickName",
+                    _VALUE = C
+                };
+
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_phone",
+                    _VALUE = D
+                };
+
+                paramss.Add(parameters);
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_mobile",
+                    _VALUE = E
+                };
+
+                paramss.Add(parameters);
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_email",
+                    _VALUE = F
+                };
+
+                paramss.Add(parameters);
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_avatarprofile",
+                    _VALUE = G
+                };
+
+                paramss.Add(parameters);
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@id",
+                    _VALUE = id_Admin
+                };
+
+                paramss.Add(parameters);
+
+                str = db.Script(query, paramss);
+
+            }
+            else if (value == "password")
+            {
+
+                if (A == pass.ToString())
+                {
+                    query = "UPDATE [dbo].[tbl_ADMIN_main] SET [ad_password] = @ad_password WHERE [id_Admin] = @id";
+
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@id",
+                        _VALUE = id_Admin
+                    };
+
+                    paramss.Add(parameters);
+
+
+                    parameters = new ExcParameters()
+                    {
+                        _KEY = "@ad_password",
+                        _VALUE = B
+                    };
+
+                    paramss.Add(parameters);
+
+                    str = db.Script(query, paramss);
+                }
+                else
+                {
+                    str = "2";
+                }
+            }
+            else if (value == "access")
+            {
+                query = "UPDATE [dbo].[tbl_ADMIN_main]SET [ad_typeID] = @ad_typeID,[ad_personalColorHexa] = @ad_personalColorHexa WHERE [id_Admin] =@id_Admin";
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_typeID",
+                    _VALUE = A
+                };
+
+                paramss.Add(parameters);
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@ad_personalColorHexa",
+                    _VALUE = B
+                };
+
+                paramss.Add(parameters);
+
+                parameters = new ExcParameters()
+                {
+                    _KEY = "@id_Admin",
+                    _VALUE = id_Admin
+                };
+
+                paramss.Add(parameters);
+
+                str = db.Script(query, paramss);
+            }
+            return Content(str);
+        }
+        ///------///////////////////////{   End Register   }//////////////////////////////
+
+
+        /////////////////////////////{   START Chart   }//////////////////////////////
+
+        [HttpGet]
+        public ActionResult Chart()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult data_Chart_one()
+        {
+
+            string[] name = new string[] { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
+            int[] X = new int[] { 15, 30, 25, 30, 25, 20, 15, 20, 25, 30, 25, 20 };
+            int[] Y = new int[] { 15, 30, 25, 30, 25, 20, 15, 20, 25, 30, 25, 20 };
+
+
+            string _name = "", _X = "", _Y = "";
+            int count = name.Length - 1;
+            for (int i = 0; i < name.Length; i++)
+            {
+                if (count != i)
+                {
+                    string output = JsonConvert.SerializeObject(name[i]);
+                    _name += $"{output },";
+                    _X += X[i] + ",";
+                    _Y += Y[i] + ",";
+                }
+                else
+                {
+                    string output = JsonConvert.SerializeObject(name[i]);
+                    _name += output;
+                    _X += X[i];
+                    _Y += Y[i];
+                }
+
+            }
+            return Content("\"labels\": [" + _name + "],\"dataX\": [" + _X + "],\"dataY\": [" + _Y + "]");
+        }
+
+        [HttpPost]
+        public ActionResult data_Chart_two()
+        {
+
+            string[] name = new string[] { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
+            int[] X = new int[] { 15, 30, 25, 30, 25, 20, 15, 20, 25, 30, 25, 20 };
+
+            string _name = "", _X = "";
+            int count = name.Length - 1;
+            for (int i = 0; i < name.Length; i++)
+            {
+                if (count != i)
+                {
+                    string output = JsonConvert.SerializeObject(name[i]);
+                    _name += $"{output },";
+                    _X += X[i] + ",";
+                }
+                else
+                {
+                    string output = JsonConvert.SerializeObject(name[i]);
+                    _name += output;
+                    _X += X[i];
+                }
+
+            }
+            return Content("\"labels\": [" + _name + "],\"dataX\": [" + _X + "]");
+        }
+
+        [HttpPost]
+        public ActionResult data_Chart_Three()
+        {
+
+            string[] name = new string[] { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
+            int[] X = new int[] { 15, 30, 25, 30, 25, 20, 15, 20, 25, 30, 25, 20 };
+
+            string _name = "", _X = "";
+            int count = name.Length - 1;
+            for (int i = 0; i < name.Length; i++)
+            {
+                if (count != i)
+                {
+                    string output = JsonConvert.SerializeObject(name[i]);
+                    _name += $"{output },";
+                    _X += X[i] + ",";
+                }
+                else
+                {
+                    string output = JsonConvert.SerializeObject(name[i]);
+                    _name += output;
+                    _X += X[i];
+                }
+
+            }
+            return Content("\"labels\": [" + _name + "],\"dataX\": [" + _X + "]");
+        }
+
+
+        ///------///////////////////////{   End Chart   }//////////////////////////////
 
     }
 }

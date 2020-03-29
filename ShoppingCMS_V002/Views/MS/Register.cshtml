@@ -1,0 +1,281 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Master/Master.cshtml";
+}
+
+<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
+
+    <!-- begin:: Subheader -->
+    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+        <div class="kt-container  kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">
+                    داشبورد
+                </h3>
+
+                <span class="kt-subheader__separator kt-hidden"></span>
+                <div class="kt-subheader__breadcrumbs">
+                    <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                    <a href="" class="kt-subheader__breadcrumbs-link">
+                        سرپرستی
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end:: Subheader -->
+    <!-- begin:: Content -->
+    <div id="Show_user"></div>
+
+    <div id="SuccesAlertNew" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display: none;">
+        <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+        <div class="alert-text">با موفقیت ثبت شد!</div>
+        <div class="alert-close">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="la la-close"></i></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#Show_user').load("@Url.Action("Show_user","MS",null,Request.Url.Scheme)");
+    });
+
+
+    function getdata(value) {
+
+        if (value == "info") {
+            $("#pass").removeClass("kt-widget__item--active");
+            $("#_pass").hide();
+
+            $("#access").removeClass("kt-widget__item--active");
+            $("#_access").hide();
+
+            $("#page").removeClass("kt-widget__item--active");
+            $("#_page").hide();
+        } else if (value == "pass") {
+
+            $("#info").removeClass("kt-widget__item--active");
+            $("#_info").hide();
+
+            $("#access").removeClass("kt-widget__item--active");
+            $("#_access").hide();
+
+            $("#page").removeClass("kt-widget__item--active");
+            $("#_page").hide();
+        }
+        else if (value == "access") {
+            $("#info").removeClass("kt-widget__item--active");
+            $("#_info").hide();
+
+            $("#pass").removeClass("kt-widget__item--active");
+            $("#_pass").hide();
+
+            $("#page").removeClass("kt-widget__item--active");
+            $("#_page").hide();
+        } else if (value == "page") {
+
+            $("#info").removeClass("kt-widget__item--active");
+            $("#_info").hide();
+
+            $("#pass").removeClass("kt-widget__item--active");
+            $("#_pass").hide();
+
+            $("#access").removeClass("kt-widget__item--active");
+            $("#_access").hide();
+
+        }
+
+
+        $("#" + value).addClass("kt-widget__item--active");
+        $("#_" + value).show();
+
+
+        access
+    }
+
+</script>
+
+<script>
+    function postto(value) {
+
+        if (value == "information") {
+            var name = document.getElementById("name").value;
+            var last = document.getElementById("last").value;
+            var nick = document.getElementById("nick").value;
+            var phone = document.getElementById("phone").value;
+            var mobile = document.getElementById("mobile").value;
+            var email = document.getElementById("email").value;
+            var image = document.getElementById("image").value;
+
+            if (name == "" || last == "" || phone == "" || mobile == "" || email == "") {
+                $("#ERRAlertNew").show(300);
+                return false;
+            }
+            PostJson = {
+                'A': name,
+                'B': last,
+                'C': nick,
+                'D': phone,
+                'E': mobile,
+                'F': email,
+                'G': image,
+                'value': value
+            }
+
+            var AddressToSend = "get_user";
+
+            $.ajax({
+                url: AddressToSend,
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    $("#SuccesAlertNew").show(400);
+                    //$('#Show_user').load("https://localhost:44395/ms/Show_user");
+                    $('#Show_user').load("@Url.Action("Show_user","MS",null,Request.Url.Scheme)");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+            });
+            return false;
+
+
+        } else if (value == "password") {
+
+            var pass = document.getElementById("pass_o").value;
+            var pass1 = document.getElementById("pass_n1").value;
+            var pass2 = document.getElementById("pass_n2").value;
+
+            if (pass == "" || pass1 == "" || pass2 == "") {
+                $("#ERRAlertNew2").show(300);
+                return false;
+            }
+            if (pass1 == pass2) {
+
+                PostJson = {
+                    'A': pass,
+                    'B': pass1,
+                    'value': value
+                }
+
+                var AddressToSend = "get_user";
+
+                $.ajax({
+                    url: AddressToSend,
+                    type: "post",
+                    data: JSON.stringify(PostJson),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response == "1") {
+                            $("#ERRAlertNew2").hide(300);
+                            $("#SuccesAlertNew").show(300);
+                            $('#Show_user').load("@Url.Action("Show_user","MS",null,Request.Url.Scheme)");
+                            return false;
+                        } else if (response == "2") {
+                            $("#ERRAlertNew2").show(300);
+                            $("#_ERRAlertNew2").html("رمز عبور فعلی نامعتبر! ");
+                            return false;
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+                return false;
+
+            } else {
+
+                $("#ERRAlertNew2").show(300);
+                $("#_ERRAlertNew2").html("رمز جدیدی با تائید رمز عبور برابر نیست! ");
+                return false;
+            }
+        } else if (value == "access") {
+
+            var AddressToSend = "get_user";
+
+            var acc = document.getElementById("data_acc").value;
+            var color = document.getElementById("example-color-input").value;
+
+            PostJson = {
+                'A': acc,
+                'B': color,
+                'value': value
+            }
+
+             $.ajax({
+                url: AddressToSend,
+                type: "post",
+                data: JSON.stringify(PostJson),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    if (response == "1") {
+                        $("#ERRAlertNew2").hide(300);
+                        $("#SuccesAlertNew").show(300);
+                        $('#Show_user').load("@Url.Action("Show_user","MS",null,Request.Url.Scheme)");
+                        return false;
+                    }
+                }
+               , error: function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus);
+                }
+                  });
+            return false;
+
+
+
+        }
+
+
+
+           
+          
+    
+    }
+
+
+
+
+    
+</script>
+
+
+<script>
+    function Uploding_uploder(data) {
+
+        var fileUpload = $("#uploderInput").get(0);
+
+        var files = fileUpload.files;
+        var fileData = new FormData();
+
+        for (var i = 0; i < files.length; i++) {
+            fileData.append(files[i].name, files[i]);
+        }
+        fileData.append('action', 'New');
+        fileData.append('data', data);
+        $.ajax({
+            url: 'up_loder',
+            data: fileData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            success: function (response) {
+                $("#show_image").removeAttr("style");
+                $("#show_image").attr("style", "background-image: url(" + response + ")");
+                document.getElementById("image").value = response;
+            },
+            error: function () {
+                alert("عدم توانایی در بارگیری فایل")
+            }
+        });
+        return false;
+    }
+</script>
+
+
