@@ -39,47 +39,122 @@
         <div class="kt-portlet__head">
             <div class="kt-portlet__head-label">
                 <h3 class="kt-portlet__head-title">
-                    تعریف دسترسی ادمین
+                    تعریف تایپ ادمین
                 </h3>
             </div>
         </div>
-        <div class="kt-portlet__body">
-            <div id="kt_tree_1" class="tree-demo">
-                <ul>
-                    @foreach (var Catitem in @Model)
-                    {
-                            <li data-jstree='{ }'>
-                                <label class="kt-checkbox kt-checkbox--brand">
-                                    <input id="IsAd_p1" class="form-control" type="checkbox" />@Catitem.CatName
+        <div class="col-xl-6 col-10" style="margin:auto; margin-top:2%;">
+
+            <div class="form-group">
+                <label style="margin-bottom:2%">نام سطح ادمین</label>
+                <input id="AD_type_name" class="form-control " placeholder="" />
+            </div>
+        </div>
+
+        <div class="col-xl-6 col-10" style="margin:auto;">
+
+            <div class="form-group">
+                <label style="margin-bottom:2%">دسترسی ادمین</label>
+                <div id="kt_tree_8" class="col-12" style="margin:auto;">
+                    <ul style="list-style-type: none">
+                        @foreach (var Catitem in @Model)
+                        {
+                            <li ondblclick="return dblClick(@Catitem.CatId)" style="-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none;">
+                                <div class="kt-checkbox kt-checkbox--danger" onclick="return CatCLk(@Catitem.CatId)">
+                                    <input id="Cat_@Catitem.CatId" class="form-control" type="checkbox" />@Catitem.CatName
                                     <span></span>
-                                </label>
-                                <ul>
+                                </div>
+                                <ul id="RouteList-@Catitem.CatId" style="display:none; list-style-type: none;">
                                     @foreach (var Routeitem in Catitem.RouteList)
                                     {
-                                       
-                                            <li data-jstree='{ }'>
-                                                <label class="kt-checkbox kt-checkbox--brand">
-                                                    <input id="IsAd_p1" class="form-control" type="checkbox" />@Routeitem.RouteName
-                                                    <span></span>
-                                                </label>
-                                            </li>
-                                        
-                                      
+
+                                        <li data-jstree='{ }'>
+                                            <label class="kt-checkbox kt-checkbox--brand">
+                                                <input id="ruoteitm-@Routeitem.RouteId" class="form-control route-@Catitem.CatId" type="checkbox" onchange="return routeChange(@Catitem.CatId)" />@Routeitem.RouteName : @Routeitem.RouteUrl
+                                                <span></span>
+                                            </label>
+                                        </li>
                                     }
                                 </ul>
                             </li>
-                      
-                    }
+                        }
 
-                </ul>
-            </div>
-            @*<div class="alert alert-outline-primary kt-margin-t-10">
+                    </ul>
+                </div>
+                @*<div class="alert alert-outline-primary kt-margin-t-10">
                     Note! Opened and selected nodes will be saved in the user's browser, so when returning to the same tree the previous state will be restored.
                 </div>*@
+
+            </div>
+        </div>
+
+
+        <!--begin::Alerts-->
+        <div id="SuccesAlertEdit1" class="alert alert-solid-success alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+            <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <div class="alert-text">با موفقیت ثبت شد!</div>
+        </div>
+        <div id="ERRAlertEdit1" class="alert alert-solid-danger alert-bold fade show kt-margin-t-20 kt-margin-b-40" role="alert" style="display:none">
+            <div class="alert-icon"><i class="fa fa-exclamation-triangle"></i></div>
+            <div class="alert-text">مقدار ورودی باید پرشده باشد!</div>
+        </div>
+        <!--End::Alerts-->
+        <!--end::Portlet-->
+
+        <div class="kt-form__actions">
+            <div class="col-6 offset-3" style="padding-top: 10px;">
+
+                <button id="Sub_btn1" onclick="submitNextPage('New')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; margin-bottom:5%">
+                    ثبت
+                </button>
+                <button id="Sub_btn12" onclick="submitNextPage('Edit')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; display:none; margin-bottom:5%">
+                    ثبت
+                </button>
+            </div>
         </div>
     </div>
-    <!--end::Portlet-->
+
+    <div id="adminTBl"></div>
+
 
 </div>
-@Scripts.Render("~/bundles/JsTree.js")
 
+        @Scripts.Render("~/bundles/JsTree.js")
+
+        <script>
+            function dblClick(id__) {
+
+                if ($('#RouteList-' + id__).is(":visible")) {
+
+                    $('#RouteList-' + id__).hide(200);
+
+                } else {
+
+                    $('#RouteList-' + id__).show(200);
+
+                }
+            }
+
+            function CatCLk(id__) {
+                if ($('#Cat_' + id__).prop("checked")) {
+                    $('#Cat_' + id__).prop("checked", false);
+                    $('.route-' + id__).prop("checked", false);
+                } else {
+                    $('#Cat_' + id__).prop("checked", true);
+                    $('.route-' + id__).prop("checked", true);
+                }
+
+            }
+
+
+            function routeChange(id__) {
+                if ($('.route-' + id__ + ':checked').length == $('.route-' + id__).length) {
+                    $('#Cat_' + id__).prop("checked", true);
+                } else {
+                    $('#Cat_' + id__).prop("checked", false);
+                }
+
+            }
+
+
+        </script>

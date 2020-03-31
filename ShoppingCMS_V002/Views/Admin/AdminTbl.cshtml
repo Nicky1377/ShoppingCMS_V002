@@ -1,0 +1,82 @@
+﻿@using ShoppingCMS_V002.Models
+@model List<AdminTypeTbl_Model>
+@{
+    ViewBag.Title = "AdminTbl";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--START : TBLS-->
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                لیست سطوح ادمین
+            </h3>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+
+        <!--begin::Section-->
+        <div class="kt-section">
+            <span class="kt-section__info">
+                لیست تمامی برچسب ها را در جدول زیر میتوانید مشاهده کنید.
+            </span>
+            <div class="kt-section__content">
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th style="width:20%">#</th>
+                            <th style="width:40%">نام سطح ادمین</th>
+                            <th style="width:40%">اقدامات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@item.Num</th>
+                                <td id="IdItem" style="display:none">@item.TypeId</td>
+                                <td>@item.AT_Name</td>
+                                <td>
+                                    <div class="btn-group mr-2" role="group" aria-label="...">
+                                        <button style="border:none" type="button" class="btn btn-secondary" onclick="return Click_op_edit(@item.EditString)"><i class="la la-edit"></i></button>
+
+                                        <button style="border:none" type="button" class="btn btn-secondary"  data-toggle="modal" data-target="#kt_modal_Access" onclick="return Click_op_del(@item.AT_Access)"><i class="la la-info"></i></button>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--end::Section-->
+    </div>
+    <!--end::Form-->
+</div>
+<!--END : TBLS-->
+<!-- remote datatable modal -->
+<div id="kt_modal_Access" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" style="min-height: 590px;">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Datatable
+                    <small>remote data source</small>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-clean btn-bold btn-upper btn-font-sm" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default btn-bold btn-upper btn-font-sm">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

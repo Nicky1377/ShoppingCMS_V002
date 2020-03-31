@@ -911,5 +911,44 @@ namespace ShoppingCMS_V002.OtherClasses
 
             return result;
         }
+
+        public List<AdminTypeRoutesModel> Modal_admin_Type(int id)
+        {
+            var res = new List<AdminTypeRoutesModel>();
+
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            DataTable dt = db.Select("SELECT [CatId],[R_CatName] FROM [tbl_ADMIN_ruleRoutes_Category]");
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                DataTable dt2 = db.Select("SELECT [rulerouteID],[ruleRouteURL],[ruleRouteName] FROM [tbl_ADMIN_ruleRoutes_Main] where ruleRouteCatId=" + dt.Rows[i]["CatId"]);
+                var MList = new List<RouteModel>();
+                for (int j = 0; j < dt2.Rows.Count; j++)
+                {
+                    var model = new RouteModel()
+                    {
+                        RouteId = Convert.ToInt32(dt2.Rows[j]["rulerouteID"]),
+                        RouteName = dt2.Rows[j]["ruleRouteName"].ToString(),
+                        RouteUrl = dt2.Rows[j]["ruleRouteURL"].ToString()
+                    };
+                    MList.Add(model);
+                }
+
+                var modelRes = new AdminTypeRoutesModel()
+                {
+                    CatId = Convert.ToInt32(dt.Rows[i]["CatId"]),
+                    CatName = dt.Rows[i]["R_CatName"].ToString(),
+                    RouteList = MList
+                };
+
+                res.Add(modelRes);
+            }
+
+
+
+
+            return res;
+        }
     }
 }

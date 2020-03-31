@@ -22,5 +22,31 @@ namespace ShoppingCMS_V002.Controllers
             else
                 return RedirectToAction("NotAccess", "MS");
         }
+
+        public ActionResult ModalTree(int id=0)
+        {
+            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            if (check.HasAccess)
+            {
+                ModelFiller MF = new ModelFiller();
+
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
+
+        public ActionResult AdminTbl()
+        {
+            string SSSession = ""; CheckAccess check = new CheckAccess(SSSession);
+            if (check.HasAccess)
+            {
+                ModelFiller MF = new ModelFiller();
+
+                return View();
+            }
+            else
+                return RedirectToAction("NotAccess", "MS");
+        }
     }
 }

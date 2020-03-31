@@ -139,6 +139,7 @@
     <Compile Include="Models\AddPro_Options.cs" />
     <Compile Include="Models\AddPro_SubValues.cs" />
     <Compile Include="Models\AdminTypeRoutesModel.cs" />
+    <Compile Include="Models\AdminTypeTbl_Model.cs" />
     <Compile Include="Models\ADMIN_types_ruleRoute_Connection.cs" />
     <Compile Include="Models\companies.cs" />
     <Compile Include="Models\Id_ValueModel.cs" />
@@ -2339,6 +2340,8 @@
     <Content Include="Views\MS\Show_Profile.cshtml" />
     <Content Include="Views\MS\show_user.cshtml" />
     <Content Include="Views\Admin\AddAdminType.cshtml" />
+    <Content Include="Views\Admin\AdminTbl.cshtml" />
+    <Content Include="Views\Admin\ModalTree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

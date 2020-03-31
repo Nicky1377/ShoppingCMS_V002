@@ -1,0 +1,39 @@
+﻿@using ShoppingCMS_V002.Models
+@model List<AdminTypeRoutesModel>
+
+@{
+    ViewBag.Title = "ModalTree";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="form-group">
+    <label style="margin-bottom:2%">دسترسی ادمین</label>
+    <div id="kt_tree_8" class="col-12" style="margin:auto;">
+        <ul style="list-style-type: none">
+            @foreach (var Catitem in @Model)
+            {
+                <li ondblclick="return dblClick(@Catitem.CatId)" style="-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none;">
+                    <div class="kt-checkbox kt-checkbox--danger" onclick="return CatCLk(@Catitem.CatId)">
+                        <input id="Cat_@Catitem.CatId" class="form-control" type="checkbox" />@Catitem.CatName
+                        <span></span>
+                    </div>
+                    <ul id="RouteList-@Catitem.CatId" style="list-style-type: none;">
+                        @foreach (var Routeitem in Catitem.RouteList)
+                        {
+
+                            <li data-jstree='{ }'>
+                                <label class="kt-checkbox kt-checkbox--brand">
+                                    <input disabled checked id="ruoteitm-@Routeitem.RouteId" class="form-control route-@Catitem.CatId" type="checkbox" onchange="return routeChange(@Catitem.CatId)" />@Routeitem.RouteName : @Routeitem.RouteUrl
+                                    <span></span>
+                                </label>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+
+        </ul>
+    </div>
+
+</div>
+
+
