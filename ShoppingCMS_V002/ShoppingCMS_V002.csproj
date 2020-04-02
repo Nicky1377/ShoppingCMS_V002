@@ -141,6 +141,15 @@
     <Compile Include="Models\AdminTypeRoutesModel.cs" />
     <Compile Include="Models\AdminTypeTbl_Model.cs" />
     <Compile Include="Models\ADMIN_types_ruleRoute_Connection.cs" />
+    <Compile Include="Models\Blog\CategoryModel.cs" />
+    <Compile Include="Models\Blog\Comment.cs" />
+    <Compile Include="Models\Blog\Customer.cs" />
+    <Compile Include="Models\Blog\CustomerMessage.cs" />
+    <Compile Include="Models\Blog\LatestNewsModel.cs" />
+    <Compile Include="Models\Blog\NewsModel.cs" />
+    <Compile Include="Models\Blog\PageSeparateModel.cs" />
+    <Compile Include="Models\Blog\Reply.cs" />
+    <Compile Include="Models\Blog\TeamMembers.cs" />
     <Compile Include="Models\companies.cs" />
     <Compile Include="Models\Id_ValueModel.cs" />
     <Compile Include="Models\ImageGalleryModel.cs" />
