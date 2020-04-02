@@ -125,6 +125,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BlogAPI_DesignerController.cs" />
     <Compile Include="Controllers\MSController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="DBConnect\ExcParameters.cs" />
@@ -176,6 +177,8 @@
     <Compile Include="ModelViews\AddProductModelV_4.cs" />
     <Compile Include="ModelViews\AddProductModelV_5.cs" />
     <Compile Include="ModelViews\ProductListModelView.cs" />
+    <Compile Include="OtherClasses\Blog\Blog_ModelFiller.cs" />
+    <Compile Include="OtherClasses\Blog\Date_TimeStamp.cs" />
     <Compile Include="OtherClasses\CheckAccess.cs" />
     <Compile Include="OtherClasses\Encryption.cs" />
     <Compile Include="OtherClasses\itemclas.cs" />
@@ -2354,6 +2357,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BlogAPI_Designer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\Font\fontawesome-webfont.ttf" />
