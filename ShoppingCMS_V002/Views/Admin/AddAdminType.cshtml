@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="col-xl-6 col-10" style="margin:auto; margin-top:2%;">
-
+            <div style="display: none" id="EditId"></div>
             <div class="form-group">
                 <label style="margin-bottom:2%">نام سطح ادمین</label>
                 <input id="AD_type_name" class="form-control " placeholder="" />
@@ -61,16 +61,16 @@
                         {
                             <li ondblclick="return dblClick(@Catitem.CatId)" style="-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none;">
                                 <div class="kt-checkbox kt-checkbox--danger" onclick="return CatCLk(@Catitem.CatId)">
-                                    <input id="Cat_@Catitem.CatId" class="form-control" type="checkbox" />@Catitem.CatName
+                                    <input id="Cat_@Catitem.CatId" class="form-control Cat" type="checkbox" />@Catitem.CatName
                                     <span></span>
                                 </div>
-                                <ul id="RouteList-@Catitem.CatId" style="display:none; list-style-type: none;">
+                                <ul id="RouteList-@Catitem.CatId" style="display:none; list-style-type: none;" class="RoutList">
                                     @foreach (var Routeitem in Catitem.RouteList)
                                     {
 
                                         <li data-jstree='{ }'>
                                             <label class="kt-checkbox kt-checkbox--brand">
-                                                <input id="ruoteitm-@Routeitem.RouteId" class="form-control route-@Catitem.CatId" type="checkbox" onchange="return routeChange(@Catitem.CatId)" />@Routeitem.RouteName : @Routeitem.RouteUrl
+                                                <input id="ruoteitm-@Routeitem.RouteId" class="form-control route-@Catitem.CatId Check_Route" type="checkbox" onchange="return routeChange(@Catitem.CatId)" />@Routeitem.RouteName : @Routeitem.RouteUrl
                                                 <span></span>
                                             </label>
                                         </li>
@@ -104,10 +104,10 @@
         <div class="kt-form__actions">
             <div class="col-6 offset-3" style="padding-top: 10px;">
 
-                <button id="Sub_btn1" onclick="submitNextPage('New')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; margin-bottom:5%">
+                <button id="Sub_btn1" onclick="Submit('New')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; margin-bottom:5%">
                     ثبت
                 </button>
-                <button id="Sub_btn12" onclick="submitNextPage('Edit')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; display:none; margin-bottom:5%">
+                <button id="Sub_btn12" onclick="Submit('Edit')" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" style="width: 100%; display:none; margin-bottom:5%">
                     ثبت
                 </button>
             </div>
@@ -122,6 +122,12 @@
         @Scripts.Render("~/bundles/JsTree.js")
 
         <script>
+
+            $(document).ready(function () {
+                $('#adminTBl').load("@Url.Action("AdminTbl","Admin",null,Request.Url.Scheme)");
+
+            });
+
             function dblClick(id__) {
 
                 if ($('#RouteList-' + id__).is(":visible")) {
@@ -156,5 +162,88 @@
 
             }
 
+            function Submit(Act__) {
+
+                var Checkes = "";
+                $('.Check_Route').each(function (e, obj) {
+                    var id_check = obj.id.replace("ruoteitm-", "");
+                    if ($('#ruoteitm-' + id_check).prop("checked")) {
+                        Checkes += id_check + ",";
+                    }
+                });
+
+                if ($('#AD_type_name').val() == "" || Checkes == "") {
+                    $("#ERRAlertEdit1").show(300);
+                } else
+                {
+                    var Name = $('#AD_type_name').val();
+                    var id = $('#EditId').text();
+                    var PostJson;
+
+                    if (Act__ == "New") {
+
+                        PostJson = {
+                            'ActToDo': 'insert',
+                            'Ad_Name': Name,
+                            'Routes': Checkes,
+                        };
+
+
+                    } else if (Act__ == "Edit") {
+                        PostJson = {
+                            'ActToDo': 'update',
+                            'Ad_Name': Name,
+                            'Routes': Checkes,
+                            'id': id,
+                        };
+                    }
+                    
+                    $.ajax({
+                        url: '/Admin/Add_Update_AdminType',
+                        type: "post",
+                        data: JSON.stringify(PostJson),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (response) {
+                            
+                            if (response == "success") {
+                                $("#ERRAlertEdit1").hide(300);
+                                $("#SuccesAlertEdit1").show(300);
+                                $('#adminTBl').load("@Url.Action("AdminTbl","Admin",null,Request.Url.Scheme)");
+                                $('#Sub_btn12').hide();
+                                $('#Sub_btn1').show();
+                                $('#AD_type_name').val("");
+
+                                $('.RoutList').each(function (e, obj) {
+                                    var id_ = obj.id;
+                                    $('#' + id_).hide();
+                                });
+
+                                $('.Check_Route').each(function (e, obj) {
+                                        var id_ = obj.id;
+                                        $('#'+id_).prop("checked", false);
+                                    
+                                });
+
+                                $('.Cat').each(function (e, obj) {
+                                   
+                                        var id_ = obj.id;
+                                        $('#'+id_).prop("checked", false);
+                                   
+                                });
+
+                            }
+                            
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+
+                }
+
+
+                
+            }
 
         </script>

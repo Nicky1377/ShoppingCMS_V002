@@ -922,7 +922,7 @@ namespace ShoppingCMS_V002.OtherClasses
             DataTable dt = db.Select("SELECT [CatId],[R_CatName] FROM [tbl_ADMIN_ruleRoutes_Category]");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                DataTable dt2 = db.Select("SELECT [rulerouteID],[ruleRouteURL],[ruleRouteName] FROM [tbl_ADMIN_ruleRoutes_Main] where ruleRouteCatId=" + dt.Rows[i]["CatId"]);
+                DataTable dt2 = db.Select("SELECT A.[rulerouteID],[ruleRouteURL],[ruleRouteName] FROM [tbl_ADMIN_ruleRoutes_Main] as A inner join [tbl_ADMIN_types_ruleRoute_Connection] as B on A.rulerouteID=B.rulerouteID where ruleRouteCatId=" + dt.Rows[i]["CatId"] + " and B.HasAccess=1 and B.ad_typeID=" + id);
                 var MList = new List<RouteModel>();
                 for (int j = 0; j < dt2.Rows.Count; j++)
                 {
@@ -941,14 +941,75 @@ namespace ShoppingCMS_V002.OtherClasses
                     CatName = dt.Rows[i]["R_CatName"].ToString(),
                     RouteList = MList
                 };
-
-                res.Add(modelRes);
+                if(MList.Count!=0)
+                {
+                    res.Add(modelRes);
+                }
+                
             }
 
+            return res;
+        }
 
+        public List<AdminTypeTbl_Model> AdminTypeTbl()
+        {
+            var res = new List<AdminTypeTbl_Model>();
+
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+            DataTable dt1 = db.Select("SELECT [ad_typeID],[ad_type_name] FROM [tbl_ADMIN_types]");
+
+            for (int i = 0; i < dt1.Rows.Count; i++)
+            {
+                DataTable dt2 = db.Select("SELECT [rulerouteID]FROM [tbl_ADMIN_types_ruleRoute_Connection] where HasAccess=1 and [ad_typeID]=" + dt1.Rows[i]["ad_typeID"]);
+                StringBuilder s= new StringBuilder();
+                for (int j = 0; j < dt2.Rows.Count; j++)
+                {
+                    s.Append(dt2.Rows[j]["rulerouteID"]);
+                    s.Append(",");
+                }
+
+                var model = new AdminTypeTbl_Model() {
+                    TypeId = Convert.ToInt32(dt1.Rows[i]["ad_typeID"]),
+                    AT_Name= dt1.Rows[i]["ad_type_name"].ToString(),
+                    EditString=s.ToString(),
+                    Num=i+1
+                };
+                res.Add(model);
+            }
 
 
             return res;
         }
+    
+        public string Add_Update_AdType_(string ActToDo, string Ad_Name, string Routes, int id = 0)
+        {
+            PDBC db = new PDBC("PandaMarketCMS", true);
+            db.Connect();
+
+            if(ActToDo=="insert")
+            {
+                string Ad_id_ = db.Script("INSERT INTO [tbl_ADMIN_types] output inserted.ad_typeID VALUES(N'"+Ad_Name+"')");
+                var ids = Routes.Split(',');
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    db.Script("INSERT INTO [tbl_ADMIN_types_ruleRoute_Connection] VALUES("+ Ad_id_ + ","+ids[i]+",1)");
+                }
+
+            }
+            else if(ActToDo== "update")
+            {
+                db.Script("UPDATE[tbl_ADMIN_types] SET [ad_type_name] =N'" + Ad_Name + "' WHERE ad_typeID="+id);
+                db.Script("DELETE FROM [tbl_ADMIN_types_ruleRoute_Connection] WHERE ad_typeID=" + id);
+                var ids = Routes.Split(',');
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    db.Script("INSERT INTO [tbl_ADMIN_types_ruleRoute_Connection] VALUES(" + id + "," + ids[i] + ",1)");
+                }
+            }
+            return "success";
+        }
+
+
     }
 }

@@ -12,17 +12,17 @@
             @foreach (var Catitem in @Model)
             {
                 <li ondblclick="return dblClick(@Catitem.CatId)" style="-webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -o-user-select: none; user-select: none;">
-                    <div class="kt-checkbox kt-checkbox--danger" onclick="return CatCLk(@Catitem.CatId)">
-                        <input id="Cat_@Catitem.CatId" class="form-control" type="checkbox" />@Catitem.CatName
+                    <div class="kt-checkbox kt-checkbox--danger">
+                        <input disabled id="MCat_@Catitem.CatId" class="form-control ModalCat" type="checkbox" />@Catitem.CatName
                         <span></span>
                     </div>
-                    <ul id="RouteList-@Catitem.CatId" style="list-style-type: none;">
+                    <ul id="M_RouteList-@Catitem.CatId" style="list-style-type: none;">
                         @foreach (var Routeitem in Catitem.RouteList)
                         {
 
                             <li data-jstree='{ }'>
                                 <label class="kt-checkbox kt-checkbox--brand">
-                                    <input disabled checked id="ruoteitm-@Routeitem.RouteId" class="form-control route-@Catitem.CatId" type="checkbox" onchange="return routeChange(@Catitem.CatId)" />@Routeitem.RouteName : @Routeitem.RouteUrl
+                                    <input disabled checked id="M_ruoteitm-@Routeitem.RouteId" class="form-control Mroute-@Catitem.CatId" type="checkbox" />@Routeitem.RouteName : @Routeitem.RouteUrl
                                     <span></span>
                                 </label>
                             </li>
@@ -35,5 +35,20 @@
     </div>
 
 </div>
+<script>
+    $(document).ready(function () {
+        $('.ModalCat').each(function (e, obj) {
 
+            var id__ = obj.id.replace("MCat_","");
+            
+
+            if ($('.Mroute-' + id__ + ':checked').length == $('.Mroute-' + id__).length) {
+                    $('#MCat_' + id__).prop("checked", true);
+                } else {
+                    $('#MCat_' + id__).prop("checked", false);
+                }
+
+        });
+    });
+</script>
 
